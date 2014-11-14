@@ -1,0 +1,30 @@
+{
+  "name": "syno",
+  "version": "1.0.0",
+  "description": "Simple Synology API wrapper for Auth, FileStation and DownloadStation.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jimrobs/syno.git"
+  },
+  "keywords": [
+    "syno",
+    "synology",
+    "dsm",
+    "filestation",
+    "downloadstation"
+  ],
+  "author": {
+    "name": "jimrobs",
+    "email": "rob.jimmy@gmail.com",
+    "url": "https://github.com/jimrobs"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jimrobs/syno/issues"
+  },
+  "homepage": "https://github.com/jimrobs/syno"
+}
