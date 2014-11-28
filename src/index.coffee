@@ -108,10 +108,12 @@ class API
         {params, done} = options
 
         # If the done function is not defined, then use the params if it is a function, or use the no operation function
-        if not done then done = if _.isFunction params then params else noop
+        if not done
+            done = if _.isFunction params then params else noop
 
         # If params is not a plain object, use an empty one
-        if not _.isPlainObject params then params = {}
+        if not _.isPlainObject params
+            params = {}
 
         # Return processed params and done callback
         return {params, done}
