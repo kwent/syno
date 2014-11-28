@@ -1,0 +1,10 @@
+options:
+    bare: true
+
+syno:
+    expand: true
+    flatten: true
+    cwd: src/
+    src: '**/*.coffee'
+    dest: lib/
+    ext: '.js'
