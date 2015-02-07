@@ -5,7 +5,7 @@ syno
 
 Simple Node.js wrapper for Synology DSM REST API.
 
-![Synology Picture](https://www.synology.com/img/support/developer/banner.png)
+![Synology Development Tool](https://www.synology.com/img/support/developer/banner.png)
 
 See [Synology Development Tool](https://www.synology.com/en-us/support/developer#tool).
 
@@ -17,7 +17,7 @@ Just install the module using npm.
 npm install syno
 ```
 
-If you want to save the dependecy just add the `--save` option.
+If you want to save it as a dependecy, just add the `--save` option.
 
 ```
 npm install syno --save
