@@ -3,12 +3,6 @@ syno
 
 Simple wrapper for Synology DSM REST API
 
-# API
-
-This is a simple presentation of the API and its methods.
-
-To get more information (parameters, response data, ...) use the PDF documents (see below).
-
 ## Syno
 
 ```js
@@ -54,6 +48,15 @@ syno.api.method();
 
 **N.B** : If the `params` parameter is not passed, but the method expects **required parameters**, an `Error` will be
 thrown.
+
+# API
+
+This is a simple presentation of the syno API and its methods.
+To get more information (parameters, response data, ...) use the PDF documents (see below).
+
+* [Authentication](#authentication)
+* [File Station](#file-station)
+* [Download Station](#download-station)
 
 ## Authentication
 
