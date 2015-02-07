@@ -485,12 +485,16 @@ Delete all finished background tasks.
 syno.fs.clearFinishedBackgroundTasks(params, callback);
 ```
 
-### Download file from File Station
+### Download file/folders from File Station
 
 Download files/folders. If only one file is specified, the file content is responded. If more than one file/folder is
 given, binary content in ZIP format which they are compressed to is responded.
 
 **Required params** : path, stream
+
+```js
+syno.fs.dowbload(params, callback);
+```
 
 **N.B. :** `stream` param must be a Writable Stream
 
