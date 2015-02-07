@@ -49,7 +49,7 @@ The `syno` object uses the `fs` (or `fileStation` alias) property to interact wi
 
 Provide File Station information.
 
-```javascript
+```js
 // No parameter.
 syno.fs.getFileStationInfo(function(error, data){
     // Data response :
