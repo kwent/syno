@@ -81,7 +81,7 @@ Fortunately, the `AuthenticatedAPI` is smart enough to automatically log the use
 
 The `syno` object uses the `fs` (or `fileStation` alias) property to interact with the FileStation API.
 
-[FileStation API](api/FileStation.pdf)
+[FileStation API](api/FileStation.pdf?raw=true)
 
 ### File Station Info
 
@@ -506,7 +506,7 @@ syno.fs.upload(params, callback);
 
 ## Download Station
 
-[DownloadStation API](api/DownloadStation.pdf)
+[DownloadStation API](api/DownloadStation.pdf?raw=true)
 
 # License
 
