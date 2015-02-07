@@ -37,8 +37,7 @@ All arguments are optional by default :
 - `params` : object hash with request parameters
 - `callback` : function called with 2 arguments (`error`, `data`)
 
-The `data` arguments passed to the callback is an object hash, holding the response data (describied in the 'data' part
-in the API documents).
+The `data` arguments passed to the callback is an object hash, holding the response data. (see API documents)
 
 Both the `params` and `callback` are optional, so you can call any method these ways :
 
@@ -53,7 +52,7 @@ syno.api.method(callback);
 syno.api.method();
 ```
 
-**N.B** : If the `params` parameter is not passed, but the method expect **required parameters**, an `Error`will be
+**N.B** : If the `params` parameter is not passed, but the method expects **required parameters**, an `Error` will be
 thrown.
 
 ## Authentication
@@ -63,17 +62,13 @@ The `syno` object uses the `auth` property to interact with the Authentication A
 ### Login
 
 ```js
-syno.auth.login(function(error){
-    // Do whatever you want here
-});
+syno.auth.login(callback);
 ```
 
 ### Logout
 
 ```js
-syno.auth.logout(function(error){
-    // Do whatever you want here
-});
+syno.auth.logout(callback);
 ```
 
 ## File Station
@@ -116,6 +111,263 @@ Get information of file(s)
 
 ```js
 syno.fs.getFilesInfo(params, callback);
+```
+
+### Search (non-blocking API)
+
+Start to search files according to given criteria. If more than one criterion is given in different parameters,
+searched files match all these criteria.
+
+**Required params** : folder_path
+
+```js
+syno.fs.startSearch(params, callback);
+```
+
+Stop the searching task(s). The search temporary database won’t be deleted, so it’s possible to list the search result
+using list method after stopping it.
+
+**Required params** : taskid
+
+```js
+syno.fs.stopSearch(params, callback);
+```
+
+List matched files in a search temporary database. You can check the finished value in response to know if the search
+operation is processing or has been finished.
+
+**Required params** : taskid
+
+```js
+syno.fs.listSearch(params, callback);
+```
+
+Delete search temporary database(s).
+
+**Required params** : taskid
+
+```js
+syno.fs.cleanSearches(params, callback);
+```
+
+### Virtual Folders
+
+List all mount point folders on one given type of virtual file system.
+
+**Required params** : type
+
+```js
+syno.fs.listVirtualFolders(params, callback);
+```
+
+### Favorites
+
+List user’s favorites.
+
+```js
+syno.fs.listFavorites(params, callback);
+```
+
+Add a folder to user’s favorites.
+
+**Required params** : path, name
+
+```js
+syno.fs.addFavorite(params, callback);
+```
+
+Delete a favorite in user’s favorites.
+
+**Required params** : path
+
+```js
+syno.fs.addFavorite(params, callback);
+```
+
+Delete all broken statuses of favorites.
+
+```js
+syno.fs.cleanBrokenFavorites(params, callback);
+```
+
+Edit a favorite name.
+
+**Required params** : path, name
+
+```js
+syno.fs.editFavorite(params, callback);
+```
+
+Replace multiple favorites of folders to the existed user’s favorites.
+
+**Required params** : path, name
+
+```js
+syno.fs.replaceAllFavorites(params, callback);
+```
+
+### Thumb
+
+Get a thumbnail of a file.
+
+**Required params** : path
+
+```js
+syno.fs.getThumbnail(params, callback);
+```
+
+### Directory size (non-blocking API)
+
+Start to calculate size for one or more file/folder paths.
+
+**Required params** : path
+
+```js
+syno.fs.startDirSize(params, callback);
+```
+
+Get the status of the size calculating task.
+
+**Required params** : taskid
+
+```js
+syno.fs.statusDirSize(params, callback);
+```
+
+Stop to calculate size.
+
+**Required params** : taskid
+
+```js
+syno.fs.stopDirSize(params, callback);
+```
+
+### MD5
+
+Start to get MD5 of a file.
+
+**Required params** : file_path
+
+```js
+syno.fs.startMD5(params, callback);
+```
+
+Get the status of the calculating MD5 task.
+
+**Required params** : taskid
+
+```js
+syno.fs.statusMD5(params, callback);
+```
+
+Stop calculating the MD5 of a file.
+
+**Required params** : taskid
+
+```js
+syno.fs.stopMD5(params, callback);
+```
+
+### Check Permission
+
+Check if a logged-in user has write permission to create new files/folders in a given folder.
+
+**Required params** : path
+
+```js
+syno.fs.checkWritePermission(params, callback);
+```
+
+### Sharing
+
+Get information of a sharing link by the sharing link ID.
+
+**Required params** : id
+
+```js
+syno.fs.getSharingLinkInfo(params, callback);
+```
+
+List user’s file sharing links.
+
+```js
+syno.fs.listSharingLinks(params, callback);
+```
+
+Generate one or more sharing link(s) by file/folder path(s).
+
+**Required params** : path
+
+```js
+syno.fs.createSharingLinks(params, callback);
+```
+
+Delete one or more sharing links.
+
+**Required params** : id
+
+```js
+syno.fs.deleteSharingLinks(params, callback);
+```
+
+Remove all expired and broken sharing links.
+
+```js
+syno.fs.clearInvalidSharingLinks(params, callback);
+```
+
+Edit sharing link(s).
+
+**Required params** : id
+
+```js
+syno.fs.editSharingLinks(params, callback);
+```
+
+### Create Folder
+
+Create folders.
+
+**Required params** : path, name
+
+```js
+syno.fs.createFolder(params, callback);
+```
+
+### Rename
+
+Rename a file/folder.
+
+**Required params** : path, name
+
+```js
+syno.fs.rename(params, callback);
+```
+
+### Copy Move (non-blocking API)
+
+Start to copy/move files.
+
+**Required params** : path, dest_folder_path
+
+```js
+syno.fs.startCopyMove(params, callback);
+```
+
+Get the copying/moving status.
+
+**Required params** : taskid
+
+```js
+syno.fs.statusCopyMove(params, callback);
+```
+
+Stop a copy/move task.
+
+**Required params** : taskid
+
+```js
+syno.fs.stopCopyMove(params, callback);
 ```
 
 ## Download Station
