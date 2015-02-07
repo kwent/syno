@@ -370,6 +370,137 @@ Stop a copy/move task.
 syno.fs.stopCopyMove(params, callback);
 ```
 
+### Delete (non-blocking API)
+
+Delete file(s)/folder(s).
+
+**Required params** : path
+
+```js
+syno.fs.startDelete(params, callback);
+```
+
+Get the deleting status.
+
+**Required params** : taskid
+
+```js
+syno.fs.statusDelete(params, callback);
+```
+
+Stop a delete task.
+
+**Required params** : taskid
+
+```js
+syno.fs.stopDelete(params, callback);
+```
+
+### Delete (blocking API)
+
+Delete files/folders. This is a blocking method. The response is not returned until the deletion operation is completed.
+
+**Required params** : path
+
+```js
+syno.fs.delete(params, callback);
+```
+
+### Extract (non-blocking API)
+
+Start to extract an archive.
+
+**Required params** : file_path, dest_folder_path
+
+```js
+syno.fs.startExtract(params, callback);
+```
+
+Get the extract task status.
+
+**Required params** : taskid
+
+```js
+syno.fs.statusExtract(params, callback);
+```
+
+Stop the extract task.
+
+**Required params** : taskid
+
+```js
+syno.fs.stopExtract(params, callback);
+```
+
+### Archive file
+
+List archived files contained in an archive.
+
+**Required params** : file_path
+
+```js
+syno.fs.listArchiveFiles(params, callback);
+```
+
+### Compress (non-blocking API)
+
+Start to compress file(s)/folder(s).
+
+**Required params** : path, dest_file_path
+
+```js
+syno.fs.startCompress(params, callback);
+```
+
+Get the compress task status.
+
+**Required params** : taskid
+
+```js
+syno.fs.statusCompress(params, callback);
+```
+
+Stop the compress task.
+
+**Required params** : taskid
+
+```js
+syno.fs.stopCompress(params, callback);
+```
+
+### Background Tasks
+
+List all background tasks including copy, move, delete, compress and extract tasks.
+
+```js
+syno.fs.listBackgroundTasks(params, callback);
+```
+
+Delete all finished background tasks.
+
+```js
+syno.fs.clearFinishedBackgroundTasks(params, callback);
+```
+
+### Download file from File Station
+
+Download files/folders. If only one file is specified, the file content is responded. If more than one file/folder is
+given, binary content in ZIP format which they are compressed to is responded.
+
+**Required params** : path, stream
+
+**N.B. :** `stream` param must be a Writable Stream
+
+### Upload to File Station (experimental)
+
+Upload a file to FileStation. It seems like a fex bytes are not sent, dunno why. Still working on it.
+
+**Required params** : dest_folder_path, filename
+
+```js
+syno.fs.upload(params, callback);
+```
+
 ## Download Station
 
 [DownloadStation API](api/DownloadStation.pdf)
