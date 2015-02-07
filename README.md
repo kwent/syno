@@ -49,15 +49,17 @@ The `syno` object uses the `fs` (or `fileStation` alias) property to interact wi
 
 Provide File Station information.
 
-    // No parameter.
-    syno.fs.getFileStationInfo(function(error, data){
-        // Data response :
-        // is_manager       -> If the logged-in user is an administrator.
-        // support_virtual  -> Types of virtual file system which the logged user is able to mount on.
-        //                     Different types are separated with a comma, for example: cifs,iso.
-        // support_sharing  -> If the logged-in user can sharing file(s)/folder(s) or not.
-        // hostname         -> DSM host name.
-    });
+```javascript
+// No parameter.
+syno.fs.getFileStationInfo(function(error, data){
+    // Data response :
+    // is_manager       -> If the logged-in user is an administrator.
+    // support_virtual  -> Types of virtual file system which the logged user is able to mount on.
+    //                     Different types are separated with a comma, for example: cifs,iso.
+    // support_sharing  -> If the logged-in user can sharing file(s)/folder(s) or not.
+    // hostname         -> DSM host name.
+});
+```
 
 ### Shared Folders
 
