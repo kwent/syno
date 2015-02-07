@@ -1,10 +1,13 @@
+# Require lodash functions
 {extend, defaults} = require 'lodash'
 
+# Get syno utils module
 Utils = mod syno.Utils
 
 # Class API
 class API
 
+    # Privat noop class
     noop = ->
 
     # Constructor for the API class

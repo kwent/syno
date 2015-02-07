@@ -1,6 +1,5 @@
 AuthenticatedAPI = mod syno.AuthenticatedAPI
 
-# DownloadStation API
 class DownloadStation extends AuthenticatedAPI
 
     getDownloadStationInfo: (params, done)->
@@ -11,6 +10,16 @@ class DownloadStation extends AuthenticatedAPI
                 version: 1
                 path: "DownloadStation/info.cgi"
                 method: "getinfo"
+        }
+
+    getDownloadStationConfig: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: "SYNO.DownloadStation.Info"
+                version: 1
+                path: "DownloadStation/info.cgi"
+                method: "getconfig"
         }
 
     setDownloadStationConfig: (params, done)->

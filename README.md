@@ -1,7 +1,29 @@
 syno
 ====
 
-Simple wrapper for Synology DSM REST API
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+
+Simple Node.js wrapper for Synology DSM REST API.
+
+![Synology Picture](https://www.synology.com/img/support/developer/banner.png)
+
+See [Synology Development Tool](https://www.synology.com/en-us/support/developer#tool).
+
+# Installation
+
+Just install the module using npm.
+
+```
+npm install syno
+```
+
+If you want to save the dependecy just add the `--save` option.
+
+```
+npm install syno --save
+```
+
+# Usage
 
 ## Syno
 
@@ -510,7 +532,169 @@ syno.fs.upload(params, callback);
 
 ## Download Station
 
+The DownloadStation API is an `AuthenticatedAPI`, that means the user needs to be authenticated before using this API.
+Fortunately, the `AuthenticatedAPI` is smart enough to automatically log the user.
+
+The `syno` object uses the `dl` (or `downloadStation` alias) property to interact with the DownloadStation API.
+
 [DownloadStation API](api/DownloadStation.pdf?raw=true)
+
+### Download Station Info
+
+Get DownloadStation information.
+
+```js
+syno.dl.getDownloadStationInfo(callback);
+```
+
+Get DownloadStation configuration.
+
+```js
+syno.dl.getDownloadStationConfig(callback);
+```
+
+Set DownloadStation configuration.
+
+```js
+syno.dl.setDownloadStationConfig(params, callback);
+```
+
+### Schedule
+
+Get Schedule configuration.
+
+```js
+syno.dl.getScheduleConfig(callback);
+```
+
+Set Schedule configuration.
+
+```js
+syno.dl.setScheduleConfig(params, callback);
+```
+
+### Tasks
+
+List download tasks.
+
+```js
+syno.dl.listTasks(params, callback);
+```
+
+Get download task information.
+
+**Required params** : id
+
+```js
+syno.dl.getTasksInfo(params, callback);
+```
+
+Create a download task.
+
+```js
+syno.dl.createTask(params, callback);
+```
+
+Delete one or more download tasks.
+
+**Required params** : id
+
+```js
+syno.dl.deleteTasks(params, callback);
+```
+
+Pause one or more tasks.
+
+**Required params** : id
+
+```js
+syno.dl.pauseTasks(params, callback);
+```
+
+Resume one or more tasks.
+
+**Required params** : id
+
+```js
+syno.dl.resumeTasks(params, callback);
+```
+
+Edit one or more tasks.
+
+**Required params** : id
+
+```js
+syno.dl.editTasks(params, callback);
+```
+
+### Statistic
+
+Get stats.
+
+```js
+syno.dl.getStats(callback);
+```
+
+### RSS
+
+List RSS sites.
+
+```js
+syno.dl.listRSSSites(params, callback);
+```
+
+Refresh RSS sites.
+
+**Required params** : id
+
+
+```js
+syno.dl.refreshRSSSites(params, callback);
+```
+
+List RSS feeds.
+
+```js
+syno.dl.listRSSFeeds(params, callback);
+```
+
+### BTSearch
+
+Start a BTSearch.
+
+**Required params** : keyword, module
+
+```js
+syno.dl.startBTSearch(params, callback);
+```
+
+List BTSearch.
+
+**Required params** : taskid
+
+```js
+syno.dl.listBTSearch(params, callback);
+```
+
+Get BTSearch categories.
+
+```js
+syno.dl.getBTSearchCategories(callback);
+```
+
+Clean BTSearch.
+
+**Required params** : taskid
+
+```js
+syno.dl.cleanBTSearch(params, callback);
+```
+
+Get BTSearch modules.
+
+```js
+syno.dl.getBTSearchModules(callback);
+```
 
 # License
 

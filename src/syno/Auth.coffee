@@ -29,6 +29,7 @@ class Auth extends API
         @request {api, version, path, method, params}, done
 
     # Logout to syno
+    # `done` [Function] Callback called when the logout process is complete
     logout: (done)->
         # Don't do anything if there is no session
         if not @syno.session then return null

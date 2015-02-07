@@ -1,9 +1,10 @@
+# Require lodash functions
 {defaults} = require 'lodash'
 
+# Get syno modules
 AuthenticatedAPI = mod syno.AuthenticatedAPI
 Utils = mod syno.Utils
 
-# FileStation API
 class FileStation extends AuthenticatedAPI
 
     getFileStationInfo: (params, done)->
@@ -166,6 +167,7 @@ class FileStation extends AuthenticatedAPI
                 path: "FileStation/file_favorite.cgi"
                 method: "replace_all"
         }
+
     getThumbnail: (params, done)->
         @requestAPI {
             params, done
@@ -187,6 +189,7 @@ class FileStation extends AuthenticatedAPI
                 path: "FileStation/file_dirSize.cgi"
                 method: "start"
         }
+
     statusDirSize: (params, done)->
         @requestAPI {
             params, done
@@ -539,7 +542,7 @@ class FileStation extends AuthenticatedAPI
         if syno.session then upload syno, params, done
         else syno.auth.login (error)-> if error then done error else upload syno, params, done
 
-    # private
+    # Private
     download = (syno, params, done)=>
         {params, done} = Utils.optionalParamsAndDone {params, done}
         Utils.checkRequiredParams params, [ "path", "stream" ]

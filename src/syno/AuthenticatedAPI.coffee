@@ -4,6 +4,7 @@ API = mod syno.API
 # API that logs in before calling real request
 class AuthenticatedAPI extends API
 
+    # Private noop function
     noop = ->
 
     # Overrides request : login before calling real request

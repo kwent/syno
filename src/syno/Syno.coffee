@@ -10,6 +10,7 @@ DownloadStation = mod syno.DownloadStation
 # Class Syno
 class Syno
 
+    # Default synology parameters
     defParams =
         # Default protocol is HTTP (`http`)
         protocol: "http"
