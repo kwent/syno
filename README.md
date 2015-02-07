@@ -5,22 +5,56 @@ Simple wrapper for Synology DSM REST API
 
 # API
 
+This is a simple presentation of the API and its methods.
+
+To get more information (parameters, response data, ...) use the PDF documents (see below).
+
 ## Syno
 
-    var Syno = require('syno');
+```js
+var Syno = require('syno');
+var syno = new Syno({
+    // Requests protocol : 'http' or 'https' (default: http)
+    protocol: "http",
+    // DSM host : ip, domain name (default: localhost)
+    host: "localhost",
+    // DSM port : port number (default: 5000)
+    port: "5000",
+    // DSM User account (required)
+    account: 'user_account',
+    // DSM User password (required)
+    passwd: 'user_password'
+});
+```
 
-    var syno = new Syno({
-        // Requests protocol : 'http' or 'https' (default: http)
-        protocol: "http",
-        // DSM host : ip, domain name (default: localhost)
-        host: "localhost",
-        // DSM port : port number (default: 5000)
-        port: "5000",
-        // DSM User account (required)
-        account: 'user_account',
-        // DSM User password (required)
-        passwd: 'user_password'
-    });
+This is how to use an API on the `syno` object
+
+```js
+syno.api.method(params, callback);
+```
+
+All arguments are optional by default :
+- `params` : object hash with request parameters
+- `callback` : function called with 2 arguments (`error`, `data`)
+
+The `data` arguments passed to the callback is an object hash, holding the response data (describied in the 'data' part
+in the API documents).
+
+Both the `params` and `callback` are optional, so you can call any method these ways :
+
+```js
+// Both params and callback
+syno.api.method(params, callback);
+// Only params parameter
+syno.api.method(params);
+// Only callback parameter
+syno.api.method(callback);
+// No parameter
+syno.api.method();
+```
+
+**N.B** : If the `params` parameter is not passed, but the method expect **required parameters**, an `Error`will be
+thrown.
 
 ## Authentication
 
@@ -28,15 +62,19 @@ The `syno` object uses the `auth` property to interact with the Authentication A
 
 ### Login
 
-    syno.auth.login(function(error){
-        // Do whatever you want here
-    });
+```js
+syno.auth.login(function(error){
+    // Do whatever you want here
+});
+```
 
 ### Logout
 
-    syno.auth.logout(function(error){
-        // Do whatever you want here
-    });
+```js
+syno.auth.logout(function(error){
+    // Do whatever you want here
+});
+```
 
 ## File Station
 
@@ -45,49 +83,44 @@ Fortunately, the `AuthenticatedAPI` is smart enough to automatically log the use
 
 The `syno` object uses the `fs` (or `fileStation` alias) property to interact with the FileStation API.
 
+[FileStation API](api/FileStation.pdf)
+
 ### File Station Info
 
 Provide File Station information.
 
-```javascript
-// No parameter.
-syno.fs.getFileStationInfo(function(error, data){
-    // Data response :
-    // is_manager       -> If the logged-in user is an administrator.
-    // support_virtual  -> Types of virtual file system which the logged user is able to mount on.
-    //                     Different types are separated with a comma, for example: cifs,iso.
-    // support_sharing  -> If the logged-in user can sharing file(s)/folder(s) or not.
-    // hostname         -> DSM host name.
-});
+```js
+syno.fs.getFileStationInfo(callback);
 ```
 
 ### Shared Folders
 
 List all shared folders, enumerate files in a shared folder, and get detailed file information.
+```js
+syno.fs.listSharedFolders(params, callback);
+```
 
-    // Request
-    // offset           -> Optional. Specify how many shared folders are skipped before beginning to return listed
-    //                     shared folders. Default: 0
-    // limit            -> Optional. Number of shared folders requested. 0 lists all shared folders. Default: 0
-    // sort_by          -> Optional. Specify which file information to sort on. Default: name
-    //                     Possible values : [name, user, group, mtime, atime, ctime, crtime, posix]
-    // sort_direction   -> Optional. Specify to sort ascending or to sort descending. Default: asc
-    //                     Possible values: [asc, desc]
-    // onlywritable     -> Optional. 'true': List writable shared folders; 'false': List writable and read-only shared
-    //                     folders. Default: false
-    // additional       -> Optional. Additional requested file information, separated by commas ','. When an additional
-    //                     option is requested, responded objects will be provided in the specified additional option.
-    //                     Possible values: [real_path, owner, time, perm, mount_point_type, sync_share, volume_status]
-    syno.fs.listSharedFolders(function(error, data){
-        // Response
-        // is_manager       -> If the logged-in user is an administrator.
-        // support_virtual  -> Types of virtual file system which the logged user is able to mount on.
-        //                     Different types are separated with a comma, for example: cifs,iso.
-        // support_sharing  -> If the logged-in user can sharing file(s)/folder(s) or not.
-        // hostname         -> DSM host name.
-    });
+### Files
+
+Enumerate files in a given folder
+
+**Required params** : folder_path
+
+```js
+syno.fs.listFiles(params, callback);
+```
+
+Get information of file(s)
+
+**Required params** : path
+
+```js
+syno.fs.getFilesInfo(params, callback);
+```
 
 ## Download Station
+
+[DownloadStation API](api/DownloadStation.pdf)
 
 # License
 
