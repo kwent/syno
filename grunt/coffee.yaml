@@ -2,9 +2,5 @@ options:
     bare: true
 
 syno:
-    expand: true
-    flatten: true
-    cwd: src/
-    src: '**/*.coffee'
-    dest: lib/
-    ext: '.js'
+    src: tmp/concat/syno.coffee
+    dest: tmp/coffee/syno.js

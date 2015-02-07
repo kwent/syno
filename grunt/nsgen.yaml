@@ -1,0 +1,7 @@
+syno:
+    namespace: "syno"
+    prefix: "syno."
+    output: "coffee"
+    cwd: "src/syno/"
+    src: "**/*.coffee"
+    dest: "gen/ns/syno.coffee"

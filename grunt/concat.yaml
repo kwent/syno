@@ -1,0 +1,12 @@
+syno:
+    src:
+        - gen/ns/syno.coffee
+        - "tmp/wrap/syno/**/*.coffee"
+        - src/globals/exports.coffee
+    dest: tmp/concat/syno.coffee
+
+exports:
+    src:
+        - libs/mod.min.js
+        - tmp/coffee/syno.js
+    dest: dist/syno.js

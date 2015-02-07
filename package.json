@@ -2,13 +2,13 @@
   "name": "syno",
   "version": "1.0.0",
   "description": "Simple Synology API wrapper for Auth, FileStation and DownloadStation.",
-  "main": "lib/index.js",
+  "main": "dist/syno.js",
   "scripts": {
     "test": "grunt test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jimrobsjr/syno.git"
+    "url": "https://github.com/jimrobs/syno.git"
   },
   "keywords": [
     "syno",
@@ -18,22 +18,28 @@
     "downloadstation"
   ],
   "author": {
-    "name": "jimrobsjr",
-    "email": "jimrobs.jr@gmail.com",
-    "url": "https://github.com/jimrobsjr"
+    "name": "jimrobs",
+    "email": "jimmy@jimrobs.com",
+    "url": "https://github.com/jimrobs"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jimrobsjr/syno/issues"
+    "url": "https://github.com/jimrobs/syno/issues"
   },
-  "homepage": "https://github.com/jimrobsjr/syno",
+  "homepage": "https://github.com/jimrobs/syno",
   "dependencies": {
-    "lodash": "^2.4.1",
+    "lodash": "^3.1.0",
     "request": "^2.48.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-coffee": "^0.12.0",
-    "load-grunt-config": "^0.16.0"
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-uglify": "^0.7.0",
+    "grunt-nsgen": "^0.1.3",
+    "grunt-wrap": "^0.3.0",
+    "load-grunt-config": "^0.16.0",
+    "time-grunt": "^1.0.0"
   }
 }

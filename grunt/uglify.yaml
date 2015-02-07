@@ -1,0 +1,3 @@
+syno:
+    src: dist/syno.js
+    dest: dist/syno.js

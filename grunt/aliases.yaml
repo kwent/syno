@@ -1,5 +1,9 @@
 default:
-    - coffee
-
-test:
-    - nodeunit
+    - clean:tmp
+    - nsgen:syno
+    - wrap:syno
+    - concat:syno
+    - coffee:syno
+    - concat:exports
+    - uglify:syno
+    - clean:tmp
