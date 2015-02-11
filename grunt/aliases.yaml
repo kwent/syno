@@ -5,6 +5,7 @@ default:
     - concat:syno
     - coffee:syno
     - concat:exports
+    - coffee:syno-cli
     - uglify:syno
     - clean:tmp
-    - nodeunit:all
+    # - nodeunit:all
