@@ -7,3 +7,4 @@ default:
     - concat:exports
     - uglify:syno
     - clean:tmp
+    - nodeunit:all
