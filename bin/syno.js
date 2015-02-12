@@ -103,7 +103,7 @@ if (program.url) {
   });
 } else if (program.config) {
   if (program.debug) {
-    console.log("[DEBUG] : Load config file : %s.", program.config);
+    console.log("[DEBUG] : Load config file : %s", program.config);
   }
   if (fs.existsSync(program.config)) {
     nconf.file({
@@ -118,12 +118,32 @@ if (program.url) {
       }
     });
   } else {
-    console.log("[ERROR] : Config file : %s not found.", program.config);
+    console.log("[ERROR] : Config file : %s not found", program.config);
     process.exit(1);
   }
 } else {
+  if (!fs.existsSync(path.homedir() + ("/" + CONFIG_DIR))) {
+    if (program.debug) {
+      console.log("[DEBUG] : %s doesn't exist", path.homedir() + ("/" + CONFIG_DIR));
+    }
+    fs.mkdir(path.homedir() + ("/" + CONFIG_DIR), function(err) {
+      if (err) {
+        return console.log("[ERROR] : %s", err);
+      } else {
+        nconf.set('url:protocol', 'https');
+        nconf.set('url:host', 'localhost');
+        nconf.set('url:port', 5001);
+        nconf.set('url:account', 'admin');
+        nconf.set('url:passwd', 'password');
+        if (program.debug) {
+          console.log("[DEBUG] : Save default configuration file to : %s", path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE));
+        }
+        return nconf.save();
+      }
+    });
+  }
   if (program.debug) {
-    console.log("[DEBUG] : Load default config file : ~/" + CONFIG_DIR + "/" + CONFIG_FILE + ".");
+    console.log("[DEBUG] : Load default config file : ~/" + CONFIG_DIR + "/" + CONFIG_FILE);
   }
   nconf.file({
     file: path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE),
@@ -148,27 +168,6 @@ nconf.defaults({
   }
 });
 
-if (!fs.existsSync(path.homedir() + ("/" + CONFIG_DIR))) {
-  if (program.debug) {
-    console.log("[DEBUG] : %s doesn't exist", path.homedir() + ("/" + CONFIG_DIR));
-  }
-  fs.mkdir(path.homedir() + ("/" + CONFIG_DIR), function(err) {
-    if (err) {
-      return console.log("[ERROR] : %s", err);
-    } else {
-      nconf.set('url:protocol', 'https');
-      nconf.set('url:host', 'localhost');
-      nconf.set('url:port', 5001);
-      nconf.set('url:account', 'admin');
-      nconf.set('url:passwd', 'password');
-      if (program.debug) {
-        console.log("[DEBUG] : Save default configuration file to : %s", path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE));
-      }
-      return nconf.save();
-    }
-  });
-}
-
 if (program.debug) {
   console.log("[DEBUG] : Connection URL : %s://%s:%s@%s:%s", nconf.get('url:protocol'), nconf.get('url:account'), nconf.get('url:passwd'), nconf.get('url:host'), nconf.get('url:port'));
 }
@@ -181,7 +180,7 @@ syno = new Syno({
   passwd: nconf.get('url:passwd')
 });
 
-program.command('fs <method>').alias('filestation').description('DSM File Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM URL. Default to https://admin:password@localhost:5001').option("-p, --payload <payload>", "JSON Payload").option('-P, --pretty', 'Pretty print JSON output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
+program.command('fs <method>').alias('filestation').description('DSM File Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM URL. Default to https://admin:password@localhost:5001').option("-p, --payload <payload>", "JSON Payload").option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno fs listSharedFolders');
@@ -194,7 +193,7 @@ program.command('fs <method>').alias('filestation').description('DSM File Statio
   return execute('fs', cmd, options);
 });
 
-program.command('dl <method>').alias('downloadstation').description('DSM Download Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM URL. Default to https://admin:password@localhost:5001').option("-p, --payload <payload>", "JSON Payload").option('-P, --pretty', 'Pretty print JSON output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
+program.command('dl <method>').alias('downloadstation').description('DSM Download Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM URL. Default to https://admin:password@localhost:5001').option("-p, --payload <payload>", "JSON Payload").option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno dl listTasks');

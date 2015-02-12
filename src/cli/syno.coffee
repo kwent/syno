@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env node
 
 CONFIG_DIR = '.syno'
 CONFIG_FILE = 'config.yaml'
@@ -95,8 +95,24 @@ else if program.config
     console.log "[ERROR] : Config file : %s not found", program.config
     process.exit 1
 else
+  
+  # If directory doesn't exist | create directory and save the file
+  if !fs.existsSync path.homedir() + "/#{CONFIG_DIR}"
+    console.log "[DEBUG] : %s doesn't exist", path.homedir() + "/#{CONFIG_DIR}" if program.debug
+    fs.mkdir path.homedir() + "/#{CONFIG_DIR}", (err) ->
+      if err
+        console.log "[ERROR] : %s", err
+      else
+        nconf.set('url:protocol', 'https')
+        nconf.set('url:host', 'localhost')
+        nconf.set('url:port', 5001)
+        nconf.set('url:account', 'admin')
+        nconf.set('url:passwd', 'password')
+        console.log "[DEBUG] : Save default configuration file to : %s", path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
+        nconf.save()
+  
+  # Load a yaml file using YAML formatter
   console.log "[DEBUG] : Load default config file : ~/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
-  # load a yaml file using a custom formatter
   nconf.file
     file: path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}"
     format:
@@ -112,21 +128,6 @@ nconf.defaults
     port : 5001
     account : 'admin'
     passwd : 'password'
-
-# If directory doesn't exist | create and save
-if !fs.existsSync path.homedir() + "/#{CONFIG_DIR}"
-  console.log "[DEBUG] : %s doesn't exist", path.homedir() + "/#{CONFIG_DIR}" if program.debug
-  fs.mkdir path.homedir() + "/#{CONFIG_DIR}", (err) ->
-    if err
-      console.log "[ERROR] : %s", err
-    else
-      nconf.set('url:protocol', 'https')
-      nconf.set('url:host', 'localhost')
-      nconf.set('url:port', 5001)
-      nconf.set('url:account', 'admin')
-      nconf.set('url:passwd', 'password')
-      console.log "[DEBUG] : Save default configuration file to : %s", path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
-      nconf.save()
 
 console.log "[DEBUG] : Connection URL : %s://%s:%s@%s:%s", nconf.get('url:protocol'), nconf.get('url:account'), nconf.get('url:passwd'), nconf.get('url:host'), nconf.get('url:port') if program.debug
 syno = new Syno(
