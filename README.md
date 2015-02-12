@@ -107,7 +107,7 @@ Usage: downloadstation|dl [options] <method>
 ### Without a configuration file
 
 ```bash
-$ syno fs getFileStationInfo -u https://admin:synology@demo.synology.com:5001 -P
+$ syno fs getFileStationInfo --url https://admin:synology@demo.synology.com:5001 --pretty
 ```
 
 ### With a configuration file
@@ -118,7 +118,7 @@ $ syno fs getFileStationInfo -u https://admin:synology@demo.synology.com:5001 -P
 # ~/.syno/config.conf
 
 url:
-  protocol: http
+  protocol: https
   host: localhost
   port: 5001
   account: admin
@@ -126,7 +126,7 @@ url:
 ```
 
 ```bash
-$ syno fs getFileStationInfo
+$ syno fs getFileStationInfo --pretty
 ```
 
 ## Syno JS library
