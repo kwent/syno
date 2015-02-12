@@ -38,6 +38,7 @@ HTTP_FILE="http://download.thinkbroadband.com/5MB.zip"
 # Tests
 # Syntax: valid cmd [options] Exit code 0 (Success) expected.
 # Syntax: valid ! cmd [options] Exit code 1 (Failure) expected.
+echo "Begin Tests CLI :" `date`
 
 valid "! node bin/syno.js wrong_command getFileStationInfo -u $URL -d" &&
 valid "! node bin/syno.js fs wrong_method -u $URL -d" &&
@@ -56,3 +57,5 @@ valid "node bin/syno.js dl getStats -u $URL -d" &&
 valid "node bin/syno.js downloadstation getStats -u $URL -d" &&
 valid "node bin/syno.js dl createTask -u $URL -p '{\"uri\":\"$MAGNET_LINK\"}' -d" &&
 valid "node bin/syno.js dl createTask -u $URL -p '{\"uri\":\"$HTTP_FILE\"}' -d"
+
+echo "End Tests CLI :" `date`
