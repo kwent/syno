@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Colors
-function red () {
+function red {
   echo "\033[31m"$@
 }
 
-function green () {
+function green {
   echo "\033[01;32m"$@
 }
 
 # Helpers
-function valid () {
+function valid {
   eval $@ &> /dev/null
   if [ $? == 0 ]; then
     [ -z "$TRAVIS" ] && echo "SUCCESS" || green "SUCCESS"
