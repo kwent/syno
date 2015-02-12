@@ -3,4 +3,3 @@ node_js:
   - "0.10"
 before_install: npm i -g grunt-cli
 install: npm i
-before_script: grunt
