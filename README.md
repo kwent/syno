@@ -15,20 +15,20 @@ See [Synology Development Tool](https://www.synology.com/en-us/support/developer
 
 Just install the module using npm.
 
-```
-npm install syno
+```bash
+$ npm install syno
 ```
 
 If you want to save it as a dependency, just add the `--save` option.
 
-```
-npm install syno --save
+```bash
+$ npm install syno --save
 ```
 
 If you want to install with the CLI executable, just add the `--global` option.
 
-```
-npm install syno --global
+```bash
+$ npm install syno --global
 ```
 
 # Usage
