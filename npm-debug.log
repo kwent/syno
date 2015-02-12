@@ -1,0 +1,114 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'unpublish', 'syno@1.0.1' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose request where is /syno?write=true
+5 verbose request registry https://registry.npmjs.org/
+6 verbose request id 47e59afb8a652cf9
+7 verbose url raw /syno?write=true
+8 verbose url resolving [ 'https://registry.npmjs.org/', './syno?write=true' ]
+9 verbose url resolved https://registry.npmjs.org/syno?write=true
+10 verbose request where is https://registry.npmjs.org/syno?write=true
+11 info trying registry request attempt 1 at 22:14:50
+12 http GET https://registry.npmjs.org/syno?write=true
+13 http 200 https://registry.npmjs.org/syno?write=true
+14 silly registry.get cb [ 200,
+14 silly registry.get   { date: 'Thu, 12 Feb 2015 21:14:51 GMT',
+14 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+14 silly registry.get     etag: '"3THSANL8Q44E8TBI4CLDD5U7U"',
+14 silly registry.get     'content-type': 'application/json',
+14 silly registry.get     'cache-control': 'max-age=0',
+14 silly registry.get     'content-length': '22787',
+14 silly registry.get     'accept-ranges': 'bytes',
+14 silly registry.get     via: '1.1 varnish',
+14 silly registry.get     age: '0',
+14 silly registry.get     'x-served-by': 'cache-fra1241-FRA',
+14 silly registry.get     'x-cache': 'MISS',
+14 silly registry.get     'x-cache-hits': '0',
+14 silly registry.get     'x-timer': 'S1423775690.337823,VS0,VE677',
+14 silly registry.get     vary: 'Accept',
+14 silly registry.get     'keep-alive': 'timeout=10, max=50',
+14 silly registry.get     connection: 'Keep-Alive' } ]
+15 verbose unpublish removing attachments { shasum: '5ef611b21dbda55a2636675927eff34cb5bddf3a',
+15 verbose unpublish   tarball: 'http://registry.npmjs.org/syno/-/syno-1.0.1.tgz' }
+16 verbose request where is /syno/-rev/9-6313a093d5fd8158d4175c3b68942b49
+17 verbose request registry https://registry.npmjs.org/
+18 verbose url raw /syno/-rev/9-6313a093d5fd8158d4175c3b68942b49
+19 verbose url resolving [ 'https://registry.npmjs.org/',
+19 verbose url resolving   './syno/-rev/9-6313a093d5fd8158d4175c3b68942b49' ]
+20 verbose url resolved https://registry.npmjs.org/syno/-rev/9-6313a093d5fd8158d4175c3b68942b49
+21 verbose request where is https://registry.npmjs.org/syno/-rev/9-6313a093d5fd8158d4175c3b68942b49
+22 info trying registry request attempt 1 at 22:14:51
+23 http PUT https://registry.npmjs.org/syno/-rev/9-6313a093d5fd8158d4175c3b68942b49
+24 http 201 https://registry.npmjs.org/syno/-rev/9-6313a093d5fd8158d4175c3b68942b49
+25 verbose request where is /syno
+26 verbose request registry https://registry.npmjs.org/
+27 verbose url raw /syno
+28 verbose url resolving [ 'https://registry.npmjs.org/', './syno' ]
+29 verbose url resolved https://registry.npmjs.org/syno
+30 verbose request where is https://registry.npmjs.org/syno
+31 info trying registry request attempt 1 at 22:14:53
+32 verbose etag "3THSANL8Q44E8TBI4CLDD5U7U"
+33 http GET https://registry.npmjs.org/syno
+34 http 304 https://registry.npmjs.org/syno
+35 silly registry.get cb [ 304,
+35 silly registry.get   { date: 'Thu, 12 Feb 2015 21:14:53 GMT',
+35 silly registry.get     server: 'Apache',
+35 silly registry.get     via: '1.1 varnish',
+35 silly registry.get     'last-modified': 'Thu, 12 Feb 2015 21:14:54 GMT',
+35 silly registry.get     'cache-control': 'max-age=60',
+35 silly registry.get     etag: '"3THSANL8Q44E8TBI4CLDD5U7U"',
+35 silly registry.get     age: '0',
+35 silly registry.get     'x-served-by': 'cache-fra1233-FRA',
+35 silly registry.get     'x-cache': 'MISS',
+35 silly registry.get     'x-cache-hits': '0',
+35 silly registry.get     'x-timer': 'S1423775693.844885,VS0,VE197',
+35 silly registry.get     vary: 'Accept',
+35 silly registry.get     'content-length': '0',
+35 silly registry.get     'keep-alive': 'timeout=10, max=50',
+35 silly registry.get     connection: 'Keep-Alive' } ]
+36 verbose etag https://registry.npmjs.org/syno from cache
+37 info detach /syno/-/syno-1.0.1.tgz/-rev/9-6313a093d5fd8158d4175c3b68942b49
+38 verbose request where is /syno/-/syno-1.0.1.tgz/-rev/9-6313a093d5fd8158d4175c3b68942b49
+39 verbose request registry https://registry.npmjs.org/
+40 verbose url raw /syno/-/syno-1.0.1.tgz/-rev/9-6313a093d5fd8158d4175c3b68942b49
+41 verbose url resolving [ 'https://registry.npmjs.org/',
+41 verbose url resolving   './syno/-/syno-1.0.1.tgz/-rev/9-6313a093d5fd8158d4175c3b68942b49' ]
+42 verbose url resolved https://registry.npmjs.org/syno/-/syno-1.0.1.tgz/-rev/9-6313a093d5fd8158d4175c3b68942b49
+43 verbose request where is https://registry.npmjs.org/syno/-/syno-1.0.1.tgz/-rev/9-6313a093d5fd8158d4175c3b68942b49
+44 info trying registry request attempt 1 at 22:14:54
+45 http DELETE https://registry.npmjs.org/syno/-/syno-1.0.1.tgz/-rev/9-6313a093d5fd8158d4175c3b68942b49
+46 http 409 https://registry.npmjs.org/syno/-/syno-1.0.1.tgz/-rev/9-6313a093d5fd8158d4175c3b68942b49
+47 verbose headers { date: 'Thu, 12 Feb 2015 21:14:55 GMT',
+47 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+47 verbose headers   'content-type': 'application/json',
+47 verbose headers   'cache-control': 'max-age=60',
+47 verbose headers   'content-length': '58',
+47 verbose headers   'accept-ranges': 'bytes',
+47 verbose headers   via: '1.1 varnish',
+47 verbose headers   'x-served-by': 'cache-fra1241-FRA',
+47 verbose headers   'x-cache': 'MISS',
+47 verbose headers   'x-cache-hits': '0',
+47 verbose headers   'x-timer': 'S1423775694.859556,VS0,VE672',
+47 verbose headers   'keep-alive': 'timeout=10, max=50',
+47 verbose headers   connection: 'Keep-Alive' }
+48 error Error: conflict Document update conflict.: syno/-/syno-1.0.1.tgz/-rev/9-6313a093d5fd8158d4175c3b68942b49
+48 error     at RegClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:308:14)
+48 error     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:246:65)
+48 error     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:236:22)
+48 error     at Request.emit (events.js:98:17)
+48 error     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1142:14)
+48 error     at Request.emit (events.js:117:20)
+48 error     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1096:12)
+48 error     at IncomingMessage.emit (events.js:117:20)
+48 error     at _stream_readable.js:943:16
+48 error     at process._tickCallback (node.js:419:13)
+49 error If you need help, you may report this *entire* log,
+49 error including the npm and node versions, at:
+49 error     <http://github.com/npm/npm/issues>
+50 error System Darwin 14.1.0
+51 error command "node" "/usr/local/bin/npm" "unpublish" "syno@1.0.1"
+52 error cwd /Users/kwent/Projects/syno
+53 error node -v v0.10.33
+54 error npm -v 1.4.28
+55 verbose exit [ 1, true ]

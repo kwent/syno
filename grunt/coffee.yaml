@@ -6,6 +6,5 @@ syno:
     dest: tmp/coffee/syno.js
     
 syno-cli:
-    src:
-      - src/cli/syno.coffee
-    dest: bin/syno.js
+    src: src/cli/syno.coffee
+    dest: tmp/coffee/syno-cli.js

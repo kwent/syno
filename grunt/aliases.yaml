@@ -6,8 +6,8 @@ default:
     - coffee:syno
     - concat:exports
     - coffee:syno-cli
+    - concat:syno-cli
     - uglify:syno
-    - uglify:syno-cli
     - clean:tmp
 
 test:

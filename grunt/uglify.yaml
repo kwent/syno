@@ -1,7 +1,3 @@
 syno:
     src: dist/syno.js
     dest: dist/syno.js
-    
-syno-cli:
-    src: bin/syno.js
-    dest: bin/syno.js

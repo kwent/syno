@@ -10,3 +10,9 @@ exports:
         - libs/mod.min.js
         - tmp/coffee/syno.js
     dest: dist/syno.js
+    
+syno-cli:
+    options:
+      banner: "#!/usr/bin/env node\n\n"
+    src: tmp/coffee/syno-cli.js
+    dest: bin/syno.js

@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 CONFIG_DIR = '.syno'
 CONFIG_FILE = 'config.yaml'
 DEFAULT_PROTOCOL = 'https'
