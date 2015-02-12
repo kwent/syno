@@ -1,6 +1,4 @@
-var CONFIG_DIR, CONFIG_FILE, DEBUG, Syno, execute, fs, nconf, os, path, program, syno, url, url_resolved, yaml;
-
-DEBUG = true;
+var CONFIG_DIR, CONFIG_FILE, Syno, execute, fs, nconf, os, path, program, syno, url, url_resolved, yaml;
 
 CONFIG_DIR = '.syno';
 
@@ -24,13 +22,13 @@ os = require('os');
 
 execute = function(api, cmd, options) {
   var exception, payload;
-  if (DEBUG) {
+  if (program.debug) {
     console.log("[DEBUG] : Method name : %s", cmd);
   }
-  if (options.payload && DEBUG) {
+  if (options.payload && program.debug) {
     console.log("[DEBUG] : Method payload : %s", options.payload);
   }
-  if (options.pretty && DEBUG) {
+  if (options.pretty && program.debug) {
     console.log('[DEBUG] : Prettify output detected');
   }
   try {
@@ -56,7 +54,7 @@ execute = function(api, cmd, options) {
   });
 };
 
-program.version('1.0.1').description('Synology Rest API Command Line').option('-c, --config <path>', "DSM Login Config file. defaults to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM Uri - Default : (http://admin:password@localhost:5001)').on('--help', function() {
+program.version('1.0.1').description('Synology Rest API Command Line').option('-c, --config <path>', "DSM Login Config file. defaults to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM Uri - Default : (http://admin:password@localhost:5001)').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
   console.log('  Commands:');
   console.log('');
   console.log('    fs|filestation [options] <method>  DSM File Station API');
@@ -89,7 +87,7 @@ if (program.args.length === 0) {
 nconf.argv.env;
 
 if (program.url) {
-  if (DEBUG) {
+  if (program.debug) {
     console.log("[DEBUG] : Url detected : %s.", program.url);
   }
   url_resolved = url.parse(program.url);
@@ -103,7 +101,7 @@ if (program.url) {
     }
   });
 } else if (program.config) {
-  if (DEBUG) {
+  if (program.debug) {
     console.log("[DEBUG] : Load config file : %s.", program.config);
   }
   if (fs.existsSync(program.config)) {
@@ -123,7 +121,7 @@ if (program.url) {
     process.exit(1);
   }
 } else {
-  if (DEBUG) {
+  if (program.debug) {
     console.log("[DEBUG] : Load default config file : ~/" + CONFIG_DIR + "/auth.yaml.");
   }
   nconf.file({
@@ -150,7 +148,7 @@ nconf.defaults({
 });
 
 if (!fs.existsSync(path.homedir() + ("/" + CONFIG_DIR))) {
-  if (DEBUG) {
+  if (program.debug) {
     console.log("[DEBUG] : %s doesn't exist", path.homedir() + ("/" + CONFIG_DIR));
   }
   fs.mkdir(path.homedir() + ("/" + CONFIG_DIR), function(err) {
@@ -162,7 +160,7 @@ if (!fs.existsSync(path.homedir() + ("/" + CONFIG_DIR))) {
       nconf.set('auth:port', 5001);
       nconf.set('auth:account', 'admin');
       nconf.set('auth:passwd', 'password');
-      if (DEBUG) {
+      if (program.debug) {
         console.log("[DEBUG] : Save default config file to : %s", path.homedir() + ("/" + CONFIG_DIR));
       }
       return nconf.save();
@@ -178,20 +176,20 @@ syno = new Syno({
   passwd: nconf.get('auth:passwd')
 });
 
-program.command('fs <method>').alias('filestation').description('DSM File Station API').option('-c, --config <path>', "DSM Login Config file. defaults to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM Uri - Default : (http://admin:password@localhost:5001)').option("-p, --payload <payload>", "JSON Payload").option('-P, --pretty', 'Pretty print JSON output').on('--help', function() {
+program.command('fs <method>').alias('filestation').description('DSM File Station API').option('-c, --config <path>', "DSM Login Config file. defaults to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM Uri - Default : (http://admin:password@localhost:5001)').option("-p, --payload <payload>", "JSON Payload").option('-P, --pretty', 'Pretty print JSON output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno fs listSharedFolders');
   console.log('    $ syno fs listFiles --pretty --payload \'{"folder_path":"/path/to/folder"}\'');
   return console.log('');
 }).action(function(cmd, options) {
-  if (DEBUG) {
+  if (program.debug) {
     console.log("[DEBUG] : DSM File Station API selected");
   }
   return execute('fs', cmd, options);
 });
 
-program.command('dl <method>').alias('downloadstation').description('DSM Download Station API').option('-c, --config <path>', "DSM Login Config file. defaults to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM Uri - Default : (http://admin:password@localhost:5001)').option("-p, --payload <payload>", "JSON Payload").option('-P, --pretty', 'Pretty print JSON output').on('--help', function() {
+program.command('dl <method>').alias('downloadstation').description('DSM Download Station API').option('-c, --config <path>', "DSM Login Config file. defaults to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM Uri - Default : (http://admin:password@localhost:5001)').option("-p, --payload <payload>", "JSON Payload").option('-P, --pretty', 'Pretty print JSON output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno dl listTasks');
@@ -199,7 +197,7 @@ program.command('dl <method>').alias('downloadstation').description('DSM Downloa
   console.log('    $ syno dl getTasksInfo --pretty --payload \'{"id":"task_id"}\'');
   return console.log('');
 }).action(function(cmd, options) {
-  if (DEBUG) {
+  if (program.debug) {
     console.log("[DEBUG] : DSM Download Station API selected");
   }
   return execute('dl', cmd, options);

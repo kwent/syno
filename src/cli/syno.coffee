@@ -1,6 +1,5 @@
 #!/usr/bin/env
 
-DEBUG = true
 CONFIG_DIR = '.syno'
 CONFIG_FILE = 'auth.yaml'
 
@@ -14,9 +13,9 @@ Syno = require('../dist/syno.js')
 os = require('os')
 
 execute = (api, cmd, options) ->
-    console.log "[DEBUG] : Method name : %s", cmd if DEBUG
-    console.log "[DEBUG] : Method payload : %s", options.payload if options.payload and DEBUG
-    console.log '[DEBUG] : Prettify output detected' if options.pretty and DEBUG
+    console.log "[DEBUG] : Method name : %s", cmd if program.debug
+    console.log "[DEBUG] : Method payload : %s", options.payload if options.payload and program.debug
+    console.log '[DEBUG] : Prettify output detected' if options.pretty and program.debug
     
     try
       payload = JSON.parse(options.payload || '{}')
@@ -38,6 +37,7 @@ program
 .description('Synology Rest API Command Line') 
 .option('-c, --config <path>', "DSM Login Config file. defaults to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
 .option('-u, --url <url>', 'DSM Uri - Default : (http://admin:password@localhost:5001)')
+.option('-d, --debug', 'Enabling Debugging Output')
 .on '--help', ->
   console.log '  Commands:'
   console.log ''
@@ -70,7 +70,7 @@ else if (program.args.length > 0 and program.args[0] != 'fs' and program.args[0]
 nconf.argv.env
 
 if program.url
-  console.log "[DEBUG] : Url detected : %s.", program.url if DEBUG
+  console.log "[DEBUG] : Url detected : %s.", program.url if program.debug
   url_resolved = url.parse program.url
   nconf.overrides
     auth:
@@ -80,7 +80,7 @@ if program.url
       account: url_resolved.auth.split(':')[0]
       passwd: url_resolved.auth.split(':')[1]
 else if program.config
-  console.log "[DEBUG] : Load config file : %s.", program.config if DEBUG
+  console.log "[DEBUG] : Load config file : %s.", program.config if program.debug
   # load a yaml file specified in config
   if fs.existsSync(program.config)
       nconf.file
@@ -94,7 +94,7 @@ else if program.config
     console.log "[ERROR] : Config file : %s not found.", program.config
     process.exit 1
 else
-  console.log "[DEBUG] : Load default config file : ~/#{CONFIG_DIR}/auth.yaml." if DEBUG
+  console.log "[DEBUG] : Load default config file : ~/#{CONFIG_DIR}/auth.yaml." if program.debug
   # load a yaml file using a custom formatter
   nconf.file
     file: path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}"
@@ -114,7 +114,7 @@ nconf.defaults
 
 # If directory not exist | create and try again
 if !fs.existsSync path.homedir() + "/#{CONFIG_DIR}"
-  console.log "[DEBUG] : %s doesn't exist", path.homedir() + "/#{CONFIG_DIR}" if DEBUG
+  console.log "[DEBUG] : %s doesn't exist", path.homedir() + "/#{CONFIG_DIR}" if program.debug
   fs.mkdir path.homedir() + "/#{CONFIG_DIR}", (err) ->
     if err
       console.log err 
@@ -124,7 +124,7 @@ if !fs.existsSync path.homedir() + "/#{CONFIG_DIR}"
       nconf.set('auth:port', 5001)
       nconf.set('auth:account', 'admin')
       nconf.set('auth:passwd', 'password')
-      console.log "[DEBUG] : Save default config file to : %s", path.homedir() + "/#{CONFIG_DIR}" if DEBUG
+      console.log "[DEBUG] : Save default config file to : %s", path.homedir() + "/#{CONFIG_DIR}" if program.debug
       nconf.save()
 
 syno = new Syno(
@@ -142,6 +142,7 @@ program
 .option('-u, --url <url>', 'DSM Uri - Default : (http://admin:password@localhost:5001)')
 .option("-p, --payload <payload>", "JSON Payload")
 .option('-P, --pretty', 'Pretty print JSON output')
+.option('-d, --debug', 'Enabling Debugging Output')
 .on '--help', ->
   console.log '  Examples:'
   console.log ''
@@ -149,7 +150,7 @@ program
   console.log '    $ syno fs listFiles --pretty --payload \'{"folder_path":"/path/to/folder"}\''
   console.log ''
 .action (cmd, options) ->
-  console.log "[DEBUG] : DSM File Station API selected" if DEBUG
+  console.log "[DEBUG] : DSM File Station API selected" if program.debug
   execute 'fs', cmd, options
 
 program
@@ -160,6 +161,7 @@ program
 .option('-u, --url <url>', 'DSM Uri - Default : (http://admin:password@localhost:5001)')
 .option("-p, --payload <payload>", "JSON Payload")
 .option('-P, --pretty', 'Pretty print JSON output')
+.option('-d, --debug', 'Enabling Debugging Output')
 .on '--help', ->
   console.log '  Examples:'
   console.log ''
@@ -168,7 +170,7 @@ program
   console.log '    $ syno dl getTasksInfo --pretty --payload \'{"id":"task_id"}\''
   console.log ''
 .action (cmd, options) ->
-  console.log "[DEBUG] : DSM Download Station API selected" if DEBUG
+  console.log "[DEBUG] : DSM Download Station API selected" if program.debug
   execute 'dl', cmd, options
   
 program.parse process.argv

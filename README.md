@@ -69,6 +69,7 @@ Usage: fs|filestation [options] <method>
     -u, --url <url>          DSM Uri - Default : (http://admin:password@localhost:5001)
     -p, --payload <payload>  JSON Payload
     -P, --pretty             Pretty print JSON output
+    -d, --debug              Enabling Debugging Output
 
   Examples:
 
@@ -89,6 +90,7 @@ Usage: dl|downloadstation [options] <method>
     -u, --url <url>          DSM Uri - Default : (http://admin:password@localhost:5001)
     -p, --payload <payload>  JSON Payload
     -P, --pretty             Pretty print JSON output
+    -d, --debug              Enabling Debugging Output
 
   Examples:
 
