@@ -1,9 +1,11 @@
-syno
-====
+# Syno
+
+Simple Node.js wrapper and CLI for Synology DSM REST API.
 
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
-
-Simple Node.js wrapper for Synology DSM REST API.
+[![npm version](https://img.shields.io/npm/v/syno.svg?style=flat)](https://www.npmjs.com/package/syno)
+[![Dependency Status](https://david-dm.org/JimRobs/syno.svg?theme=shields.io)](https://www.npmjs.com/package/syno)
+[![devDependency Status](https://david-dm.org/JimRobs/syno/dev-status.svg?theme=shields.io)](https://www.npmjs.com/package/syno)
 
 ![Synology Development Tool](https://www.synology.com/img/support/developer/banner.png)
 
@@ -47,18 +49,18 @@ Usage: syno [options]
 
   Commands:
 
-    fs|filestation [options] <method>  DSM File Station API
-    dl|downloadstation [options] <method>  DSM Download Station API
+    filestation|fs [options] <method>  DSM File Station API
+    downloadstation|dl [options] <method>  DSM Download Station API
 
   Examples:
 
-    $ syno fs getFileStationInfo
-    $ syno dl getDownloadStationInfo
+    $ syno filestation|fs getFileStationInfo
+    $ syno downloadstation|dl getDownloadStationInfo
 ```
 
 ```
 $ syno fs --help
-Usage: fs|filestation [options] <method>
+Usage: filestation|fs [options] <method>
 
   DSM File Station API
 
@@ -73,13 +75,13 @@ Usage: fs|filestation [options] <method>
 
   Examples:
 
-    $ syno fs listSharedFolders
-    $ syno fs listFiles --pretty --payload '{"folder_path":"/path/to/folder"}'
+    $ syno filestation|fs listSharedFolders
+    $ syno filestation|fs listFiles --pretty --payload '{"folder_path":"/path/to/folder"}'
 ```
 
 ```
-$ syno ds --help
-Usage: dl|downloadstation [options] <method>
+$ syno dl --help
+Usage: downloadstation|dl [options] <method>
 
   DSM Download Station API
 
@@ -94,9 +96,10 @@ Usage: dl|downloadstation [options] <method>
 
   Examples:
 
-    $ syno dl listTasks
-    $ syno dl listTasks --payload '{"limit":1}'
-    $ syno dl getTasksInfo --pretty --payload '{"id":"task_id"}'
+    $ syno downloadstation|dl createTask --payload '{"uri":"magnet|ed2k|ftp(s)|http(s)://link"}'
+    $ syno downloadstation|dl listTasks
+    $ syno downloadstation|dl listTasks --payload '{"limit":1}'
+    $ syno downloadstation|dl getTasksInfo --pretty --payload '{"id":"task_id"}'
 ```
 
 ## Examples
@@ -104,7 +107,7 @@ Usage: dl|downloadstation [options] <method>
 ### Without a configuration file
 
 ```bash
-$ syno fs getFileStationInfo -u https://admin:synology@demo.synology.com:5001 -P
+$ syno fs getFileStationInfo --url https://admin:synology@demo.synology.com:5001 --pretty
 ```
 
 ### With a configuration file
@@ -115,7 +118,7 @@ $ syno fs getFileStationInfo -u https://admin:synology@demo.synology.com:5001 -P
 # ~/.syno/config.conf
 
 url:
-  protocol: http
+  protocol: https
   host: localhost
   port: 5001
   account: admin
@@ -123,7 +126,7 @@ url:
 ```
 
 ```bash
-$ syno fs getFileStationInfo
+$ syno fs getFileStationInfo --pretty
 ```
 
 ## Syno JS library
