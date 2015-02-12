@@ -72,8 +72,18 @@ program.version('1.0.1').description('Synology Rest API Command Line').option('-
 
 program.parse(process.argv);
 
-if (program.args.length === 0 || (program.args.length > 0 && program.args[0] !== 'fs' && program.args[0] !== 'dl')) {
+if (program.args.length === 0) {
   program.help();
+} else if (program.args.length > 0 && program.args[0] !== 'fs' && program.args[0] !== 'dl') {
+  console.log('');
+  console.log("  [ERROR] : " + program.args[0] + " is not a valid command !");
+  console.log('');
+  console.log('  Examples:');
+  console.log('');
+  console.log('    $ syno fs <method> DSM File Station API');
+  console.log('    $ syno dl <method> DSM Download Station API');
+  console.log('');
+  process.exit(1);
 }
 
 nconf.argv.env;
@@ -139,22 +149,26 @@ nconf.defaults({
   }
 });
 
-nconf.save(function(err) {
-  if (err && err.code === "ENOENT") {
-    fs.mkdir(path.homedir() + ("/" + CONFIG_DIR), function(err) {
-      if (err) {
-        return console.log;
-      } else {
-        nconf.set('auth:protocol', 'http');
-        nconf.set('auth:host', 'localhost');
-        nconf.set('auth:port', 5001);
-        nconf.set('auth:account', 'admin');
-        nconf.set('auth:passwd', 'password');
-        return nconf.save();
-      }
-    });
+if (!fs.existsSync(path.homedir() + ("/" + CONFIG_DIR))) {
+  if (DEBUG) {
+    console.log("[DEBUG] : %s doesn't exist", path.homedir() + ("/" + CONFIG_DIR));
   }
-});
+  fs.mkdir(path.homedir() + ("/" + CONFIG_DIR), function(err) {
+    if (err) {
+      return console.log(err);
+    } else {
+      nconf.set('auth:protocol', 'http');
+      nconf.set('auth:host', 'localhost');
+      nconf.set('auth:port', 5001);
+      nconf.set('auth:account', 'admin');
+      nconf.set('auth:passwd', 'password');
+      if (DEBUG) {
+        console.log("[DEBUG] : Save default config file to : %s", path.homedir() + ("/" + CONFIG_DIR));
+      }
+      return nconf.save();
+    }
+  });
+}
 
 syno = new Syno({
   protocol: nconf.get('auth:protocol'),

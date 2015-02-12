@@ -52,7 +52,19 @@ program
   console.log ''
 
 program.parse process.argv
-program.help() if program.args.length == 0 or (program.args.length > 0 and program.args[0] != 'fs' and program.args[0] != 'dl') #fs or ds required
+
+if program.args.length == 0
+  program.help()
+else if (program.args.length > 0 and program.args[0] != 'fs' and program.args[0] != 'dl')
+  console.log ''
+  console.log "  [ERROR] : #{program.args[0]} is not a valid command !"
+  console.log ''
+  console.log '  Examples:'
+  console.log ''
+  console.log '    $ syno fs <method> DSM File Station API'
+  console.log '    $ syno dl <method> DSM Download Station API'
+  console.log ''
+  process.exit 1
 
 # load cmd line args and environment vars
 nconf.argv.env
@@ -100,20 +112,20 @@ nconf.defaults
     account : 'admin'
     passwd : 'password'
 
-nconf.save (err) ->
-  # If directory not exist | create and try again
-  if err and err.code == "ENOENT"
-    fs.mkdir path.homedir() + "/#{CONFIG_DIR}", (err) ->
-      if err
-        console.log
-      else
-        nconf.set('auth:protocol', 'http')
-        nconf.set('auth:host', 'localhost')
-        nconf.set('auth:port', 5001)
-        nconf.set('auth:account', 'admin')
-        nconf.set('auth:passwd', 'password')
-        nconf.save()
-  return
+# If directory not exist | create and try again
+if !fs.existsSync path.homedir() + "/#{CONFIG_DIR}"
+  console.log "[DEBUG] : %s doesn't exist", path.homedir() + "/#{CONFIG_DIR}" if DEBUG
+  fs.mkdir path.homedir() + "/#{CONFIG_DIR}", (err) ->
+    if err
+      console.log err 
+    else
+      nconf.set('auth:protocol', 'http')
+      nconf.set('auth:host', 'localhost')
+      nconf.set('auth:port', 5001)
+      nconf.set('auth:account', 'admin')
+      nconf.set('auth:passwd', 'password')
+      console.log "[DEBUG] : Save default config file to : %s", path.homedir() + "/#{CONFIG_DIR}" if DEBUG
+      nconf.save()
 
 syno = new Syno(
   protocol: nconf.get('auth:protocol')

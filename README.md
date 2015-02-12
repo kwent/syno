@@ -33,7 +33,9 @@ npm install syno --global
 
 ## Syno CLI executable
 
+
 ```
+$ syno --help
 Usage: syno [options]
 
   Synology Rest API Command Line
@@ -55,6 +57,7 @@ Usage: syno [options]
 ```
 
 ```
+$ syno fs --help
 Usage: fs|filestation [options] <method>
 
   DSM File Station API
@@ -74,6 +77,7 @@ Usage: fs|filestation [options] <method>
 ```
 
 ```
+$ syno ds --help
 Usage: dl|downloadstation [options] <method>
 
   DSM Download Station API
