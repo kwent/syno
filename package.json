@@ -24,7 +24,9 @@
   },
   "contributors": [
     {
-      "name": "kwent"
+      "name": "kwent",
+      "email" : "contact@quent.in",
+      "url" : "https://github.com/kwent"
     }
   ],
   "license": "MIT",
