@@ -96,6 +96,7 @@ Usage: downloadstation|dl [options] <method>
 
   Examples:
 
+    $ syno downloadstation|dl createTask --payload '{"uri":"magnet|ed2k|ftp(s)|http(s)://link"}'
     $ syno downloadstation|dl listTasks
     $ syno downloadstation|dl listTasks --payload '{"limit":1}'
     $ syno downloadstation|dl getTasksInfo --pretty --payload '{"id":"task_id"}'

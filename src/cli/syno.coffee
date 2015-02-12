@@ -184,6 +184,7 @@ program
 .on '--help', ->
   console.log '  Examples:'
   console.log ''
+  console.log '    $ syno downloadstation|dl createTask --payload \'{"uri":"magnet|ed2k|ftp(s)|http(s)://link"}\''
   console.log '    $ syno downloadstation|dl listTasks'
   console.log '    $ syno downloadstation|dl listTasks --payload \'{"limit":1}\''
   console.log '    $ syno downloadstation|dl getTasksInfo --pretty --payload \'{"id":"task_id"}\''
