@@ -1,22 +1,22 @@
 #!/bin/bash
 
 # Colors
-function red {
+red () {
   echo "\033[31m"$@
 }
 
-function green {
+green () {
   echo "\033[01;32m"$@
 }
 
 # Helpers
-function valid {
+valid () {
   eval $@ &> /dev/null
   if [ $? == 0 ]; then
-    [ -z "$TRAVIS" ] && echo "SUCCESS" || green "SUCCESS"
+    [ -z "$TRAVIS" ] && green "SUCCESS" || echo "SUCCESS"
     return 0
   else
-    [ -z "$TRAVIS" ] && echo "FAILED" || red "FAILED"
+    [ -z "$TRAVIS" ] && red "FAILED" || echo "FAILED"
     return 1
   fi
 }
