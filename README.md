@@ -17,15 +17,116 @@ Just install the module using npm.
 npm install syno
 ```
 
-If you want to save it as a dependecy, just add the `--save` option.
+If you want to save it as a dependency, just add the `--save` option.
 
 ```
 npm install syno --save
 ```
 
+If you want to install with the CLI executable, just add the `--global` option.
+
+```
+npm install syno --global
+```
+
 # Usage
 
-## Syno
+## Syno CLI executable
+
+
+```
+$ syno --help
+Usage: syno [options]
+
+  Synology Rest API Command Line
+
+  Options:
+
+    -h, --help           output usage information
+    -V, --version        output the version number
+
+  Commands:
+
+    fs|filestation [options] <method>  DSM File Station API
+    dl|downloadstation [options] <method>  DSM Download Station API
+
+  Examples:
+
+    $ syno fs getFileStationInfo
+    $ syno dl getDownloadStationInfo
+```
+
+```
+$ syno fs --help
+Usage: fs|filestation [options] <method>
+
+  DSM File Station API
+
+  Options:
+
+    -h, --help               output usage information
+    -c, --config <path>      DSM configuration file. Default to ~/.syno/auth.yaml
+    -u, --url <url>          DSM URL. Default to https://admin:password@localhost:5001
+    -p, --payload <payload>  JSON Payload
+    -P, --pretty             Prettyprint JSON Output
+    -d, --debug              Enabling Debugging Output
+
+  Examples:
+
+    $ syno fs listSharedFolders
+    $ syno fs listFiles --pretty --payload '{"folder_path":"/path/to/folder"}'
+```
+
+```
+$ syno ds --help
+Usage: dl|downloadstation [options] <method>
+
+  DSM Download Station API
+
+  Options:
+
+    -h, --help               output usage information
+    -c, --config <path>      DSM configuration file. Default to ~/.syno/auth.yaml
+    -u, --url <url>          DSM URL. Default to https://admin:password@localhost:5001
+    -p, --payload <payload>  JSON Payload
+    -P, --pretty             Prettyprint JSON Output
+    -d, --debug              Enabling Debugging Output
+
+  Examples:
+
+    $ syno dl listTasks
+    $ syno dl listTasks --payload '{"limit":1}'
+    $ syno dl getTasksInfo --pretty --payload '{"id":"task_id"}'
+```
+
+## Examples
+
+### Without a configuration file
+
+```bash
+$ syno fs getFileStationInfo -u https://admin:synology@demo.synology.com:5001 -P
+```
+
+### With a configuration file
+
+```yaml
+
+# Example config file, by default it should be located at:
+# ~/.syno/config.conf
+
+url:
+  protocol: http
+  host: localhost
+  port: 5001
+  account: admin
+  passwd: password
+```
+
+```bash
+$ syno fs getFileStationInfo
+```
+
+## Syno JS library
 
 ```js
 var Syno = require('syno');
@@ -515,7 +616,7 @@ given, binary content in ZIP format which they are compressed to is responded.
 **Required params** : path, stream
 
 ```js
-syno.fs.dowbload(params, callback);
+syno.fs.download(params, callback);
 ```
 
 **N.B. :** `stream` param must be a Writable Stream

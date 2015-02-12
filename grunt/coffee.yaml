@@ -4,3 +4,8 @@ options:
 syno:
     src: tmp/concat/syno.coffee
     dest: tmp/coffee/syno.js
+    
+syno-cli:
+    src:
+      - src/cli/Syno.coffee
+    dest: bin/syno.js
