@@ -13,10 +13,10 @@ function green () {
 function valid () {
   eval $@ &> /dev/null
   if [ $? == 0 ]; then
-    green "SUCCESS"
+    [ -z "$TRAVIS" ] && echo "SUCCESS" || green "SUCCESS"
     return 0
   else
-    red "FAILED"
+    [ -z "$TRAVIS" ] && echo "FAILED" || red "FAILED"
     return 1
   fi
 }
