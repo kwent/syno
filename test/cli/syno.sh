@@ -12,7 +12,7 @@ green () {
 # Helpers
 valid () {
   eval $@ &> /dev/null
-  if [ $? == 0 ]; then
+  if [ $? -eq 0 ]; then
     [ -z "$TRAVIS" ] && green "SUCCESS" || echo "SUCCESS"
     return 0
   else
