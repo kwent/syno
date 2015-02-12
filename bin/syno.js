@@ -65,7 +65,7 @@ execute = function(api, cmd, options) {
   });
 };
 
-program.version('1.0.1').description('Synology Rest API Command Line').option('-c, --config <path>', "DSM Configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
+program.version('1.0.1').description('Synology Rest API Command Line').option('-c, --config <path>', "DSM Configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
   console.log('  Commands:');
   console.log('');
   console.log('    filestation|fs [options] <method>  DSM File Station API');
@@ -198,7 +198,7 @@ syno = new Syno({
   passwd: nconf.get('url:passwd')
 });
 
-program.command('filestation <method>').alias('fs').description('DSM File Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}').option("-p, --payload <payload>", "JSON Payload").option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
+program.command('filestation <method>').alias('fs').description('DSM File Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option("-p, --payload <payload>", "JSON Payload").option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno filestation|fs listSharedFolders');
@@ -211,7 +211,7 @@ program.command('filestation <method>').alias('fs').description('DSM File Statio
   return execute('fs', cmd, options);
 });
 
-program.command('downloadstation <method>').alias('dl').description('DSM Download Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', 'DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}').option("-p, --payload <payload>", "JSON Payload").option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
+program.command('downloadstation <method>').alias('dl').description('DSM Download Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option("-p, --payload <payload>", "JSON Payload").option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno downloadstation|dl listTasks');

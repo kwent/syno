@@ -42,7 +42,7 @@ program
 .version('1.0.1')
 .description('Synology Rest API Command Line') 
 .option('-c, --config <path>', "DSM Configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
-.option('-u, --url <url>', 'DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}')
+.option('-u, --url <url>', "DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}")
 .option('-d, --debug', 'Enabling Debugging Output')
 .on '--help', ->
   console.log '  Commands:'
@@ -158,7 +158,7 @@ program
 .alias('fs')
 .description('DSM File Station API')
 .option('-c, --config <path>', "DSM configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
-.option('-u, --url <url>', 'DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}')
+.option('-u, --url <url>', "DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}")
 .option("-p, --payload <payload>", "JSON Payload")
 .option('-P, --pretty', 'Prettyprint JSON Output')
 .option('-d, --debug', 'Enabling Debugging Output')
@@ -177,7 +177,7 @@ program
 .alias('dl')
 .description('DSM Download Station API')
 .option('-c, --config <path>', "DSM configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
-.option('-u, --url <url>', 'DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}')
+.option('-u, --url <url>', "DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}")
 .option("-p, --payload <payload>", "JSON Payload")
 .option('-P, --pretty', 'Prettyprint JSON Output')
 .option('-d, --debug', 'Enabling Debugging Output')
