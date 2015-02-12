@@ -22,6 +22,11 @@
     "email": "jimmy@jimrobs.com",
     "url": "https://github.com/jimrobs"
   },
+  "contributors": [
+    {
+      "name": "kwent"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jimrobs/syno/issues"
