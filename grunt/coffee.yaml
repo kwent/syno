@@ -7,5 +7,5 @@ syno:
     
 syno-cli:
     src:
-      - src/cli/Syno.coffee
+      - src/cli/syno.coffee
     dest: bin/syno.js

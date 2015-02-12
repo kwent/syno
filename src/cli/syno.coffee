@@ -14,7 +14,7 @@ url = require('url')
 nconf = require('nconf')
 path = require('path-extra');
 yaml = require('js-yaml');
-Syno = require('../dist/syno.js')
+Syno = require('../dist/syno')
 os = require('os')
 
 execute = (api, cmd, options) ->
