@@ -50,6 +50,7 @@ execute = function(api, cmd, options) {
     if (data) {
       console.log(data);
     }
+    syno.auth.logout();
     return process.exit(0);
   });
 };

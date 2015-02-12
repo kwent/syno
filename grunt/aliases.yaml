@@ -8,4 +8,16 @@ default:
     - coffee:syno-cli
     - uglify:syno
     - clean:tmp
+
+test:
+    - default
     - nodeunit:all
+    - shell:syno-cli
+    
+test-syno:
+    - default
+    - nodeunit:all
+    
+test-syno-cli:
+    - default
+    - shell:syno-cli

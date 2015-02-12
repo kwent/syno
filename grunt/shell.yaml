@@ -1,0 +1,2 @@
+syno-cli:
+  command: 'sh test/cli/syno.sh'
