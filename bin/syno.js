@@ -23,10 +23,10 @@ os = require('os');
 execute = function(api, cmd, options) {
   var exception, payload;
   if (program.debug) {
-    console.log("[DEBUG] : Method name : %s", cmd);
+    console.log("[DEBUG] : Method name configured : %s", cmd);
   }
   if (options.payload && program.debug) {
-    console.log("[DEBUG] : Method payload : %s", options.payload);
+    console.log("[DEBUG] : JSON payload configured : %s", options.payload);
   }
   if (options.pretty && program.debug) {
     console.log('[DEBUG] : Prettify output detected');
@@ -89,7 +89,7 @@ nconf.argv.env;
 
 if (program.url) {
   if (program.debug) {
-    console.log("[DEBUG] : Url detected : %s.", program.url);
+    console.log("[DEBUG] : Params URL detected : %s.", program.url);
   }
   url_resolved = url.parse(program.url);
   nconf.overrides({
@@ -124,7 +124,7 @@ if (program.url) {
 } else {
   if (!fs.existsSync(path.homedir() + ("/" + CONFIG_DIR))) {
     if (program.debug) {
-      console.log("[DEBUG] : %s doesn't exist", path.homedir() + ("/" + CONFIG_DIR));
+      console.log("[DEBUG] : Default configuration file doesn't exist : %s", path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE));
     }
     fs.mkdir(path.homedir() + ("/" + CONFIG_DIR), function(err) {
       if (err) {
@@ -136,14 +136,14 @@ if (program.url) {
         nconf.set('url:account', 'admin');
         nconf.set('url:passwd', 'password');
         if (program.debug) {
-          console.log("[DEBUG] : Save default configuration file to : %s", path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE));
+          console.log("[DEBUG] : Default configuration file created : %s", path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE));
         }
         return nconf.save();
       }
     });
   }
   if (program.debug) {
-    console.log("[DEBUG] : Load default config file : ~/" + CONFIG_DIR + "/" + CONFIG_FILE);
+    console.log("[DEBUG] : Default configuration file loaded : ~/" + CONFIG_DIR + "/" + CONFIG_FILE);
   }
   nconf.file({
     file: path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE),
@@ -169,7 +169,7 @@ nconf.defaults({
 });
 
 if (program.debug) {
-  console.log("[DEBUG] : Connection URL : %s://%s:%s@%s:%s", nconf.get('url:protocol'), nconf.get('url:account'), nconf.get('url:passwd'), nconf.get('url:host'), nconf.get('url:port'));
+  console.log("[DEBUG] : DSM Connection URL configured : %s://%s:%s@%s:%s", nconf.get('url:protocol'), nconf.get('url:account'), nconf.get('url:passwd'), nconf.get('url:host'), nconf.get('url:port'));
 }
 
 syno = new Syno({
@@ -188,7 +188,7 @@ program.command('fs <method>').alias('filestation').description('DSM File Statio
   return console.log('');
 }).action(function(cmd, options) {
   if (program.debug) {
-    console.log("[DEBUG] : DSM File Station API selected");
+    console.log("[DEBUG] : DSM File Station API command selected");
   }
   return execute('fs', cmd, options);
 });
@@ -202,7 +202,7 @@ program.command('dl <method>').alias('downloadstation').description('DSM Downloa
   return console.log('');
 }).action(function(cmd, options) {
   if (program.debug) {
-    console.log("[DEBUG] : DSM Download Station API selected");
+    console.log("[DEBUG] : DSM Download Station API command selected");
   }
   return execute('dl', cmd, options);
 });

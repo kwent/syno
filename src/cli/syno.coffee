@@ -13,8 +13,8 @@ Syno = require('../dist/syno.js')
 os = require('os')
 
 execute = (api, cmd, options) ->
-    console.log "[DEBUG] : Method name : %s", cmd if program.debug
-    console.log "[DEBUG] : Method payload : %s", options.payload if options.payload and program.debug
+    console.log "[DEBUG] : Method name configured : %s", cmd if program.debug
+    console.log "[DEBUG] : JSON payload configured : %s", options.payload if options.payload and program.debug
     console.log '[DEBUG] : Prettify output detected' if options.pretty and program.debug
     
     try
@@ -71,7 +71,7 @@ else if (program.args.length > 0 and program.args[0] != 'fs' and program.args[0]
 nconf.argv.env
 
 if program.url
-  console.log "[DEBUG] : Url detected : %s.", program.url if program.debug
+  console.log "[DEBUG] : Params URL detected : %s.", program.url if program.debug
   url_resolved = url.parse program.url
   nconf.overrides
     url:
@@ -98,7 +98,7 @@ else
   
   # If directory doesn't exist | create directory and save the file
   if !fs.existsSync path.homedir() + "/#{CONFIG_DIR}"
-    console.log "[DEBUG] : %s doesn't exist", path.homedir() + "/#{CONFIG_DIR}" if program.debug
+    console.log "[DEBUG] : Default configuration file doesn't exist : %s", path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
     fs.mkdir path.homedir() + "/#{CONFIG_DIR}", (err) ->
       if err
         console.log "[ERROR] : %s", err
@@ -108,11 +108,11 @@ else
         nconf.set('url:port', 5001)
         nconf.set('url:account', 'admin')
         nconf.set('url:passwd', 'password')
-        console.log "[DEBUG] : Save default configuration file to : %s", path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
+        console.log "[DEBUG] : Default configuration file created : %s", path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
         nconf.save()
   
   # Load a yaml file using YAML formatter
-  console.log "[DEBUG] : Load default config file : ~/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
+  console.log "[DEBUG] : Default configuration file loaded : ~/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
   nconf.file
     file: path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}"
     format:
@@ -129,7 +129,7 @@ nconf.defaults
     account : 'admin'
     passwd : 'password'
 
-console.log "[DEBUG] : Connection URL : %s://%s:%s@%s:%s", nconf.get('url:protocol'), nconf.get('url:account'), nconf.get('url:passwd'), nconf.get('url:host'), nconf.get('url:port') if program.debug
+console.log "[DEBUG] : DSM Connection URL configured : %s://%s:%s@%s:%s", nconf.get('url:protocol'), nconf.get('url:account'), nconf.get('url:passwd'), nconf.get('url:host'), nconf.get('url:port') if program.debug
 syno = new Syno(
   protocol: nconf.get('url:protocol')
   host: nconf.get('url:host')
@@ -153,7 +153,7 @@ program
   console.log '    $ syno fs listFiles --pretty --payload \'{"folder_path":"/path/to/folder"}\''
   console.log ''
 .action (cmd, options) ->
-  console.log "[DEBUG] : DSM File Station API selected" if program.debug
+  console.log "[DEBUG] : DSM File Station API command selected" if program.debug
   execute 'fs', cmd, options
 
 program
@@ -173,7 +173,7 @@ program
   console.log '    $ syno dl getTasksInfo --pretty --payload \'{"id":"task_id"}\''
   console.log ''
 .action (cmd, options) ->
-  console.log "[DEBUG] : DSM Download Station API selected" if program.debug
+  console.log "[DEBUG] : DSM Download Station API command selected" if program.debug
   execute 'dl', cmd, options
   
 program.parse process.argv
