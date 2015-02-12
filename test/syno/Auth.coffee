@@ -1,4 +1,4 @@
-Syno = require('../dist/syno.js')
+Syno = require('../../dist/syno.js')
 
 synoWithValidCredentials = new Syno(
   protocol: 'https'

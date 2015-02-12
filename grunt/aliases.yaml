@@ -8,4 +8,4 @@ default:
     - coffee:syno-cli
     - uglify:syno
     - clean:tmp
-    # - nodeunit:all
+    - nodeunit:all

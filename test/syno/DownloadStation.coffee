@@ -1,4 +1,4 @@
-Syno = require('../dist/syno.js')
+Syno = require('../../dist/syno.js')
 
 module.exports =
   
