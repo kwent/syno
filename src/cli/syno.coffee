@@ -1,7 +1,7 @@
 #!/usr/bin/env
 
 CONFIG_DIR = '.syno'
-CONFIG_FILE = 'auth.yaml'
+CONFIG_FILE = 'config.yaml'
 
 program = require('commander')
 fs = require('fs')
@@ -36,8 +36,8 @@ execute = (api, cmd, options) ->
 program
 .version('1.0.1')
 .description('Synology Rest API Command Line') 
-.option('-c, --config <path>', "DSM Login Config file. defaults to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
-.option('-u, --url <url>', 'DSM Uri - Default : (http://admin:password@localhost:5001)')
+.option('-c, --config <path>', "DSM Configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
+.option('-u, --url <url>', 'DSM URL. Default to https://admin:password@localhost:5001')
 .option('-d, --debug', 'Enabling Debugging Output')
 .on '--help', ->
   console.log '  Commands:'
@@ -74,14 +74,14 @@ if program.url
   console.log "[DEBUG] : Url detected : %s.", program.url if program.debug
   url_resolved = url.parse program.url
   nconf.overrides
-    auth:
+    url:
       protocol: url_resolved.protocol.slice(0,-1)
       host: url_resolved.hostname
       port: url_resolved.port
       account: url_resolved.auth.split(':')[0]
       passwd: url_resolved.auth.split(':')[1]
 else if program.config
-  console.log "[DEBUG] : Load config file : %s.", program.config if program.debug
+  console.log "[DEBUG] : Load config file : %s", program.config if program.debug
   # load a yaml file specified in config
   if fs.existsSync(program.config)
       nconf.file
@@ -92,10 +92,10 @@ else if program.config
           parse: (obj, options) ->
             yaml.safeLoad obj, options
   else
-    console.log "[ERROR] : Config file : %s not found.", program.config
+    console.log "[ERROR] : Config file : %s not found", program.config
     process.exit 1
 else
-  console.log "[DEBUG] : Load default config file : ~/#{CONFIG_DIR}/auth.yaml." if program.debug
+  console.log "[DEBUG] : Load default config file : ~/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
   # load a yaml file using a custom formatter
   nconf.file
     file: path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}"
@@ -106,43 +106,44 @@ else
         yaml.safeLoad obj, options
     
 nconf.defaults
-  auth:
+  url:
     protocol: 'http'
     host : 'localhost'
     port : 5001
     account : 'admin'
     passwd : 'password'
 
-# If directory not exist | create and try again
+# If directory doesn't exist | create and save
 if !fs.existsSync path.homedir() + "/#{CONFIG_DIR}"
   console.log "[DEBUG] : %s doesn't exist", path.homedir() + "/#{CONFIG_DIR}" if program.debug
   fs.mkdir path.homedir() + "/#{CONFIG_DIR}", (err) ->
     if err
-      console.log err 
+      console.log "[ERROR] : %s", err
     else
-      nconf.set('auth:protocol', 'http')
-      nconf.set('auth:host', 'localhost')
-      nconf.set('auth:port', 5001)
-      nconf.set('auth:account', 'admin')
-      nconf.set('auth:passwd', 'password')
-      console.log "[DEBUG] : Save default config file to : %s", path.homedir() + "/#{CONFIG_DIR}" if program.debug
+      nconf.set('url:protocol', 'https')
+      nconf.set('url:host', 'localhost')
+      nconf.set('url:port', 5001)
+      nconf.set('url:account', 'admin')
+      nconf.set('url:passwd', 'password')
+      console.log "[DEBUG] : Save default configuration file to : %s", path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
       nconf.save()
 
+console.log "[DEBUG] : Connection URL : %s://%s:%s@%s:%s", nconf.get('url:protocol'), nconf.get('url:account'), nconf.get('url:passwd'), nconf.get('url:host'), nconf.get('url:port') if program.debug
 syno = new Syno(
-  protocol: nconf.get('auth:protocol')
-  host: nconf.get('auth:host')
-  port: nconf.get('auth:port')
-  account: nconf.get('auth:account')
-  passwd: nconf.get('auth:passwd'))
+  protocol: nconf.get('url:protocol')
+  host: nconf.get('url:host')
+  port: nconf.get('url:port')
+  account: nconf.get('url:account')
+  passwd: nconf.get('url:passwd'))
   
 program
 .command('fs <method>')
 .alias('filestation')
 .description('DSM File Station API')
-.option('-c, --config <path>', "DSM Login Config file. defaults to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
-.option('-u, --url <url>', 'DSM Uri - Default : (http://admin:password@localhost:5001)')
+.option('-c, --config <path>', "DSM configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
+.option('-u, --url <url>', 'DSM URL. Default to https://admin:password@localhost:5001')
 .option("-p, --payload <payload>", "JSON Payload")
-.option('-P, --pretty', 'Pretty print JSON output')
+.option('-P, --pretty', 'Prettyprint JSON Output')
 .option('-d, --debug', 'Enabling Debugging Output')
 .on '--help', ->
   console.log '  Examples:'
@@ -158,10 +159,10 @@ program
 .command('dl <method>')
 .alias('downloadstation')
 .description('DSM Download Station API')
-.option('-c, --config <path>', "DSM Login Config file. defaults to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
-.option('-u, --url <url>', 'DSM Uri - Default : (http://admin:password@localhost:5001)')
+.option('-c, --config <path>', "DSM configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
+.option('-u, --url <url>', 'DSM URL. Default to https://admin:password@localhost:5001')
 .option("-p, --payload <payload>", "JSON Payload")
-.option('-P, --pretty', 'Pretty print JSON output')
+.option('-P, --pretty', 'Prettyprint JSON Output')
 .option('-d, --debug', 'Enabling Debugging Output')
 .on '--help', ->
   console.log '  Examples:'

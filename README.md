@@ -65,10 +65,10 @@ Usage: fs|filestation [options] <method>
   Options:
 
     -h, --help               output usage information
-    -c, --config <path>      DSM Login Config file. defaults to ~/.syno/auth.yaml
-    -u, --url <url>          DSM Uri - Default : (http://admin:password@localhost:5001)
+    -c, --config <path>      DSM configuration file. Default to ~/.syno/auth.yaml
+    -u, --url <url>          DSM URL. Default to https://admin:password@localhost:5001
     -p, --payload <payload>  JSON Payload
-    -P, --pretty             Pretty print JSON output
+    -P, --pretty             Prettyprint JSON Output
     -d, --debug              Enabling Debugging Output
 
   Examples:
@@ -86,10 +86,10 @@ Usage: dl|downloadstation [options] <method>
   Options:
 
     -h, --help               output usage information
-    -c, --config <path>      DSM Login Config file. defaults to ~/.syno/auth.yaml
-    -u, --url <url>          DSM Uri - Default : (http://admin:password@localhost:5001)
+    -c, --config <path>      DSM configuration file. Default to ~/.syno/auth.yaml
+    -u, --url <url>          DSM URL. Default to https://admin:password@localhost:5001
     -p, --payload <payload>  JSON Payload
-    -P, --pretty             Pretty print JSON output
+    -P, --pretty             Prettyprint JSON Output
     -d, --debug              Enabling Debugging Output
 
   Examples:
@@ -99,18 +99,31 @@ Usage: dl|downloadstation [options] <method>
     $ syno dl getTasksInfo --pretty --payload '{"id":"task_id"}'
 ```
 
+## Examples
+
+### Without a configuration file
+
+```bash
+$ syno fs getFileStationInfo -u https://admin:synology@demo.synology.com:5001 -P
+```
+
+### With a configuration file
 
 ```yaml
 
 # Example config file, by default it should be located at:
-# ~/.syno/auth.conf
+# ~/.syno/config.conf
 
-auth:
+url:
   protocol: http
   host: localhost
   port: 5001
   account: admin
   passwd: password
+```
+
+```bash
+$ syno fs getFileStationInfo
 ```
 
 ## Syno JS library
