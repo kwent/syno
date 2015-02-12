@@ -78,7 +78,7 @@ Usage: filestation|fs [options] <method>
 ```
 
 ```
-$ syno ds --help
+$ syno dl --help
 Usage: downloadstation|dl [options] <method>
 
   DSM Download Station API
