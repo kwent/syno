@@ -47,18 +47,18 @@ Usage: syno [options]
 
   Commands:
 
-    fs|filestation [options] <method>  DSM File Station API
-    dl|downloadstation [options] <method>  DSM Download Station API
+    filestation|fs [options] <method>  DSM File Station API
+    downloadstation|dl [options] <method>  DSM Download Station API
 
   Examples:
 
-    $ syno fs getFileStationInfo
-    $ syno dl getDownloadStationInfo
+    $ syno filestation|fs getFileStationInfo
+    $ syno downloadstation|dl getDownloadStationInfo
 ```
 
 ```
 $ syno fs --help
-Usage: fs|filestation [options] <method>
+Usage: filestation|fs [options] <method>
 
   DSM File Station API
 
@@ -73,13 +73,13 @@ Usage: fs|filestation [options] <method>
 
   Examples:
 
-    $ syno fs listSharedFolders
-    $ syno fs listFiles --pretty --payload '{"folder_path":"/path/to/folder"}'
+    $ syno filestation|fs listSharedFolders
+    $ syno filestation|fs listFiles --pretty --payload '{"folder_path":"/path/to/folder"}'
 ```
 
 ```
 $ syno ds --help
-Usage: dl|downloadstation [options] <method>
+Usage: downloadstation|dl [options] <method>
 
   DSM Download Station API
 
@@ -94,9 +94,9 @@ Usage: dl|downloadstation [options] <method>
 
   Examples:
 
-    $ syno dl listTasks
-    $ syno dl listTasks --payload '{"limit":1}'
-    $ syno dl getTasksInfo --pretty --payload '{"id":"task_id"}'
+    $ syno downloadstation|dl listTasks
+    $ syno downloadstation|dl listTasks --payload '{"limit":1}'
+    $ syno downloadstation|dl getTasksInfo --pretty --payload '{"id":"task_id"}'
 ```
 
 ## Examples
