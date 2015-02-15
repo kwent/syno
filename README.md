@@ -102,6 +102,28 @@ Usage: downloadstation|dl [options] <method>
     $ syno downloadstation|dl getTasksInfo --pretty --payload '{"id":"task_id"}'
 ```
 
+```
+$ syno as --help
+Usage: audiostation|as [options] <method>
+
+  DSM Audio Station API
+
+  Options:
+
+    -h, --help               output usage information
+    -c, --config <path>      DSM configuration file. Default to ~/.syno/config.yaml
+    -u, --url <url>          DSM URL. Default to https://admin:password@localhost:5001
+    -p, --payload <payload>  JSON Payload
+    -P, --pretty             Prettyprint JSON Output
+    -d, --debug              Enabling Debugging Output
+
+  Examples:
+
+    $ syno audiostation|as listSongs --payload '{"limit":1}'
+    $ syno audiostation|as listAlbums
+    $ syno audiostation|as searchSong --payload '{"title":"victoria"}'
+```
+
 ## Examples
 
 ### Without a configuration file
