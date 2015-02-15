@@ -27,7 +27,7 @@ execute = (api, cmd, options) ->
       process.exit 1
     
     syno[api][cmd] payload, (err, data) ->
-      console.log "[ERROR] : %s", err if err
+      console.log err if err
       if options.pretty
         data = JSON.stringify data, undefined, 2
       else
