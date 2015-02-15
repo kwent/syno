@@ -7,7 +7,23 @@ Utils = mod syno.Utils
 # Class API
 class API
 
-    # Privat noop class
+    # Errors
+    errors =
+      100: 'Unknown error'
+      101: 'Invalid parameter'
+      102: 'The requested API does not exist'
+      103: 'The requested method does not exist'
+      104: 'The requested version does not support the functionality'
+      105: 'The logged in session does not have permission'
+      106: 'Session timeout'
+      107: 'Session interrupted by duplicate login'
+      400: 'No such account or incorrect password'
+      401: 'Account disabled'
+      402: 'Permission denied'
+      403: '2-step verification code required'
+      404: '￼Failed to authenticate 2-step verification code'
+    
+    # Private noop class
     noop = ->
 
     # Constructor for the API class
@@ -39,7 +55,9 @@ class API
             # Call done callback with statusCode error if there is an error with the response
             if response.statusCode isnt 200 then return done response.statusCode
             # Call done callback with error if there is an error server side
-            if not body.success then return done JSON.stringify body.error, null, 4
+            if not body.success
+              error = new Error(errors[body.error.code] or errors[100])
+              return done error.toString()
             # Call done callback with no error and the data property of the response
             done null, body.data
 

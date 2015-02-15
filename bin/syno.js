@@ -52,7 +52,7 @@ execute = function(api, cmd, options) {
   }
   return syno[api][cmd](payload, function(err, data) {
     if (err) {
-      console.log("[ERROR] : %s", err);
+      console.log(err);
     }
     if (options.pretty) {
       data = JSON.stringify(data, void 0, 2);
