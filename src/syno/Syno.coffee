@@ -6,6 +6,7 @@ request = require 'request'
 Auth = mod syno.Auth
 FileStation = mod syno.FileStation
 DownloadStation = mod syno.DownloadStation
+SurveillanceStation = mod syno.SurveillanceStation
 
 # Class Syno
 class Syno
@@ -45,3 +46,5 @@ class Syno
         @fs = @fileStation = new FileStation this
         # Add Download Station API
         @dl = @downloadStation = new DownloadStation this
+        # Add Surveillance Station API
+        @ss = @surveillanceStation = new SurveillanceStation this
