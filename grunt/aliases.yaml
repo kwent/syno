@@ -1,4 +1,5 @@
 default:
+    - coffeelint:syno
     - clean:tmp
     - nsgen:syno
     - wrap:syno

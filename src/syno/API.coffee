@@ -21,7 +21,7 @@ class API
     # `options.path`    [String] API path
     # `options.method`  [String] API method
     # `options.params`  [Object] API parameters
-    request: (options={}, done=noop)->
+    request: (options = {}, done = noop)->
         # Get protocol, host and port variables from syno instance
         {protocol, host, port} = @syno
         # Get api, version, path, method, params variables from options

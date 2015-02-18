@@ -11,522 +11,522 @@ class FileStation extends AuthenticatedAPI
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.FileStation.Info"
+                api: 'SYNO.FileStation.Info'
                 version: 1
-                path: "FileStation/info.cgi"
-                method: "getinfo"
+                path: 'FileStation/info.cgi'
+                method: 'getinfo'
         }
 
     listSharedFolders: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.FileStation.List"
+                api: 'SYNO.FileStation.List'
                 version: 1
-                path: "FileStation/file_share.cgi"
-                method: "list_share"
+                path: 'FileStation/file_share.cgi'
+                method: 'list_share'
         }
 
     listFiles: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: ["folder_path"]
+            requiredParams: ['folder_path']
             apiInfos:
-                api: "SYNO.FileStation.List"
+                api: 'SYNO.FileStation.List'
                 version: 1
-                path: "FileStation/file_share.cgi"
-                method: "list"
+                path: 'FileStation/file_share.cgi'
+                method: 'list'
         }
 
     getFilesInfo: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: ["path"]
+            requiredParams: ['path']
             apiInfos:
-                api: "SYNO.FileStation.List"
+                api: 'SYNO.FileStation.List'
                 version: 1
-                path: "FileStation/file_share.cgi"
-                method: "getinfo"
+                path: 'FileStation/file_share.cgi'
+                method: 'getinfo'
         }
 
     startSearch: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: ["folder_path"]
+            requiredParams: ['folder_path']
             apiInfos:
-                api: "SYNO.FileStation.Search"
+                api: 'SYNO.FileStation.Search'
                 version: 1
-                path: "FileStation/file_find.cgi"
-                method: "start"
+                path: 'FileStation/file_find.cgi'
+                method: 'start'
         }
 
     stopSearch: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: ["taskid"]
+            requiredParams: ['taskid']
             apiInfos:
-                api: "SYNO.FileStation.Search"
+                api: 'SYNO.FileStation.Search'
                 version: 1
-                path: "FileStation/file_find.cgi"
-                method: "stop"
+                path: 'FileStation/file_find.cgi'
+                method: 'stop'
         }
 
     listSearch: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: ["taskid"]
+            requiredParams: ['taskid']
             apiInfos:
-                api: "SYNO.FileStation.Search"
+                api: 'SYNO.FileStation.Search'
                 version: 1
-                path: "FileStation/file_find.cgi"
-                method: "list"
+                path: 'FileStation/file_find.cgi'
+                method: 'list'
         }
 
     cleanSearches: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: ["taskid"]
+            requiredParams: ['taskid']
             apiInfos:
-                api: "SYNO.FileStation.Search"
+                api: 'SYNO.FileStation.Search'
                 version: 1
-                path: "FileStation/file_find.cgi"
-                method: "clean"
+                path: 'FileStation/file_find.cgi'
+                method: 'clean'
         }
 
     listVirtualFolders: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "type" ]
+            requiredParams: [ 'type' ]
             apiInfos:
-                api: "SYNO.FileStation.VirtualFolder"
+                api: 'SYNO.FileStation.VirtualFolder'
                 version: 1
-                path: "FileStation/file_virtual.cgi"
-                method: "list"
+                path: 'FileStation/file_virtual.cgi'
+                method: 'list'
         }
 
     listFavorites: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.FileStation.Favorite"
+                api: 'SYNO.FileStation.Favorite'
                 version: 1
-                path: "FileStation/file_favorite.cgi"
-                method: "list"
+                path: 'FileStation/file_favorite.cgi'
+                method: 'list'
         }
 
     addFavorite: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path", "name" ]
+            requiredParams: [ 'path', 'name' ]
             apiInfos:
-                api: "SYNO.FileStation.Favorite"
+                api: 'SYNO.FileStation.Favorite'
                 version: 1
-                path: "FileStation/file_favorite.cgi"
-                method: "list"
+                path: 'FileStation/file_favorite.cgi'
+                method: 'list'
         }
 
     deleteFavorite: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path" ]
+            requiredParams: [ 'path' ]
             apiInfos:
-                api: "SYNO.FileStation.Favorite"
+                api: 'SYNO.FileStation.Favorite'
                 version: 1
-                path: "FileStation/file_favorite.cgi"
-                method: "delete"
+                path: 'FileStation/file_favorite.cgi'
+                method: 'delete'
         }
 
     cleanBrokenFavorites: (params, done)->
         @requestAPI {
             params, done
-        options :
-                api: "SYNO.FileStation.Favorite"
+            apiInfos:
+                api: 'SYNO.FileStation.Favorite'
                 version: 1
-                path: "FileStation/file_favorite.cgi"
-                method: "delete"
+                path: 'FileStation/file_favorite.cgi'
+                method: 'delete'
         }
 
     editFavorite: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path", "name" ]
+            requiredParams: [ 'path', 'name' ]
             apiInfos:
-                api: "SYNO.FileStation.Favorite"
+                api: 'SYNO.FileStation.Favorite'
                 version: 1
-                path: "FileStation/file_favorite.cgi"
-                method: "edit"
+                path: 'FileStation/file_favorite.cgi'
+                method: 'edit'
         }
 
     replaceAllFavorites: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path", "name" ]
+            requiredParams: [ 'path', 'name' ]
             apiInfos:
-                api: "SYNO.FileStation.Favorite"
+                api: 'SYNO.FileStation.Favorite'
                 version: 1
-                path: "FileStation/file_favorite.cgi"
-                method: "replace_all"
+                path: 'FileStation/file_favorite.cgi'
+                method: 'replace_all'
         }
 
     getThumbnail: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path" ]
+            requiredParams: [ 'path' ]
             apiInfos:
-                api: "SYNO.FileStation.Thumb"
+                api: 'SYNO.FileStation.Thumb'
                 version: 1
-                path: "FileStation/file_thumb.cgi"
-                method: "get"
+                path: 'FileStation/file_thumb.cgi'
+                method: 'get'
         }
 
     startDirSize: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path" ]
+            requiredParams: [ 'path' ]
             apiInfos:
-                api: "SYNO.FileStation.DirSize"
+                api: 'SYNO.FileStation.DirSize'
                 version: 1
-                path: "FileStation/file_dirSize.cgi"
-                method: "start"
+                path: 'FileStation/file_dirSize.cgi'
+                method: 'start'
         }
 
     statusDirSize: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.FileStation.DirSize"
+                api: 'SYNO.FileStation.DirSize'
                 version: 1
-                path: "FileStation/file_dirSize.cgi"
-                method: "status"
+                path: 'FileStation/file_dirSize.cgi'
+                method: 'status'
         }
 
     stopDirSize: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.FileStation.DirSize"
+                api: 'SYNO.FileStation.DirSize'
                 version: 1
-                path: "FileStation/file_dirSize.cgi"
-                method: "stop"
+                path: 'FileStation/file_dirSize.cgi'
+                method: 'stop'
         }
 
     startMD5: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "file_path" ]
+            requiredParams: [ 'file_path' ]
             apiInfos:
-                api: "SYNO.FileStation.MD5"
+                api: 'SYNO.FileStation.MD5'
                 version: 1
-                path: "FileStation/file_md5.cgi"
-                method: "start"
+                path: 'FileStation/file_md5.cgi'
+                method: 'start'
         }
 
     statusMD5: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.FileStation.MD5"
+                api: 'SYNO.FileStation.MD5'
                 version: 1
-                path: "FileStation/file_md5.cgi"
-                method: "status"
+                path: 'FileStation/file_md5.cgi'
+                method: 'status'
         }
 
     stopMD5: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.FileStation.MD5"
+                api: 'SYNO.FileStation.MD5'
                 version: 1
-                path: "FileStation/file_md5.cgi"
-                method: "stop"
+                path: 'FileStation/file_md5.cgi'
+                method: 'stop'
         }
 
     checkWritePermission: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path" ]
+            requiredParams: [ 'path' ]
             apiInfos:
-                api: "SYNO.FileStation.MD5"
+                api: 'SYNO.FileStation.MD5'
                 version: 1
-                path: "FileStation/file_md5.cgi"
-                method: "status"
+                path: 'FileStation/file_md5.cgi'
+                method: 'status'
         }
 
     getSharingLinkInfo: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "id" ]
+            requiredParams: [ 'id' ]
             apiInfos:
-                api: "SYNO.FileStation.Sharing"
+                api: 'SYNO.FileStation.Sharing'
                 version: 1
-                path: "FileStation/file_sharing.cgi"
-                method: "getinfo"
+                path: 'FileStation/file_sharing.cgi'
+                method: 'getinfo'
         }
 
     listSharingLinks: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.FileStation.Sharing"
+                api: 'SYNO.FileStation.Sharing'
                 version: 1
-                path: "FileStation/file_sharing.cgi"
-                method: "list"
+                path: 'FileStation/file_sharing.cgi'
+                method: 'list'
         }
 
     createSharingLinks: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path" ]
+            requiredParams: [ 'path' ]
             apiInfos:
-                api: "SYNO.FileStation.Sharing"
+                api: 'SYNO.FileStation.Sharing'
                 version: 1
-                path: "FileStation/file_sharing.cgi"
-                method: "create"
+                path: 'FileStation/file_sharing.cgi'
+                method: 'create'
         }
 
     deleteSharingLinks: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "id" ]
+            requiredParams: [ 'id' ]
             apiInfos:
-                api: "SYNO.FileStation.Sharing"
+                api: 'SYNO.FileStation.Sharing'
                 version: 1
-                path: "FileStation/file_sharing.cgi"
-                method: "delete"
+                path: 'FileStation/file_sharing.cgi'
+                method: 'delete'
         }
 
     clearInvalidSharingLinks: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.FileStation.Sharing"
+                api: 'SYNO.FileStation.Sharing'
                 version: 1
-                path: "FileStation/file_sharing.cgi"
-                method: "clear_invalid"
+                path: 'FileStation/file_sharing.cgi'
+                method: 'clear_invalid'
         }
 
     editSharingLinks: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "id" ]
+            requiredParams: [ 'id' ]
             apiInfos:
-                api: "SYNO.FileStation.Sharing"
+                api: 'SYNO.FileStation.Sharing'
                 version: 1
-                path: "FileStation/file_sharing.cgi"
-                method: "edit"
+                path: 'FileStation/file_sharing.cgi'
+                method: 'edit'
         }
 
     createFolder: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path", "name" ]
+            requiredParams: [ 'path', 'name' ]
             apiInfos:
-                api: "SYNO.FileStation.CreateFolder"
+                api: 'SYNO.FileStation.CreateFolder'
                 version: 1
-                path: "FileStation/file_crtfdr.cgi"
-                method: "create"
+                path: 'FileStation/file_crtfdr.cgi'
+                method: 'create'
         }
 
     rename: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path", "name" ]
+            requiredParams: [ 'path', 'name' ]
             apiInfos:
-                api: "SYNO.FileStation.Rename"
+                api: 'SYNO.FileStation.Rename'
                 version: 1
-                path: "FileStation/file_rename.cgi"
-                method: "rename"
+                path: 'FileStation/file_rename.cgi'
+                method: 'rename'
         }
 
     startCopyMove: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path", "dest_folder_path" ]
+            requiredParams: [ 'path', 'dest_folder_path' ]
             apiInfos:
-                api: "SYNO.FileStation.CopyMove"
+                api: 'SYNO.FileStation.CopyMove'
                 version: 1
-                path: "FileStation/file_MVCP.cgi"
-                method: "start"
+                path: 'FileStation/file_MVCP.cgi'
+                method: 'start'
         }
 
     statusCopyMove: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.FileStation.CopyMove"
+                api: 'SYNO.FileStation.CopyMove'
                 version: 1
-                path: "FileStation/file_MVCP.cgi"
-                method: "status"
+                path: 'FileStation/file_MVCP.cgi'
+                method: 'status'
         }
 
     stopCopyMove: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.FileStation.CopyMove"
+                api: 'SYNO.FileStation.CopyMove'
                 version: 1
-                path: "FileStation/file_MVCP.cgi"
-                method: "stop"
+                path: 'FileStation/file_MVCP.cgi'
+                method: 'stop'
         }
 
     startDelete: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path" ]
+            requiredParams: [ 'path' ]
             apiInfos:
-                api: "SYNO.FileStation.Delete"
+                api: 'SYNO.FileStation.Delete'
                 version: 1
-                path: "FileStation/file_delete.cgi"
-                method: "start"
+                path: 'FileStation/file_delete.cgi'
+                method: 'start'
         }
 
     statusDelete: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.FileStation.Delete"
+                api: 'SYNO.FileStation.Delete'
                 version: 1
-                path: "FileStation/file_delete.cgi"
-                method: "status"
+                path: 'FileStation/file_delete.cgi'
+                method: 'status'
         }
 
     stopDelete: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.FileStation.Delete"
+                api: 'SYNO.FileStation.Delete'
                 version: 1
-                path: "FileStation/file_delete.cgi"
-                method: "stop"
+                path: 'FileStation/file_delete.cgi'
+                method: 'stop'
         }
 
     delete: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path" ]
+            requiredParams: [ 'path' ]
             apiInfos:
-                api: "SYNO.FileStation.Delete"
+                api: 'SYNO.FileStation.Delete'
                 version: 1
-                path: "FileStation/file_delete.cgi"
-                method: "delete"
+                path: 'FileStation/file_delete.cgi'
+                method: 'delete'
         }
 
     startExtract: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "file_path", "dest_folder_path" ]
+            requiredParams: [ 'file_path', 'dest_folder_path' ]
             apiInfos:
-                api: "SYNO.FileStation.Extract"
+                api: 'SYNO.FileStation.Extract'
                 version: 1
-                path: "FileStation/file_extract.cgi"
-                method: "start"
+                path: 'FileStation/file_extract.cgi'
+                method: 'start'
         }
 
     statusExtract: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.FileStation.Extract"
+                api: 'SYNO.FileStation.Extract'
                 version: 1
-                path: "FileStation/file_extract.cgi"
-                method: "status"
+                path: 'FileStation/file_extract.cgi'
+                method: 'status'
         }
 
     stopExtract: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.FileStation.Extract"
+                api: 'SYNO.FileStation.Extract'
                 version: 1
-                path: "FileStation/file_extract.cgi"
-                method: "stop"
+                path: 'FileStation/file_extract.cgi'
+                method: 'stop'
         }
 
     listArchiveFiles: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "file_path" ]
+            requiredParams: [ 'file_path' ]
             apiInfos:
-                api: "SYNO.FileStation.Extract"
+                api: 'SYNO.FileStation.Extract'
                 version: 1
-                path: "FileStation/file_extract.cgi"
-                method: "list"
+                path: 'FileStation/file_extract.cgi'
+                method: 'list'
         }
 
     startCompress: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "path", "dest_file_path" ]
+            requiredParams: [ 'path', 'dest_file_path' ]
             apiInfos:
-                api: "SYNO.FileStation.Compress"
+                api: 'SYNO.FileStation.Compress'
                 version: 1
-                path: "FileStation/file_compress.cgi"
-                method: "start"
+                path: 'FileStation/file_compress.cgi'
+                method: 'start'
         }
 
     statusCompress: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.FileStation.Compress"
+                api: 'SYNO.FileStation.Compress'
                 version: 1
-                path: "FileStation/file_compress.cgi"
-                method: "status"
+                path: 'FileStation/file_compress.cgi'
+                method: 'status'
         }
 
     stopCompress: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.FileStation.Compress"
+                api: 'SYNO.FileStation.Compress'
                 version: 1
-                path: "FileStation/file_compress.cgi"
-                method: "stop"
+                path: 'FileStation/file_compress.cgi'
+                method: 'stop'
         }
 
     listBackgroundTasks: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.FileStation.BackgroundTask"
+                api: 'SYNO.FileStation.BackgroundTask'
                 version: 1
-                path: "FileStation/background_task.cgi"
-                method: "list"
+                path: 'FileStation/background_task.cgi'
+                method: 'list'
         }
 
     clearFinishedBackgroundTasks: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.FileStation.BackgroundTask"
+                api: 'SYNO.FileStation.BackgroundTask'
                 version: 1
-                path: "FileStation/background_task.cgi"
-                method: "clear_finished"
+                path: 'FileStation/background_task.cgi'
+                method: 'clear_finished'
         }
 
     # Private
     upload = (syno, params, done)->
         {params, done} = Utils.optionalParamsAndDone {params, done}
-        Utils.checkRequiredParams params, [ "dest_folder_path", "filename" ]
+        Utils.checkRequiredParams params, [ 'dest_folder_path', 'filename' ]
 
         {protocol, host, port} = syno
 
-        api = "SYNO.FileStation.Upload"
-        version = "1"
-        path = "FileStation/api_upload.cgi"
-        method = "upload"
+        api = 'SYNO.FileStation.Upload'
+        version = '1'
+        path = 'FileStation/api_upload.cgi'
+        method = 'upload'
 
         url = "#{protocol}://#{host}:#{port}/webapi/#{path}"
         formData = defaults {api, version, method}, params
@@ -543,19 +543,19 @@ class FileStation extends AuthenticatedAPI
         else syno.auth.login (error)-> if error then done error else upload syno, params, done
 
     # Private
-    download = (syno, params, done)=>
+    download = (syno, params, done)->
         {params, done} = Utils.optionalParamsAndDone {params, done}
-        Utils.checkRequiredParams params, [ "path", "stream" ]
+        Utils.checkRequiredParams params, [ 'path', 'stream' ]
 
         stream = params.stream
         delete params.stream
 
         {protocol, host, port} = syno
 
-        api = "SYNO.FileStation.Download"
+        api = 'SYNO.FileStation.Download'
         version = 1
-        path = "FileStation/file_download.cgi"
-        method = "download"
+        path = 'FileStation/file_download.cgi'
+        method = 'download'
 
         url = "#{protocol}://#{host}:#{port}/webapi/#{path}"
         qs = defaults {api, version, method}, params

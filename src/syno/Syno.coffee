@@ -13,9 +13,9 @@ class Syno
     # Default synology parameters
     defParams =
         # Default protocol is HTTP (`http`)
-        protocol: "http"
+        protocol: 'http'
         # Default host is `localhost`
-        host: "localhost"
+        host: 'localhost'
         # Default port is `5000`
         port: 5000
 
@@ -31,8 +31,8 @@ class Syno
         defaults this, params, defParams
 
         # Throw errors if required params are not passed
-        if not @account then throw new Error "Did not specified `account` for syno"
-        if not @passwd then throw new Error "Did not specified `passwd` for syno"
+        if not @account then throw new Error 'Did not specified `account` for syno'
+        if not @passwd then throw new Error 'Did not specified `passwd` for syno'
 
         # Create request with jar
         @request = request.defaults jar: true, json: true

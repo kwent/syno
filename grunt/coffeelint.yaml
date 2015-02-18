@@ -1,0 +1,4 @@
+syno:
+    src: src/**/*.coffee
+    options:
+        configFile: .coffeelint
