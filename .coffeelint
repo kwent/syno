@@ -1,0 +1,42 @@
+{
+    "colon_assignment_spacing": {
+        "level": "error",
+        "spacing": {
+            "left": 0,
+            "right": 1
+        }
+    },
+    "indentation": {
+        "level": "error",
+        "value": 4
+    },
+    "line_endings": {
+        "level": "error",
+        "value": "unix"
+    },
+    "max_line_length": {
+        "level": "error",
+        "value": 120
+    },
+    "no_empty_param_list": {
+        "level": "error"
+    },
+    "no_interpolation_in_single_quotes": {
+        "level": "error"
+    },
+    "space_operators": {
+        "level": "error"
+    },
+    "prefer_english_operator": {
+        "level": "error"
+    },
+    "spacing_after_comma": {
+        "level": "error"
+    },
+    "no_unnecessary_double_quotes": {
+        "level": "error"
+    },
+    "no_unnecessary_fat_arrows": {
+        "level": "error"
+    }
+}
