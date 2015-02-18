@@ -13,7 +13,11 @@ var syno = new Syno({
     passwd: 'synology'
 });
 
-syno.dl.getDownloadStationInfo(function (error, data) {
-  console.log(error);
+// syno.dl.getDownloadStationInfo(function (error, data) {
+//   console.log(error);
+//   console.log(data);
+// });
+
+syno.fs.getMethods(function (data) {
   console.log(data);
 });

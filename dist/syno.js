@@ -1239,6 +1239,17 @@ mod(syno.FileStation, function() {
       }
     };
 
+    FileStation.prototype.getMethods = function(done) {
+      var prop, ret;
+      ret = [];
+      for (prop in this.fs) {
+        if (this.fs[prop] && this.fs[prop].constructor && this.fs[prop].call && this.fs[prop].apply) {
+          ret.push(prop);
+        }
+      }
+      return done(ret);
+    };
+
     return FileStation;
 
   })(AuthenticatedAPI);
