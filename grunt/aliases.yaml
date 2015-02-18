@@ -1,11 +1,6 @@
 default:
     - coffeelint:syno
     - clean:tmp
-    - nsgen:syno
-    - wrap:syno
-    - concat:syno
-    - coffee:syno
-    - concat:exports
     - coffee:syno-cli
     - concat:syno-cli
     - uglify:syno

@@ -1,5 +1,3 @@
-API = mod syno.API
-
 # Auth API
 class Auth extends API
 

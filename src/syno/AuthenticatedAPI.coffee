@@ -1,5 +1,3 @@
-API = mod syno.API
-
 # Authenticated API
 # API that logs in before calling real request
 class AuthenticatedAPI extends API
