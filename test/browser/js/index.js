@@ -11,12 +11,12 @@ app.factory("SynoRequestFactory", function() {
     request: function(protocol, host, username, password, port, api_name, method_name, method_params, callback) {
       
       var syno = new Syno({
-          // Requests protocol : 'http' or 'https' (default: http)
-          protocol: protocol || "https",
-          // DSM host : ip, domain name (default: localhost)
-          host: host || "demo.synology.com",
-          // DSM port : port number (default: 5000)
-          port: port || "5001",
+          // Requests protocol
+          protocol: protocol || 'https',
+          // DSM host : ip, domain name
+          host: host || 'demo.synology.com',
+          // DSM port : port number
+          port: port || '5001',
           // DSM User account (required)
           account: username || 'admin',
           // DSM User password (required)
