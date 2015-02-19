@@ -199,6 +199,10 @@ Be sure to disable [same-origin policy](http://en.wikipedia.org/wiki/Same-origin
 <html>
 ```
 
+## Demo
+
+A demo is available [online](https://github.com/JimRobs/syno) or in the `test/browser` folder.
+
 # License
 
 ```plain
