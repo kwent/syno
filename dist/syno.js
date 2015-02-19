@@ -473,6 +473,26 @@ mod(syno.DownloadStation, function() {
       });
     };
 
+    DownloadStation.prototype.getMethods = function(params, done) {
+      var filtered, k, keys, to_exclude, v;
+      to_exclude = ['constructor', 'request', 'requestAPI'];
+      keys = (function() {
+        var _results;
+        _results = [];
+        for (k in this) {
+          v = this[k];
+          if (typeof v === 'function') {
+            _results.push(k);
+          }
+        }
+        return _results;
+      }).call(this);
+      filtered = keys.filter(function(method_name) {
+        return to_exclude.indexOf(method_name) === -1;
+      });
+      return done(filtered);
+    };
+
     return DownloadStation;
 
   })(AuthenticatedAPI);
@@ -1239,15 +1259,24 @@ mod(syno.FileStation, function() {
       }
     };
 
-    FileStation.prototype.getMethods = function(done) {
-      var prop, ret;
-      ret = [];
-      for (prop in this.fs) {
-        if (this.fs[prop] && this.fs[prop].constructor && this.fs[prop].call && this.fs[prop].apply) {
-          ret.push(prop);
+    FileStation.prototype.getMethods = function(params, done) {
+      var filtered, k, keys, to_exclude, v;
+      to_exclude = ['constructor', 'request', 'requestAPI'];
+      keys = (function() {
+        var _results;
+        _results = [];
+        for (k in this) {
+          v = this[k];
+          if (typeof v === 'function') {
+            _results.push(k);
+          }
         }
-      }
-      return done(ret);
+        return _results;
+      }).call(this);
+      filtered = keys.filter(function(method_name) {
+        return to_exclude.indexOf(method_name) === -1;
+      });
+      return done(filtered);
     };
 
     return FileStation;

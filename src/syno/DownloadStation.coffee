@@ -220,3 +220,9 @@ class DownloadStation extends AuthenticatedAPI
                 path: "DownloadStation/btsearch.cgi"
                 method: "getModule"
         }
+        
+    getMethods: (params, done)->
+      to_exclude = ['constructor', 'request', 'requestAPI']
+      keys = (k for k, v of this when typeof v is 'function')
+      filtered = keys.filter (method_name) -> to_exclude.indexOf(method_name) == -1
+      done filtered

@@ -164,6 +164,31 @@ $ syno fs getFileStationInfo --pretty
 
 More usage [examples](https://github.com/JimRobs/syno/wiki/CLI) in the [wiki](https://github.com/JimRobs/syno/wiki).
 
+# Browser
+
+```html
+<script src="syno.min.js"></script>
+<script type="text/javascript">
+var Syno = require('syno.Syno');
+var syno = new Syno({
+    // Requests protocol : 'http' or 'https' (default: http)
+    protocol: 'https',
+    // DSM host : ip, domain name (default: localhost)
+    host: 'demo.synology.com',
+    // DSM port : port number (default: 5000)
+    port: '5001',
+    // DSM User account (required)
+    account: 'admin',
+    // DSM User password (required)
+    passwd: 'synology'
+});
+
+syno.fs.getFileStationInfo(function(error, data) {
+  console.log(data)  
+});
+</script>
+```
+
 # License
 
 ```plain

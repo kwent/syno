@@ -570,9 +570,8 @@ class FileStation extends AuthenticatedAPI
         if syno.session then download syno, params, done
         else syno.auth.login (error)-> if error then done error else download syno, params, done
         
-    getMethods: (done) ->
-      ret = []
-      for prop of @fs
-        if @fs[prop] and @fs[prop].constructor and @fs[prop].call and @fs[prop].apply
-          ret.push prop
-      done ret
+    getMethods: (params, done)->
+      to_exclude = ['constructor', 'request', 'requestAPI']
+      keys = (k for k, v of this when typeof v is 'function')
+      filtered = keys.filter (method_name) -> to_exclude.indexOf(method_name) == -1
+      done filtered
