@@ -1,6 +1,6 @@
 # Syno
 
-Simple Node.js wrapper and CLI for Synology DSM REST API.
+Simple Node.js wrapper (browser included) and CLI for Synology DSM REST API.
 
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 [![Build Status](https://travis-ci.org/JimRobs/syno.svg?branch=master)](https://travis-ci.org/JimRobs/syno)
@@ -201,7 +201,7 @@ Be sure to disable [same-origin policy](http://en.wikipedia.org/wiki/Same-origin
 
 ## Demo
 
-A demo is available [online](https://github.com/JimRobs/syno) or in the `test/browser` folder.
+A demo is available [online](http://jimrobs.github.io/syno/) or in the `test/browser` folder.
 
 # License
 
