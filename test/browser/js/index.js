@@ -68,14 +68,21 @@ app.controller('SynoController', function($scope, SynoRequestFactory) {
       SynoRequestFactory.request($scope.syno_protocol_selected, $scope.syno_host, $scope.syno_username, $scope.syno_password, $scope.syno_port, $scope.syno_api_name_selected, $scope.syno_method_name_selected, parameters_editor.getValue(), function(err, data) {
         
         if(err)
+        {
           response_editor.setValue(err);
+          $scope.$apply(function(){
+            $scope.syno_button_submit = 'Request';
+            $scope.syno_response_success = false;
+          });
+        }
         else
+        {
           response_editor.setValue(JSON.stringify(data, undefined, 2));
-          
-        $scope.$apply(function(){
-          $scope.syno_button_submit = 'Request';
-          $scope.syno_response_success = true;
-        });
+          $scope.$apply(function(){
+            $scope.syno_button_submit = 'Request';
+            $scope.syno_response_success = true;
+          });  
+        }
       });
     };
     
