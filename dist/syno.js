@@ -475,7 +475,7 @@ mod(syno.DownloadStation, function() {
 
     DownloadStation.prototype.getMethods = function(params, done) {
       var filtered, k, keys, to_exclude, v;
-      to_exclude = ['constructor', 'request', 'requestAPI'];
+      to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
       keys = (function() {
         var _results;
         _results = [];
@@ -1261,7 +1261,7 @@ mod(syno.FileStation, function() {
 
     FileStation.prototype.getMethods = function(params, done) {
       var filtered, k, keys, to_exclude, v;
-      to_exclude = ['constructor', 'request', 'requestAPI'];
+      to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
       keys = (function() {
         var _results;
         _results = [];
