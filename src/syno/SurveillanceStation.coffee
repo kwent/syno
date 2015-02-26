@@ -1,5 +1,3 @@
-AuthenticatedAPI = mod syno.AuthenticatedAPI
-
 class SurveillanceStation extends AuthenticatedAPI
 
     getSurveillanceStationInfo: (params, done)->
