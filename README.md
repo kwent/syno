@@ -97,9 +97,9 @@ syno.fs.listFiles({'folder_path':'/path/to/folder'}, callback);
 // Download Station API - List download tasks
 syno.dl.listFiles({'limit':5, 'offset':10}, callback);
 // Download Station API - Create a download task
-syno.dl.createTask({"uri":"https://link"}, callback);
+syno.dl.createTask({'uri':'https://link'}, callback);
 // Audio Station API - Search a song
-syno.as.searchSong({'title' : 'my_title_song'}, callback);
+syno.as.searchSong({'title':'my_title_song'}, callback);
 ```
 # CLI
 
