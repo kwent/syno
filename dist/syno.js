@@ -1657,8 +1657,7 @@
             module = {};
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
-              var AuthenticatedAPI, VideoStation;
-              AuthenticatedAPI = mod(syno.AuthenticatedAPI);
+              var VideoStation;
               VideoStation = (function(superClass) {
                 extend1(VideoStation, superClass);
         
