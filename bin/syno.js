@@ -67,12 +67,13 @@ execute = function(api, cmd, options) {
   });
 };
 
-program.version('1.0.2').description('Synology Rest API Command Line').option('-c, --config <path>', "DSM Configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
+program.version('1.0.4').description('Synology Rest API Command Line').option('-c, --config <path>', "DSM Configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
   console.log('  Commands:');
   console.log('');
   console.log('    filestation|fs [options] <method>  DSM File Station API');
   console.log('    downloadstation|dl [options] <method>  DSM Download Station API');
   console.log('    audiostation|as [options] <method>  DSM Audio Station API');
+  console.log('    videostation|vs [options] <method>  DSM Video Station API');
   return console.log('');
 }).on('--help', function() {
   console.log('  Examples:');
@@ -80,6 +81,7 @@ program.version('1.0.2').description('Synology Rest API Command Line').option('-
   console.log('    $ syno filestation|fs getFileStationInfo');
   console.log('    $ syno downloadstation|dl getDownloadStationInfo');
   console.log('    $ syno audiostation|as getAudioStationInfo');
+  console.log('    $ syno videostation|vs getVideoStationInfo');
   return console.log('');
 });
 
@@ -87,7 +89,7 @@ program.parse(process.argv);
 
 if (program.args.length === 0) {
   program.help();
-} else if (program.args.length > 0 && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'audiostation' && program.args[0] !== 'fs' && program.args[0] !== 'dl' && program.args[0] !== 'as') {
+} else if (program.args.length > 0 && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'audiostation' && program.args[0] !== 'videostation' && program.args[0] !== 'fs' && program.args[0] !== 'dl' && program.args[0] !== 'as' && program.args[0] !== 'vs') {
   console.log('');
   console.log("  [ERROR] : " + program.args[0] + " is not a valid command !");
   console.log('');
@@ -96,6 +98,7 @@ if (program.args.length === 0) {
   console.log('    $ syno filestation|fs [options] <method> DSM File Station API');
   console.log('    $ syno downloadstation|dl [options] <method> DSM Download Station API');
   console.log('    $ syno audiostation|as [options] <method> DSM Audio Station API');
+  console.log('    $ syno videostation|vs [options] <method> DSM Video Station API');
   console.log('');
   process.exit(1);
 }
@@ -237,6 +240,20 @@ program.command('audiostation <method>').alias('as').description('DSM Audio Stat
     console.log('[DEBUG] : DSM Audio Station API command selected');
   }
   return execute('as', cmd, options);
+});
+
+program.command('videostation <method>').alias('vs').description('DSM Video Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
+  console.log('  Examples:');
+  console.log('');
+  console.log('    $ syno videostation|vs listSongs --payload \'{"limit":1}\'');
+  console.log('    $ syno videostation|vs listAlbums');
+  console.log('    $ syno videostation|vs searchSong --payload \'{"title":"victoria"}\'');
+  return console.log('');
+}).action(function(cmd, options) {
+  if (program.debug) {
+    console.log('[DEBUG] : DSM Video Station API command selected');
+  }
+  return execute('vs', cmd, options);
 });
 
 program.parse(process.argv);
