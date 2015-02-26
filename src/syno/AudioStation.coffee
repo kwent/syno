@@ -1,5 +1,3 @@
-AuthenticatedAPI = mod syno.AuthenticatedAPI
-
 class AudioStation extends AuthenticatedAPI
 
     # SYNO.AudioStation.Info (AudioStation/info.cgi)

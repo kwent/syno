@@ -1,10 +1,6 @@
 # Require lodash functions
 {defaults} = require 'lodash'
 
-# Get syno modules
-AuthenticatedAPI = mod syno.AuthenticatedAPI
-Utils = mod syno.Utils
-
 class FileStation extends AuthenticatedAPI
 
     getFileStationInfo: (params, done)->

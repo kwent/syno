@@ -1,0 +1,6 @@
+syno:
+    src: src/syno/**/*.coffee
+    dest: dist/syno.js
+    options:
+        exports: Syno
+        autoexports: true
