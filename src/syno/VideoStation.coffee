@@ -1,5 +1,3 @@
-AuthenticatedAPI = mod syno.AuthenticatedAPI
-
 class VideoStation extends AuthenticatedAPI
 
     # SYNO.VideoStation.Info (VideoStation/info.cgi)
