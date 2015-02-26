@@ -1,2 +1,6 @@
 syno-cli:
   command: 'sh test/cli/syno.sh'
+  
+syno-browserify:
+  # Workaround cause gulp-browserify doesn't work.
+  command: 'browserify -r ./dist/syno.js:syno.Syno > ./dist/syno.min.js'

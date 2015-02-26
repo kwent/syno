@@ -3,7 +3,9 @@ default:
     - clean:tmp
     - coffee:syno-cli
     - concat:syno-cli
+    - shell:syno-browserify
     - uglify:syno
+    - concat:syno-browser
     - clean:tmp
 
 test:

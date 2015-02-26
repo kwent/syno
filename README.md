@@ -1,6 +1,6 @@
 # Syno
 
-Simple Node.js wrapper and CLI for Synology DSM REST API.
+Simple Node.js wrapper (browser included) and CLI for Synology DSM REST API.
 
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 [![Build Status](https://travis-ci.org/JimRobs/syno.svg?branch=master)](https://travis-ci.org/JimRobs/syno)
@@ -39,6 +39,7 @@ To get more information (parameters, response data, ...) use the PDF documents (
 * [Authentication Syno API](https://github.com/JimRobs/syno/wiki/Authentication-API)
 * [File Station Syno API](https://github.com/JimRobs/syno/wiki/File-Station-API)
 * [Download Station Syno API](https://github.com/JimRobs/syno/wiki/Download-Station-API)
+* [Audio Station Syno API](https://github.com/JimRobs/syno/wiki/Audio-Station-API)
 
 # Javascript wrapper
 
@@ -46,15 +47,15 @@ To get more information (parameters, response data, ...) use the PDF documents (
 var Syno = require('syno');
 var syno = new Syno({
     // Requests protocol : 'http' or 'https' (default: http)
-    protocol: "http",
+    protocol: 'https',
     // DSM host : ip, domain name (default: localhost)
-    host: "localhost",
+    host: 'demo.synology.com',
     // DSM port : port number (default: 5000)
-    port: "5000",
+    port: '5001',
     // DSM User account (required)
-    account: 'user_account',
+    account: 'admin',
     // DSM User password (required)
-    passwd: 'user_password'
+    passwd: 'synology'
 });
 ```
 
@@ -96,7 +97,9 @@ syno.fs.listFiles({'folder_path':'/path/to/folder'}, callback);
 // Download Station API - List download tasks
 syno.dl.listFiles({'limit':5, 'offset':10}, callback);
 // Download Station API - Create a download task
-syno.dl.createTask({"uri":"https://link"}, callback);
+syno.dl.createTask({'uri':'https://link'}, callback);
+// Audio Station API - Search a song
+syno.as.searchSong({'title':'my_title_song'}, callback);
 ```
 # CLI
 
@@ -115,11 +118,13 @@ Usage: syno [options]
 
     filestation|fs [options] <method>  DSM File Station API
     downloadstation|dl [options] <method>  DSM Download Station API
+    audiostation|as [options] <method>  DSM Audio Station API
 
   Examples:
 
     $ syno filestation|fs getFileStationInfo
     $ syno downloadstation|dl getDownloadStationInfo
+    $ syno audiostation|as getAudioStationInfo
 ```
 ## Examples
 
@@ -132,6 +137,8 @@ $ syno fs listFiles --payload '{"folder_path":"/path/to/folder"}' --pretty
 $ syno dl listFiles --payload '{"limit":5, "offset":10}' --pretty
 # Download Station API - Create a download task
 $ syno dl createTask --payload '{"uri":"https://link"}'
+# Audio Station API - Search a song
+$ syno as searchSong --payload '{"title":"my_title_song"}' --pretty
 ```
 
 
@@ -163,6 +170,45 @@ $ syno fs getFileStationInfo --pretty
 ```
 
 More usage [examples](https://github.com/JimRobs/syno/wiki/CLI) in the [wiki](https://github.com/JimRobs/syno/wiki).
+
+# Browser
+
+## Note
+
+Be sure to disable [same-origin policy](http://en.wikipedia.org/wiki/Same-origin_policy) in your browser.
+
+## Example
+
+```html
+<html>
+  <head>
+  <script src="syno.min.js"></script>
+  <script type="text/javascript">
+  var Syno = require('syno.Syno');
+  var syno = new Syno({
+      // Requests protocol : 'http' or 'https' (default: http)
+      protocol: 'https',
+      // DSM host : ip, domain name (default: localhost)
+      host: 'demo.synology.com',
+      // DSM port : port number (default: 5000)
+      port: '5001',
+      // DSM User account (required)
+      account: 'admin',
+      // DSM User password (required)
+      passwd: 'synology'
+  });
+
+  syno.fs.getFileStationInfo(function(error, data) {
+    console.log(data)  
+  });
+  </script>
+  </head>
+<html>
+```
+
+## Demo
+
+A demo is available [online](http://jimrobs.github.io/syno/) or in the `test/browser` folder.
 
 # License
 
