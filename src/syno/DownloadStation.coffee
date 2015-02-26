@@ -1,5 +1,3 @@
-AuthenticatedAPI = mod syno.AuthenticatedAPI
-
 class DownloadStation extends AuthenticatedAPI
 
     getDownloadStationInfo: (params, done)->

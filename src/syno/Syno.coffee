@@ -2,12 +2,6 @@
 request = require 'request'
 {defaults} = require 'lodash'
 
-# Get syno modules
-Auth = mod syno.Auth
-FileStation = mod syno.FileStation
-DownloadStation = mod syno.DownloadStation
-AudioStation = mod syno.AudioStation
-
 # Class Syno
 class Syno
 
