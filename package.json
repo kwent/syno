@@ -1,7 +1,7 @@
 {
   "name": "syno",
-  "version": "1.0.2",
-  "description": "Simple Synology API wrapper for Auth, FileStation and DownloadStation.",
+  "version": "1.0.3",
+  "description": "Simple Node.js wrapper (browser included) and CLI for Synology DSM REST API.",
   "main": "dist/syno.js",
   "scripts": {
     "test": "grunt test"
