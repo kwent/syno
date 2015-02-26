@@ -87,7 +87,7 @@ program.parse(process.argv);
 
 if (program.args.length === 0) {
   program.help();
-} else if ((program.args.length > 0 && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'audiostation' && program.args[0] !== 'fs' && program.args[0] !== 'dl', program.args[0] !== 'as')) {
+} else if (program.args.length > 0 && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'audiostation' && program.args[0] !== 'fs' && program.args[0] !== 'dl' && program.args[0] !== 'as') {
   console.log('');
   console.log("  [ERROR] : " + program.args[0] + " is not a valid command !");
   console.log('');

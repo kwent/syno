@@ -16,3 +16,7 @@ syno-cli:
       banner: "#!/usr/bin/env node\n\n"
     src: tmp/coffee/syno-cli.js
     dest: bin/syno.js
+    
+syno-browser:
+    src: dist/syno.min.js
+    dest: test/browser/js/syno.min.js

@@ -569,3 +569,9 @@ class FileStation extends AuthenticatedAPI
         syno = @syno
         if syno.session then download syno, params, done
         else syno.auth.login (error)-> if error then done error else download syno, params, done
+        
+    getMethods: (params, done)->
+        to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods']
+        keys = (k for k, v of this when typeof v is 'function')
+        filtered = keys.filter (method_name) -> to_exclude.indexOf(method_name) is -1
+        done filtered

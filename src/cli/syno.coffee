@@ -67,7 +67,7 @@ else if (program.args.length > 0 and
           program.args[0] isnt 'downloadstation' and
           program.args[0] isnt 'audiostation' and
           program.args[0] isnt 'fs' and
-          program.args[0] isnt 'dl'
+          program.args[0] isnt 'dl' and
           program.args[0] isnt 'as')
     console.log ''
     console.log "  [ERROR] : #{program.args[0]} is not a valid command !"
