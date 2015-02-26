@@ -40,6 +40,7 @@ To get more information (parameters, response data, ...) use the PDF documents (
 * [File Station Syno API](https://github.com/JimRobs/syno/wiki/File-Station-API)
 * [Download Station Syno API](https://github.com/JimRobs/syno/wiki/Download-Station-API)
 * [Audio Station Syno API](https://github.com/JimRobs/syno/wiki/Audio-Station-API)
+* [Video Station Syno API](https://github.com/JimRobs/syno/wiki/Video-Station-API)
 
 # Javascript wrapper
 
@@ -100,6 +101,8 @@ syno.dl.listFiles({'limit':5, 'offset':10}, callback);
 syno.dl.createTask({'uri':'https://link'}, callback);
 // Audio Station API - Search a song
 syno.as.searchSong({'title':'my_title_song'}, callback);
+// Video Station API - List movies
+syno.vs.listMovies({'limit':5}, callback);
 ```
 # CLI
 
@@ -119,12 +122,14 @@ Usage: syno [options]
     filestation|fs [options] <method>  DSM File Station API
     downloadstation|dl [options] <method>  DSM Download Station API
     audiostation|as [options] <method>  DSM Audio Station API
+    videostation|vs [options] <method>  DSM Video Station API
 
   Examples:
 
     $ syno filestation|fs getFileStationInfo
     $ syno downloadstation|dl getDownloadStationInfo
     $ syno audiostation|as getAudioStationInfo
+    $ syno videostation|vs getVideoStationInfo
 ```
 ## Examples
 
@@ -139,6 +144,8 @@ $ syno dl listFiles --payload '{"limit":5, "offset":10}' --pretty
 $ syno dl createTask --payload '{"uri":"https://link"}'
 # Audio Station API - Search a song
 $ syno as searchSong --payload '{"title":"my_title_song"}' --pretty
+# Video Station API - List movies
+$ syno as listMovies --payload '{"limit":5}' --pretty
 ```
 
 
