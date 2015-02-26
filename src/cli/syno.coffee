@@ -244,9 +244,8 @@ program
 .on '--help', ->
     console.log '  Examples:'
     console.log ''
-    console.log '    $ syno videostation|vs listSongs --payload \'{"limit":1}\''
-    console.log '    $ syno videostation|vs listAlbums'
-    console.log '    $ syno videostation|vs searchSong --payload \'{"title":"victoria"}\''
+    console.log '    $ syno videostation|vs listMovies --payload \'{"limit":1}\''
+    console.log '    $ syno videostation|vs getTVShowEpisodeInfo --payload \'{"id":"episode_id"}\''
     console.log ''
 .action (cmd, options) ->
     console.log '[DEBUG] : DSM Video Station API command selected' if program.debug
