@@ -47,6 +47,7 @@
     "path-extra": "^0.3.0"
   },
   "devDependencies": {
+    "browserify": "^8.1.3",
     "coffeelint": "^1.8.1",
     "grunt": "^0.4.5",
     "grunt-coffeelint": "0.0.13",
@@ -59,7 +60,6 @@
     "grunt-nsgen": "^0.1.3",
     "grunt-shell": "^1.1.1",
     "grunt-wrap": "^0.3.0",
-    "browserify": "^8.1.3",
     "load-grunt-config": "^0.16.0",
     "time-grunt": "^1.0.0"
   }
