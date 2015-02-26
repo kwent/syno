@@ -15,7 +15,8 @@
     "synology",
     "dsm",
     "filestation",
-    "downloadstation"
+    "downloadstation",
+    "audiostation"
   ],
   "author": {
     "name": "jimrobs",

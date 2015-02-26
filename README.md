@@ -39,6 +39,7 @@ To get more information (parameters, response data, ...) use the PDF documents (
 * [Authentication Syno API](https://github.com/JimRobs/syno/wiki/Authentication-API)
 * [File Station Syno API](https://github.com/JimRobs/syno/wiki/File-Station-API)
 * [Download Station Syno API](https://github.com/JimRobs/syno/wiki/Download-Station-API)
+* [Audio Station Syno API](https://github.com/JimRobs/syno/wiki/Audio-Station-API)
 
 # Javascript wrapper
 
@@ -97,6 +98,8 @@ syno.fs.listFiles({'folder_path':'/path/to/folder'}, callback);
 syno.dl.listFiles({'limit':5, 'offset':10}, callback);
 // Download Station API - Create a download task
 syno.dl.createTask({"uri":"https://link"}, callback);
+// Audio Station API - Search a song
+syno.as.searchSong({'title' : 'my_title_song'}, callback);
 ```
 # CLI
 
@@ -115,11 +118,13 @@ Usage: syno [options]
 
     filestation|fs [options] <method>  DSM File Station API
     downloadstation|dl [options] <method>  DSM Download Station API
+    audiostation|as [options] <method>  DSM Audio Station API
 
   Examples:
 
     $ syno filestation|fs getFileStationInfo
     $ syno downloadstation|dl getDownloadStationInfo
+    $ syno audiostation|as getAudioStationInfo
 ```
 ## Examples
 
@@ -132,6 +137,8 @@ $ syno fs listFiles --payload '{"folder_path":"/path/to/folder"}' --pretty
 $ syno dl listFiles --payload '{"limit":5, "offset":10}' --pretty
 # Download Station API - Create a download task
 $ syno dl createTask --payload '{"uri":"https://link"}'
+# Audio Station API - Search a song
+$ syno as searchSong --payload '{"title":"my_title_song"}' --pretty
 ```
 
 

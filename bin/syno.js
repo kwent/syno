@@ -72,12 +72,14 @@ program.version('1.0.2').description('Synology Rest API Command Line').option('-
   console.log('');
   console.log('    filestation|fs [options] <method>  DSM File Station API');
   console.log('    downloadstation|dl [options] <method>  DSM Download Station API');
+  console.log('    audiostation|as [options] <method>  DSM Audio Station API');
   return console.log('');
 }).on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno filestation|fs getFileStationInfo');
   console.log('    $ syno downloadstation|dl getDownloadStationInfo');
+  console.log('    $ syno audiostation|as getAudioStationInfo');
   return console.log('');
 });
 
@@ -85,7 +87,7 @@ program.parse(process.argv);
 
 if (program.args.length === 0) {
   program.help();
-} else if (program.args.length > 0 && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'fs' && program.args[0] !== 'dl') {
+} else if ((program.args.length > 0 && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'audiostation' && program.args[0] !== 'fs' && program.args[0] !== 'dl', program.args[0] !== 'as')) {
   console.log('');
   console.log("  [ERROR] : " + program.args[0] + " is not a valid command !");
   console.log('');
@@ -93,6 +95,7 @@ if (program.args.length === 0) {
   console.log('');
   console.log('    $ syno filestation|fs [options] <method> DSM File Station API');
   console.log('    $ syno downloadstation|dl [options] <method> DSM Download Station API');
+  console.log('    $ syno audiostation|as [options] <method> DSM Audio Station API');
   console.log('');
   process.exit(1);
 }
@@ -220,6 +223,20 @@ program.command('downloadstation <method>').alias('dl').description('DSM Downloa
     console.log('[DEBUG] : DSM Download Station API command selected');
   }
   return execute('dl', cmd, options);
+});
+
+program.command('audiostation <method>').alias('as').description('DSM Audio Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
+  console.log('  Examples:');
+  console.log('');
+  console.log('    $ syno audiostation|as listSongs --payload \'{"limit":1}\'');
+  console.log('    $ syno audiostation|as listAlbums');
+  console.log('    $ syno audiostation|as searchSong --payload \'{"title":"victoria"}\'');
+  return console.log('');
+}).action(function(cmd, options) {
+  if (program.debug) {
+    console.log('[DEBUG] : DSM Audio Station API command selected');
+  }
+  return execute('as', cmd, options);
 });
 
 program.parse(process.argv);
