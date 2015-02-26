@@ -5,7 +5,7 @@ class Utils
     # `options`         [Object]
     # `options.params`  [Object]    Parameters object.
     # `options.done`    [Function]  Done callback.
-    @optionalParamsAndDone: (options={})->
+    @optionalParamsAndDone: (options = {})->
         # Get params and done varaibles from options
         {params, done} = options
 
@@ -21,6 +21,6 @@ class Utils
 
     # Check if required parameters are present in `params`
     # If a required param is not present, raise an Error
-    @checkRequiredParams: (params, required=[])->
+    @checkRequiredParams: (params, required = [])->
         # For each required params, if it is not present in the params argument, raise an Error
         each required, (key)-> throw new Error "#{key} param is required" if not params[key]

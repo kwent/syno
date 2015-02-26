@@ -1,222 +1,226 @@
-AuthenticatedAPI = mod syno.AuthenticatedAPI
-
 class DownloadStation extends AuthenticatedAPI
 
     getDownloadStationInfo: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.DownloadStation.Info"
+                api: 'SYNO.DownloadStation.Info'
                 version: 1
-                path: "DownloadStation/info.cgi"
-                method: "getinfo"
+                path: 'DownloadStation/info.cgi'
+                method: 'getinfo'
         }
 
     getDownloadStationConfig: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.DownloadStation.Info"
+                api: 'SYNO.DownloadStation.Info'
                 version: 1
-                path: "DownloadStation/info.cgi"
-                method: "getconfig"
+                path: 'DownloadStation/info.cgi'
+                method: 'getconfig'
         }
 
     setDownloadStationConfig: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.DownloadStation.Info"
+                api: 'SYNO.DownloadStation.Info'
                 version: 1
-                path: "DownloadStation/info.cgi"
-                method: "setserverconfig"
+                path: 'DownloadStation/info.cgi'
+                method: 'setserverconfig'
         }
 
     getScheduleConfig: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.DownloadStation.Schedule"
+                api: 'SYNO.DownloadStation.Schedule'
                 version: 1
-                path: "DownloadStation/schedule.cgi"
-                method: "getconfig"
+                path: 'DownloadStation/schedule.cgi'
+                method: 'getconfig'
         }
 
     setScheduleConfig: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.DownloadStation.Schedule"
+                api: 'SYNO.DownloadStation.Schedule'
                 version: 1
-                path: "DownloadStation/schedule.cgi"
-                method: "setconfig"
+                path: 'DownloadStation/schedule.cgi'
+                method: 'setconfig'
         }
 
     listTasks: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.DownloadStation.Task"
+                api: 'SYNO.DownloadStation.Task'
                 version: 1
-                path: "DownloadStation/task.cgi"
-                method: "list"
+                path: 'DownloadStation/task.cgi'
+                method: 'list'
         }
 
     getTasksInfo: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "id" ]
+            requiredParams: [ 'id' ]
             apiInfos:
-                api: "SYNO.DownloadStation.Task"
+                api: 'SYNO.DownloadStation.Task'
                 version: 1
-                path: "DownloadStation/task.cgi"
-                method: "getinfo"
+                path: 'DownloadStation/task.cgi'
+                method: 'getinfo'
         }
 
     createTask: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.DownloadStation.Task"
+                api: 'SYNO.DownloadStation.Task'
                 version: 3
-                path: "DownloadStation/task.cgi"
-                method: "create"
+                path: 'DownloadStation/task.cgi'
+                method: 'create'
         }
 
     deleteTasks: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "id" ]
+            requiredParams: [ 'id' ]
             apiInfos:
-                api: "SYNO.DownloadStation.Task"
+                api: 'SYNO.DownloadStation.Task'
                 version: 1
-                path: "DownloadStation/task.cgi"
-                method: "delete"
+                path: 'DownloadStation/task.cgi'
+                method: 'delete'
         }
 
     pauseTasks: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "id" ]
+            requiredParams: [ 'id' ]
             apiInfos:
-                api: "SYNO.DownloadStation.Task"
+                api: 'SYNO.DownloadStation.Task'
                 version: 1
-                path: "DownloadStation/task.cgi"
-                method: "pause"
+                path: 'DownloadStation/task.cgi'
+                method: 'pause'
         }
 
     resumeTasks: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "id" ]
+            requiredParams: [ 'id' ]
             apiInfos:
-                api: "SYNO.DownloadStation.Task"
+                api: 'SYNO.DownloadStation.Task'
                 version: 1
-                path: "DownloadStation/task.cgi"
-                method: "resume"
+                path: 'DownloadStation/task.cgi'
+                method: 'resume'
         }
 
     editTasks: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "id" ]
+            requiredParams: [ 'id' ]
             apiInfos:
-                api: "SYNO.DownloadStation.Task"
+                api: 'SYNO.DownloadStation.Task'
                 version: 2
-                path: "DownloadStation/task.cgi"
-                method: "edit"
+                path: 'DownloadStation/task.cgi'
+                method: 'edit'
         }
 
     getStats: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.DownloadStation.Statistic"
+                api: 'SYNO.DownloadStation.Statistic'
                 version: 1
-                path: "DownloadStation/statistic.cgi"
-                method: "getinfo"
+                path: 'DownloadStation/statistic.cgi'
+                method: 'getinfo'
         }
 
     listRSSSites: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.DownloadStation.RSS.Site"
+                api: 'SYNO.DownloadStation.RSS.Site'
                 version: 1
-                path: "DownloadStation/RSSsite.cgi"
-                method: "list"
+                path: 'DownloadStation/RSSsite.cgi'
+                method: 'list'
         }
 
     refreshRSSSites: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "id" ]
+            requiredParams: [ 'id' ]
             apiInfos:
-                api: "SYNO.DownloadStation.RSS.Site"
+                api: 'SYNO.DownloadStation.RSS.Site'
                 version: 1
-                path: "DownloadStation/RSSsite.cgi"
-                method: "refresh"
+                path: 'DownloadStation/RSSsite.cgi'
+                method: 'refresh'
         }
 
     listRSSFeeds: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.DownloadStation.RSS.Feed"
+                api: 'SYNO.DownloadStation.RSS.Feed'
                 version: 1
-                path: "DownloadStation/RSSfeed.cgi"
-                method: "list"
+                path: 'DownloadStation/RSSfeed.cgi'
+                method: 'list'
         }
 
     startBTSearch: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "keyword", "module" ]
+            requiredParams: [ 'keyword', 'module' ]
             apiInfos:
-                api: "SYNO.DownloadStation.BTSearch"
+                api: 'SYNO.DownloadStation.BTSearch'
                 version: 1
-                path: "DownloadStation/btsearch.cgi"
-                method: "start"
+                path: 'DownloadStation/btsearch.cgi'
+                method: 'start'
         }
 
     listBTSearch: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.DownloadStation.BTSearch"
+                api: 'SYNO.DownloadStation.BTSearch'
                 version: 1
-                path: "DownloadStation/btsearch.cgi"
-                method: "start"
+                path: 'DownloadStation/btsearch.cgi'
+                method: 'start'
         }
 
     getBTSearchCategories: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.DownloadStation.BTSearch"
+                api: 'SYNO.DownloadStation.BTSearch'
                 version: 1
-                path: "DownloadStation/btsearch.cgi"
-                method: "getCategory"
+                path: 'DownloadStation/btsearch.cgi'
+                method: 'getCategory'
         }
 
     cleanBTSearch: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ "taskid" ]
+            requiredParams: [ 'taskid' ]
             apiInfos:
-                api: "SYNO.DownloadStation.BTSearch"
+                api: 'SYNO.DownloadStation.BTSearch'
                 version: 1
-                path: "DownloadStation/btsearch.cgi"
-                method: "clean"
+                path: 'DownloadStation/btsearch.cgi'
+                method: 'clean'
         }
 
     getBTSearchModules: (params, done)->
         @requestAPI {
             params, done
             apiInfos:
-                api: "SYNO.DownloadStation.BTSearch"
+                api: 'SYNO.DownloadStation.BTSearch'
                 version: 1
-                path: "DownloadStation/btsearch.cgi"
-                method: "getModule"
+                path: 'DownloadStation/btsearch.cgi'
+                method: 'getModule'
         }
+        
+    getMethods: (params, done)->
+        to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods']
+        keys = (k for k, v of this when typeof v is 'function')
+        filtered = keys.filter (method_name) -> to_exclude.indexOf(method_name) is -1
+        done filtered

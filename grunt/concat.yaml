@@ -1,18 +1,9 @@
-syno:
-    src:
-        - gen/ns/syno.coffee
-        - "tmp/wrap/syno/**/*.coffee"
-        - src/globals/exports.coffee
-    dest: tmp/concat/syno.coffee
-
-exports:
-    src:
-        - libs/mod.min.js
-        - tmp/coffee/syno.js
-    dest: dist/syno.js
-    
 syno-cli:
     options:
       banner: "#!/usr/bin/env node\n\n"
     src: tmp/coffee/syno-cli.js
     dest: bin/syno.js
+    
+syno-browser:
+    src: dist/syno.min.js
+    dest: test/browser/js/syno.min.js

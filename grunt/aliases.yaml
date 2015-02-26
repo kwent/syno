@@ -1,13 +1,12 @@
 default:
+    - coffeelint:syno
     - clean:tmp
-    - nsgen:syno
-    - wrap:syno
-    - concat:syno
-    - coffee:syno
-    - concat:exports
     - coffee:syno-cli
     - concat:syno-cli
+    - mokuai-coffee:syno
+    - shell:syno-browserify
     - uglify:syno
+    - concat:syno-browser
     - clean:tmp
 
 test:

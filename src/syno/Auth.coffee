@@ -1,22 +1,20 @@
-API = mod syno.API
-
 # Auth API
 class Auth extends API
 
     # API name
-    api = "SYNO.API.Auth"
+    api = 'SYNO.API.Auth'
     # API version
     version = 3
     # API path
-    path = "auth.cgi"
+    path = 'auth.cgi'
 
     # Login to Syno
     # `done` [Function] Callback called when the login processed is complete
     login: (done)->
         # API method is `login`
-        method = "login"
+        method = 'login'
         # Use a unique session
-        session = "SYNO_SESSION_"+Date.now()
+        session = 'SYNO_SESSION_' + Date.now()
         # Init the request parameters
         params =
             account: @syno.account
@@ -34,7 +32,7 @@ class Auth extends API
         # Don't do anything if there is no session
         if not @syno.session then return null
         # API method is `logout`
-        method = "logout"
+        method = 'logout'
         # Init logout parameters
         params = session: @syno.session
 

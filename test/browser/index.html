@@ -1,0 +1,55 @@
+<html ng-app="SynoModule">
+
+  <head>
+    <title>Synology Browserify</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.13/angular.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/syno.min.js"></script>
+    <script src="js/index.js"></script>
+  </head>
+
+  <body>
+    <h3>Note: Be sure to disable <a href="http://en.wikipedia.org/wiki/Same-origin_policy">same-origin policy</a> in your browser.</h3>
+    OSX: <pre>open -a Google\ Chrome --args --disable-web-security</pre>
+    Linux: <pre>chromium-browser --disable-web-security</pre>
+    Windows: <pre>chrome.exe --disable-web-security</pre>
+    
+    <h2>Syno Browserify</h2>
+    <div ng-controller="SynoController">
+      <form novalidate class="simple-form">
+        Protocol: 
+        <select ng-model="syno_protocol_selected" ng-options="option as option for option in syno_protocol">
+        </select>
+        Host: <input type="text" ng-model="syno_host" />
+        Username: <input type="text" ng-model="syno_username" />
+        Password: <input type="password" ng-model="syno_password" />
+        Port: <input type="number" ng-model="syno_port" />
+        <br/>
+        <br/>
+        API:
+        <select ng-model="syno_api_name_selected" ng-options="option.value as option.name for option in syno_api_name">
+        </select>
+        
+        Method:
+        <select ng-model="syno_method_name_selected" ng-options="option as option for option in method_name_options">
+        </select>
+        <br/>
+        <br/>
+        
+        <h2>Request parameters</h2>
+        <div id="parameters_editor" ng-model="parameters_editor" style="height:100px; width: 25%">{"key":"value"}</div>
+        
+        <br/>
+        <br/>
+        
+        <input ng-model="syno_button_submit" type="submit" ng-click="request()" value="{{syno_button_submit}}" />
+        
+        <h2 ng-show="syno_response_success">Request response</h2>
+        <div ng-show="syno_response_success" id="response_editor" ng-model="response_editor" style="height:400px"></div>
+        
+      </form>
+    </div>
+    
+  </body>
+
+</html>
