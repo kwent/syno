@@ -2298,6 +2298,84 @@
                   return VideoStationDTV.__super__.constructor.apply(this, arguments);
                 }
         
+                VideoStationDTV.prototype.startChannelScan = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.ChannelScan',
+                      version: 1,
+                      path: 'VideoStation/channelscan.cgi',
+                      method: 'start'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.stopChannelScan = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.ChannelScan',
+                      version: 1,
+                      path: 'VideoStation/channelscan.cgi',
+                      method: 'stop'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.statusChannelScan = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.ChannelScan',
+                      version: 1,
+                      path: 'VideoStation/channelscan.cgi',
+                      method: 'status'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.startDVBSScan = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.DVBSScan',
+                      version: 1,
+                      path: 'VideoStation/dvbsscan.cgi',
+                      method: 'start'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.stopDVBSScan = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.DVBSScan',
+                      version: 1,
+                      path: 'VideoStation/dvbsscan.cgi',
+                      method: 'stop'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.statusDVBSScan = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.DVBSScan',
+                      version: 1,
+                      path: 'VideoStation/dvbsscan.cgi',
+                      method: 'status'
+                    }
+                  });
+                };
+        
                 VideoStationDTV.prototype.listDTVChannels = function(params, done) {
                   return this.requestAPI({
                     params: params,
@@ -2333,6 +2411,20 @@
                       version: 1,
                       path: 'VideoStation/programlist.cgi',
                       method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.searchDTVProgram = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.DTV.Program',
+                      version: 1,
+                      path: 'VideoStation/programlist.cgi',
+                      method: 'search'
                     }
                   });
                 };
@@ -2393,7 +2485,6 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['id'],
                     apiInfos: {
                       api: 'SYNO.DTV.Tuner',
                       version: 1,

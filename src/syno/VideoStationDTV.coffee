@@ -5,10 +5,37 @@ class VideoStationDTV extends AuthenticatedAPI
     # getcountry
     # getregion
     # getconfig
-    # start
-    # stop
-    # status
 
+    startChannelScan: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.DTV.ChannelScan'
+                version: 1
+                path: 'VideoStation/channelscan.cgi'
+                method: 'start'
+        }
+
+    stopChannelScan: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.DTV.ChannelScan'
+                version: 1
+                path: 'VideoStation/channelscan.cgi'
+                method: 'stop'
+        }
+        
+    statusChannelScan: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.DTV.ChannelScan'
+                version: 1
+                path: 'VideoStation/channelscan.cgi'
+                method: 'status'
+        }
+        
     # SYNO.DTV.DVBSScan (VideoStation/dvbsscan.cgi)
     # TODO
     # getconfig
@@ -23,10 +50,37 @@ class VideoStationDTV extends AuthenticatedAPI
     # get_tp
     # get_tp_default
     # save_tp
-    # start
-    # stop
-    # status
+    
+    startDVBSScan: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.DTV.DVBSScan'
+                version: 1
+                path: 'VideoStation/dvbsscan.cgi'
+                method: 'start'
+        }
 
+    stopDVBSScan: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.DTV.DVBSScan'
+                version: 1
+                path: 'VideoStation/dvbsscan.cgi'
+                method: 'stop'
+        }
+        
+    statusDVBSScan: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.DTV.DVBSScan'
+                version: 1
+                path: 'VideoStation/dvbsscan.cgi'
+                method: 'status'
+        }
+        
     # SYNO.DTV.Channel (VideoStation/channellist.cgi)
     # TODO
     # delete_all_channels
@@ -54,7 +108,6 @@ class VideoStationDTV extends AuthenticatedAPI
         
     # SYNO.DTV.Program (VideoStation/programlist.cgi)
     # TODO
-    # search
     # update
     
     listDTVPrograms: (params, done)->
@@ -66,7 +119,18 @@ class VideoStationDTV extends AuthenticatedAPI
                 path: 'VideoStation/programlist.cgi'
                 method: 'list'
         }
-            
+
+    searchDTVProgram: (params, done)->
+        @requestAPI {
+            params, done
+            requiredParams: [ 'title' ]
+            apiInfos:
+                api: 'SYNO.DTV.Program'
+                version: 1
+                path: 'VideoStation/programlist.cgi'
+                method: 'search'
+        }
+        
     # SYNO.DTV.Schedule (VideoStation/schedule_recording.cgi)
     # TODO
     # create
@@ -142,7 +206,6 @@ class VideoStationDTV extends AuthenticatedAPI
     getDTVTunerInfo: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'id' ]
             apiInfos:
                 api: 'SYNO.DTV.Tuner'
                 version: 1
