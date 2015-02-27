@@ -4,6 +4,18 @@
 # Class API
 class API
 
+    # Handle API errors
+    error: (code)->
+        switch code
+            when 101 then 'No parameter of API, method or version'
+            when 102 then 'The requested API does not exist'
+            when 103 then 'The requested method does not exist'
+            when 104 then 'The requested version does not support the functionality'
+            when 105 then 'The logged in session does not have permission'
+            when 106 then 'Session timeout'
+            when 107 then 'Session interrupted by duplicate login'
+            else 'Unknown error'
+
     # Privat noop class
     noop = ->
 
@@ -30,13 +42,22 @@ class API
         qs = defaults {api, version, method}, params
 
         # Launch syno request with url and querystring
-        @syno.request {url, qs}, (error, response, body)->
+        @syno.request {url, qs}, (error, response, body)=>
             # Call done callback with error if there is an error
             if error then return done error
             # Call done callback with statusCode error if there is an error with the response
-            if response.statusCode isnt 200 then return done response.statusCode
+            if response.statusCode isnt 200
+                error = new Error "HTTP status code: #{response.statusCode}"
+                error.response = response
+                return done error
             # Call done callback with error if there is an error server side
-            if not body.success then return done JSON.stringify body.error, null, 4
+            if not body.success or
+              (body.success and body.data and body.data instanceof Array and body.data[0] and body.data[0].error)
+                code = if body.error then body.error.code else body.data[0].error
+                error = new Error @error code, api
+                error.code = code
+                error.errors = body.error.errors if body.error and body.error.errors
+                return done error
             # Call done callback with no error and the data property of the response
             done null, body.data
 

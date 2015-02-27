@@ -41,3 +41,14 @@ class Auth extends API
 
         # Request logout
         @request {api, version, path, method, params}, done
+
+    # Handle auth specific errors
+    error: (code)->
+        switch code
+            when 400 then return 'No such account or incorrect password'
+            when 401 then return 'Account disabled'
+            when 402 then return 'Permission denied'
+            when 403 then return '2-step verification code required'
+            when 404 then return 'Failed to authenticate 2-step verification code'
+        # No specific error, so call super function
+        return super
