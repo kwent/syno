@@ -257,6 +257,8 @@ class VideoStation extends AuthenticatedAPI
     # setimage
 
     # SYNO.VideoStation.Rating (VideoStation/rater.cgi)
+    # TODO
+    # updateinfo
     
     getRatingInfo: (params, done)->
         @requestAPI {
@@ -294,10 +296,6 @@ class VideoStation extends AuthenticatedAPI
                 path: 'VideoStation/subtitle.cgi'
                 method: 'list'
         }
-
-    # SYNO.VideoStation.Rating (VideoStation/rater.cgi)
-    # TODO
-    # updateinfo
     
     # SYNO.VideoStation.AudioTrack (VideoStation/audiotrack.cgi)
     
