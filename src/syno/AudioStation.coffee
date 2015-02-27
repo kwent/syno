@@ -180,8 +180,7 @@ class AudioStation extends AuthenticatedAPI
                 path: 'AudioStation/remote_player.cgi'
                 method: 'list'
         }
-    
-    
+
     # SYNO.AudioStation.Proxy (AudioStation/proxy.cgi)
     # TODO
     # getstreamid
@@ -193,10 +192,19 @@ class AudioStation extends AuthenticatedAPI
     # TODO
     # getLyrics
     # setlyrics
-    
+        
     # SYNO.AudioStation.LyricsSearch (AudioStation/lyrics_search.cgi)
-    # TODO
-    # searchlyrics
+    
+    searchLyrics: (params, done)->
+        @requestAPI {
+            params, done
+            requiredParams: [ 'title' ]
+            apiInfos:
+                api: 'SYNO.AudioStation.LyricsSearch'
+                version: 1
+                path: 'AudioStation/lyrics_search.cgi'
+                method: 'searchlyrics'
+        }
 
     # SYNO.AudioStation.MediaServer (AudioStation/media_server.cgi)
     
