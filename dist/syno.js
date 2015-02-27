@@ -328,6 +328,20 @@
                   });
                 };
         
+                AudioStation.prototype.searchLyrics = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.AudioStation.LyricsSearch',
+                      version: 1,
+                      path: 'AudioStation/lyrics_search.cgi',
+                      method: 'searchlyrics'
+                    }
+                  });
+                };
+        
                 AudioStation.prototype.listMediaServers = function(params, done) {
                   return this.requestAPI({
                     params: params,
