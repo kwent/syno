@@ -1838,6 +1838,7 @@
                   this.dl = this.downloadStation = new DownloadStation(this);
                   this.as = this.audioStation = new AudioStation(this);
                   this.vs = this.videoStation = new VideoStation(this);
+                  this.dtv = this.videoStationDTV = new VideoStationDTV(this);
                 }
         
                 return Syno;
@@ -2171,111 +2172,6 @@
                   });
                 };
         
-                VideoStation.prototype.listDTVChannels = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Channel',
-                      version: 1,
-                      path: 'VideoStation/channellist.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.getDTVChannelsInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Channel',
-                      version: 1,
-                      path: 'VideoStation/channellist.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listDTVPrograms = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Program',
-                      version: 1,
-                      path: 'VideoStation/programlist.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listDTVSchedules = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Schedule',
-                      version: 1,
-                      path: 'VideoStation/schedule_recording.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.getDTVStatusInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Status',
-                      version: 1,
-                      path: 'VideoStation/dvtstatus.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.getDTVStatisticsInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Statistic',
-                      version: 1,
-                      path: 'VideoStation/dtvstatistic.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listDTVTuners = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Tuner',
-                      version: 1,
-                      path: 'VideoStation/tuner.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.getDTVTunerInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.DTV.Tuner',
-                      version: 1,
-                      path: 'VideoStation/tuner.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
                 VideoStation.prototype.getMethods = function(params, done) {
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
@@ -2300,6 +2196,152 @@
         
               })(AuthenticatedAPI);
               return module.exports = VideoStation;
+            })(modules, module, exports, void 0, void 0);
+            return module.exports;
+          });
+        
+          setModule('VideoStationDTV', function() {
+            var exports, module;
+            module = {};
+            exports = module.exports = {};
+            (function(modules, module, exports, setModule, setter) {
+              var VideoStationDTV;
+              VideoStationDTV = (function(superClass) {
+                extend1(VideoStationDTV, superClass);
+        
+                function VideoStationDTV() {
+                  return VideoStationDTV.__super__.constructor.apply(this, arguments);
+                }
+        
+                VideoStationDTV.prototype.listDTVChannels = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Channel',
+                      version: 1,
+                      path: 'VideoStation/channellist.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.getDTVChannelsInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Channel',
+                      version: 1,
+                      path: 'VideoStation/channellist.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.listDTVPrograms = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Program',
+                      version: 1,
+                      path: 'VideoStation/programlist.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.listDTVSchedules = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Schedule',
+                      version: 1,
+                      path: 'VideoStation/schedule_recording.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.getDTVStatusInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Status',
+                      version: 1,
+                      path: 'VideoStation/dvtstatus.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.getDTVStatisticsInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Statistic',
+                      version: 1,
+                      path: 'VideoStation/dtvstatistic.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.listDTVTuners = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Tuner',
+                      version: 1,
+                      path: 'VideoStation/tuner.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.getDTVTunerInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['id'],
+                    apiInfos: {
+                      api: 'SYNO.DTV.Tuner',
+                      version: 1,
+                      path: 'VideoStation/tuner.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.getMethods = function(params, done) {
+                  var filtered, k, keys, to_exclude, v;
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
+                  keys = (function() {
+                    var results;
+                    results = [];
+                    for (k in this) {
+                      v = this[k];
+                      if (typeof v === 'function') {
+                        results.push(k);
+                      }
+                    }
+                    return results;
+                  }).call(this);
+                  filtered = keys.filter(function(method_name) {
+                    return to_exclude.indexOf(method_name) === -1;
+                  });
+                  return done(filtered);
+                };
+        
+                return VideoStationDTV;
+        
+              })(AuthenticatedAPI);
+              return module.exports = VideoStationDTV;
             })(modules, module, exports, void 0, void 0);
             return module.exports;
           });

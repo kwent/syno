@@ -60,6 +60,8 @@ valid "node bin/syno.js dl createTask -u $URL -p '{\"uri\":\"$HTTP_FILE\"}' -d" 
 valid "node bin/syno.js as getAudioStationInfo -u $URL -d" &&
 valid "node bin/syno.js as listSongs -u $URL -p '{\"limit\":2}' -P -d" &&
 valid "node bin/syno.js vs getVideoStationInfo -u $URL -d" &&
-valid "node bin/syno.js vs listMovies -u $URL -p '{\"limit\":2}' -P -d"
+valid "node bin/syno.js vs listMovies -u $URL -p '{\"limit\":2}' -P -d" &&
+valid "node bin/syno.js dtv listDTVChannels -u $URL -d" &&
+valid "node bin/syno.js dtv listDTVPrograms -u $URL -p '{\"limit\":2}' -P -d"
 
 echo "End Tests CLI :" `date`

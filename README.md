@@ -41,6 +41,7 @@ To get more information (parameters, response data, ...) use the PDF documents (
 * [Download Station Syno API](https://github.com/JimRobs/syno/wiki/Download-Station-API)
 * [Audio Station Syno API](https://github.com/JimRobs/syno/wiki/Audio-Station-API)
 * [Video Station Syno API](https://github.com/JimRobs/syno/wiki/Video-Station-API)
+* [Video Station DTV Syno API](https://github.com/JimRobs/syno/wiki/Video-Station-DTV-API)
 
 # Javascript wrapper
 
@@ -103,6 +104,8 @@ syno.dl.createTask({'uri':'https://link'}, callback);
 syno.as.searchSong({'title':'my_title_song'}, callback);
 // Video Station API - List movies
 syno.vs.listMovies({'limit':5}, callback);
+// Video Station DTV API - List channels
+syno.dtv.listDTVChannels({'limit':5}, callback);
 ```
 # CLI
 
@@ -145,7 +148,9 @@ $ syno dl createTask --payload '{"uri":"https://link"}'
 # Audio Station API - Search a song
 $ syno as searchSong --payload '{"title":"my_title_song"}' --pretty
 # Video Station API - List movies
-$ syno as listMovies --payload '{"limit":5}' --pretty
+$ syno vs listMovies --payload '{"limit":5}' --pretty
+# Video Station DTV API - List channels
+$ syno dtv listDTVChannels --payload '{"limit":5}' --pretty
 ```
 
 

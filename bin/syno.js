@@ -89,7 +89,7 @@ program.parse(process.argv);
 
 if (program.args.length === 0) {
   program.help();
-} else if (program.args.length > 0 && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'audiostation' && program.args[0] !== 'videostation' && program.args[0] !== 'fs' && program.args[0] !== 'dl' && program.args[0] !== 'as' && program.args[0] !== 'vs') {
+} else if (program.args.length > 0 && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'audiostation' && program.args[0] !== 'videostation' && program.args[0] !== 'videostationdtv' && program.args[0] !== 'fs' && program.args[0] !== 'dl' && program.args[0] !== 'as' && program.args[0] !== 'vs' && program.args[0] !== 'dtv') {
   console.log('');
   console.log("  [ERROR] : " + program.args[0] + " is not a valid command !");
   console.log('');
@@ -255,6 +255,19 @@ program.command('videostation <method>').alias('vs').description('DSM Video Stat
     console.log('[DEBUG] : DSM Video Station API command selected');
   }
   return execute('vs', cmd, options);
+});
+
+program.command('videostationdtv <method>').alias('dtv').description('DSM Video Station DTV API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
+  console.log('  Examples:');
+  console.log('');
+  console.log('    $ syno videostationdtv|dtv listDTVChannels --payload \'{"limit":1}\'');
+  console.log('    $ syno videostationdtv|dtv getDTVTunerInfo --payload \'{"id":"tuner_id"}\'');
+  return console.log('');
+}).action(function(cmd, options) {
+  if (program.debug) {
+    console.log('[DEBUG] : DSM Video Station DTV API command selected');
+  }
+  return execute('dtv', cmd, options);
 });
 
 program.parse(process.argv);

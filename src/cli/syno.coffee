@@ -69,10 +69,12 @@ else if (program.args.length > 0 and
           program.args[0] isnt 'downloadstation' and
           program.args[0] isnt 'audiostation' and
           program.args[0] isnt 'videostation' and
+          program.args[0] isnt 'videostationdtv' and
           program.args[0] isnt 'fs' and
           program.args[0] isnt 'dl' and
           program.args[0] isnt 'as' and
-          program.args[0] isnt 'vs')
+          program.args[0] isnt 'vs' and
+          program.args[0] isnt 'dtv')
     console.log ''
     console.log "  [ERROR] : #{program.args[0]} is not a valid command !"
     console.log ''
@@ -251,5 +253,25 @@ program
 .action (cmd, options) ->
     console.log '[DEBUG] : DSM Video Station API command selected' if program.debug
     execute 'vs', cmd, options
+    
+program
+.command('videostationdtv <method>')
+.alias('dtv')
+.description('DSM Video Station DTV API')
+.option('-c, --config <path>', "DSM configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
+.option('-u, --url <url>'
+    , "DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}")
+.option('-p, --payload <payload>', 'JSON Payload')
+.option('-P, --pretty', 'Prettyprint JSON Output')
+.option('-d, --debug', 'Enabling Debugging Output')
+.on '--help', ->
+    console.log '  Examples:'
+    console.log ''
+    console.log '    $ syno videostationdtv|dtv listDTVChannels --payload \'{"limit":1}\''
+    console.log '    $ syno videostationdtv|dtv getDTVTunerInfo --payload \'{"id":"tuner_id"}\''
+    console.log ''
+.action (cmd, options) ->
+    console.log '[DEBUG] : DSM Video Station DTV API command selected' if program.debug
+    execute 'dtv', cmd, options
   
 program.parse process.argv
