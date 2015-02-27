@@ -51,11 +51,12 @@ class API
                 error.response = response
                 return done error
             # Call done callback with error if there is an error server side
-            if not body.success
-                code = body.error.code
+            if not body.success or
+              (body.success and body.data and body.data instanceof Array and body.data[0] and body.data[0].error)
+                code = if body.error then body.error.code else body.data[0].error
                 error = new Error @error code, api
                 error.code = code
-                error.errors = body.error.errors
+                error.errors = body.error.errors if body.error and body.error.errors
                 return done error
             # Call done callback with no error and the data property of the response
             done null, body.data

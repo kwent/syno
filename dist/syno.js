@@ -24,34 +24,55 @@
     }
     with(modules){
         (function() {
-          var __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-            __hasProp = {}.hasOwnProperty;
+          var extend1 = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+            hasProp = {}.hasOwnProperty;
         
           setModule('API', function() {
             var exports, module;
             module = {};
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
-              var API, defaults, extend, _ref;
-              _ref = require('lodash'), extend = _ref.extend, defaults = _ref.defaults;
+              var API, defaults, extend, ref;
+              ref = require('lodash'), extend = ref.extend, defaults = ref.defaults;
               API = (function() {
                 var noop;
         
+                API.prototype.error = function(code) {
+                  switch (code) {
+                    case 101:
+                      return 'No parameter of API, method or version';
+                    case 102:
+                      return 'The requested API does not exist';
+                    case 103:
+                      return 'The requested method does not exist';
+                    case 104:
+                      return 'The requested version does not support the functionality';
+                    case 105:
+                      return 'The logged in session does not have permission';
+                    case 106:
+                      return 'Session timeout';
+                    case 107:
+                      return 'Session interrupted by duplicate login';
+                    default:
+                      return 'Unknown error';
+                  }
+                };
+        
                 noop = function() {};
         
-                function API(_at_syno) {
-                  this.syno = _at_syno;
+                function API(syno1) {
+                  this.syno = syno1;
                 }
         
                 API.prototype.request = function(options, done) {
-                  var api, host, method, params, path, port, protocol, qs, url, version, _ref1;
+                  var api, host, method, params, path, port, protocol, qs, ref1, url, version;
                   if (options == null) {
                     options = {};
                   }
                   if (done == null) {
                     done = noop;
                   }
-                  _ref1 = this.syno, protocol = _ref1.protocol, host = _ref1.host, port = _ref1.port;
+                  ref1 = this.syno, protocol = ref1.protocol, host = ref1.host, port = ref1.port;
                   api = options.api, version = options.version, path = options.path, method = options.method, params = options.params;
                   url = protocol + "://" + host + ":" + port + "/webapi/" + path;
                   qs = defaults({
@@ -62,27 +83,38 @@
                   return this.syno.request({
                     url: url,
                     qs: qs
-                  }, function(error, response, body) {
-                    if (error) {
-                      return done(error);
-                    }
-                    if (response.statusCode !== 200) {
-                      return done(response.statusCode);
-                    }
-                    if (!body.success) {
-                      return done(JSON.stringify(body.error, null, 4));
-                    }
-                    return done(null, body.data);
-                  });
+                  }, (function(_this) {
+                    return function(error, response, body) {
+                      var code;
+                      if (error) {
+                        return done(error);
+                      }
+                      if (response.statusCode !== 200) {
+                        error = new Error("HTTP status code: " + response.statusCode);
+                        error.response = response;
+                        return done(error);
+                      }
+                      if (!body.success || (body.success && body.data && body.data instanceof Array && body.data[0] && body.data[0].error)) {
+                        code = body.error ? body.error.code : body.data[0].error;
+                        error = new Error(_this.error(code, api));
+                        error.code = code;
+                        if (body.error && body.error.errors) {
+                          error.errors = body.error.errors;
+                        }
+                        return done(error);
+                      }
+                      return done(null, body.data);
+                    };
+                  })(this));
                 };
         
                 API.prototype.requestAPI = function(args) {
-                  var apiInfos, done, opts, params, requiredParams, _ref1;
+                  var apiInfos, done, opts, params, ref1, requiredParams;
                   apiInfos = args.apiInfos, requiredParams = args.requiredParams, params = args.params, done = args.done;
-                  _ref1 = Utils.optionalParamsAndDone({
+                  ref1 = Utils.optionalParamsAndDone({
                     params: params,
                     done: done
-                  }), params = _ref1.params, done = _ref1.done;
+                  }), params = ref1.params, done = ref1.done;
                   Utils.checkRequiredParams(params, requiredParams);
                   opts = extend({}, apiInfos, {
                     params: params
@@ -104,8 +136,8 @@
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
               var AudioStation;
-              AudioStation = (function(_super) {
-                __extends(AudioStation, _super);
+              AudioStation = (function(superClass) {
+                extend1(AudioStation, superClass);
         
                 function AudioStation() {
                   return AudioStation.__super__.constructor.apply(this, arguments);
@@ -313,15 +345,15 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
                   keys = (function() {
-                    var _results;
-                    _results = [];
+                    var results;
+                    results = [];
                     for (k in this) {
                       v = this[k];
                       if (typeof v === 'function') {
-                        _results.push(k);
+                        results.push(k);
                       }
                     }
-                    return _results;
+                    return results;
                   }).call(this);
                   filtered = keys.filter(function(method_name) {
                     return to_exclude.indexOf(method_name) === -1;
@@ -343,10 +375,10 @@
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
               var Auth;
-              Auth = (function(_super) {
+              Auth = (function(superClass) {
                 var api, path, version;
         
-                __extends(Auth, _super);
+                extend1(Auth, superClass);
         
                 function Auth() {
                   return Auth.__super__.constructor.apply(this, arguments);
@@ -396,6 +428,22 @@
                   }, done);
                 };
         
+                Auth.prototype.error = function(code) {
+                  switch (code) {
+                    case 400:
+                      return 'No such account or incorrect password';
+                    case 401:
+                      return 'Account disabled';
+                    case 402:
+                      return 'Permission denied';
+                    case 403:
+                      return '2-step verification code required';
+                    case 404:
+                      return 'Failed to authenticate 2-step verification code';
+                  }
+                  return Auth.__super__.error.apply(this, arguments);
+                };
+        
                 return Auth;
         
               })(API);
@@ -410,10 +458,10 @@
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
               var AuthenticatedAPI;
-              AuthenticatedAPI = (function(_super) {
+              AuthenticatedAPI = (function(superClass) {
                 var noop;
         
-                __extends(AuthenticatedAPI, _super);
+                extend1(AuthenticatedAPI, superClass);
         
                 function AuthenticatedAPI() {
                   return AuthenticatedAPI.__super__.constructor.apply(this, arguments);
@@ -454,8 +502,8 @@
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
               var DownloadStation;
-              DownloadStation = (function(_super) {
-                __extends(DownloadStation, _super);
+              DownloadStation = (function(superClass) {
+                extend1(DownloadStation, superClass);
         
                 function DownloadStation() {
                   return DownloadStation.__super__.constructor.apply(this, arguments);
@@ -747,20 +795,62 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
                   keys = (function() {
-                    var _results;
-                    _results = [];
+                    var results;
+                    results = [];
                     for (k in this) {
                       v = this[k];
                       if (typeof v === 'function') {
-                        _results.push(k);
+                        results.push(k);
                       }
                     }
-                    return _results;
+                    return results;
                   }).call(this);
                   filtered = keys.filter(function(method_name) {
                     return to_exclude.indexOf(method_name) === -1;
                   });
                   return done(filtered);
+                };
+        
+                DownloadStation.prototype.error = function(code, api) {
+                  if (api === 'SYNO.DownloadStation.Task') {
+                    switch (code) {
+                      case 400:
+                        return 'File upload failed';
+                      case 401:
+                        return 'Max number of tasks reached';
+                      case 402:
+                        return 'Destination denied';
+                      case 403:
+                        return 'Destination does not exist';
+                      case 404:
+                        return 'Invalid task id';
+                      case 405:
+                        return 'Invalid task action';
+                      case 406:
+                        return 'No default destination';
+                      case 407:
+                        return 'Set destination failed';
+                      case 408:
+                        return 'File does not exist';
+                    }
+                  }
+                  if (api === 'SYNO.DownloadStation.BTSearch') {
+                    switch (code) {
+                      case 400:
+                        return 'Unknown error';
+                      case 401:
+                        return 'Invalid parameter';
+                      case 402:
+                        return 'Parse the user setting failed';
+                      case 403:
+                        return 'Get category failed';
+                      case 404:
+                        return 'Get the search result from DB failed';
+                      case 405:
+                        return 'Get the user setting failed';
+                    }
+                  }
+                  return DownloadStation.__super__.error.apply(this, arguments);
                 };
         
                 return DownloadStation;
@@ -778,14 +868,164 @@
             (function(modules, module, exports, setModule, setter) {
               var FileStation, defaults;
               defaults = require('lodash').defaults;
-              FileStation = (function(_super) {
+              FileStation = (function(superClass) {
                 var download, upload;
         
-                __extends(FileStation, _super);
+                extend1(FileStation, superClass);
         
                 function FileStation() {
                   return FileStation.__super__.constructor.apply(this, arguments);
                 }
+        
+                FileStation.prototype.error = function(code, api) {
+                  if (api === 'SYNO.FileStation.Favorite') {
+                    switch (code) {
+                      case 800:
+                        return 'A folder path of favorite folder is already added to user\'s favorites.';
+                      case 801:
+                        return 'A name of favorite folder conflicts with an existing folder path in the user\'s favorites.';
+                      case 802:
+                        return 'There are too many favorites to be added.';
+                    }
+                  }
+                  if (api === 'SYNO.FileStation.Upload') {
+                    switch (code) {
+                      case 1800:
+                        return 'There is no Content-Length information in the HTTP header or the received size doesn\'t match the value of Content-Length information in the HTTP header.';
+                      case 1801:
+                        return 'Wait too long, no date can be received from client (Default maximum wait time is 3600 seconds).';
+                      case 1802:
+                        return 'No filename information in the last part of file content.';
+                      case 1803:
+                        return 'Upload connection is cancelled.';
+                      case 1804:
+                        return 'Failed to upload too big file to FAT file system.';
+                      case 1805:
+                        return 'Can\'t overwrite or skip the existed file, if no overwrite parameter is given.';
+                    }
+                  }
+                  if (api === 'SYNO.FileStation.Sharing') {
+                    switch (code) {
+                      case 2000:
+                        return 'Sharing link does not exist.';
+                      case 2001:
+                        return 'Cannot generate sharing link because too many sharing links exist.';
+                      case 2002:
+                        return 'Failed to access sharing links.';
+                    }
+                  }
+                  if (api === 'SYNO.FileStation.CreateFolder') {
+                    switch (code) {
+                      case 1100:
+                        return 'Failed to create a folder. More information in <errors> object.';
+                      case 1101:
+                        return 'The number of folders to the parent folder would exceed the system limitation.';
+                    }
+                  }
+                  if (api === 'SYNO.FileStation.Rename') {
+                    switch (code) {
+                      case 1200:
+                        return 'Failed to rename it. More information in <errors> object.';
+                    }
+                  }
+                  if (api === 'SYNO.FileStation.CopyMove') {
+                    switch (code) {
+                      case 1000:
+                        return 'Failed to copy files/folders. More information in <errors> object.';
+                      case 1001:
+                        return 'Failed to move files/folders. More information in <errors> object.';
+                      case 1002:
+                        return 'An error occurred at the destination. More information in <errors> object.';
+                      case 1003:
+                        return 'Cannot overwrite or skip the existing file because no overwrite parameter is given.';
+                      case 1004:
+                        return 'File cannot overwrite a folder with the same name, or folder cannot overwrite a file with the same name.';
+                      case 1006:
+                        return 'Cannot copy/move file/folder with special characters to a FAT32 file system.';
+                      case 1007:
+                        return 'Cannot copy/move a file bigger than 4G to a FAT32 file system.';
+                    }
+                  }
+                  if (api === 'SYNO.FileStation.Delete') {
+                    switch (code) {
+                      case 900:
+                        return 'Failed to delete file(s)/folder(s). More information in <errors> object.';
+                    }
+                  }
+                  if (api === 'SYNO.FileStation.Extract') {
+                    switch (code) {
+                      case 1400:
+                        return 'Failed to extract files.';
+                      case 1401:
+                        return 'Cannot open the file as archive.';
+                      case 1402:
+                        return 'Failed to read archive data error';
+                      case 1403:
+                        return 'Wrong password.';
+                      case 1404:
+                        return 'Failed to get the file and dir list in an archive.';
+                      case 1405:
+                        return 'Failed to find the item ID in an archive file.';
+                    }
+                  }
+                  if (api === 'SYNO.FileStation.Compress') {
+                    switch (code) {
+                      case 1300:
+                        return 'Failed to compress files/folders.';
+                      case 1301:
+                        return 'Cannot create the archive because the given archive name is too long.';
+                    }
+                  }
+                  switch (code) {
+                    case 400:
+                      return 'Invalid parameter of file operation';
+                    case 401:
+                      return 'Unknown error of file operation';
+                    case 402:
+                      return 'System is too busy';
+                    case 403:
+                      return 'Invalid user does this file operation';
+                    case 404:
+                      return 'Invalid group does this file operation';
+                    case 405:
+                      return 'Invalid user and group does this file operation';
+                    case 406:
+                      return 'Can\'t get user/group information from the account server';
+                    case 407:
+                      return 'Operation not permitted';
+                    case 408:
+                      return 'No such file or directory';
+                    case 409:
+                      return 'Non-supported file system';
+                    case 410:
+                      return 'Failed to connect internet-based file system (ex: CIFS)';
+                    case 411:
+                      return 'Read-only file system';
+                    case 412:
+                      return 'Filename too long in the non-encrypted file system';
+                    case 413:
+                      return 'Filename too long in the encrypted file system';
+                    case 414:
+                      return 'File already exists';
+                    case 415:
+                      return 'Disk quota exceeded';
+                    case 416:
+                      return 'No space left on device';
+                    case 417:
+                      return 'Input/output error';
+                    case 418:
+                      return 'Illegal name or path';
+                    case 419:
+                      return 'Illegal file name';
+                    case 420:
+                      return 'Illegal file name on FAT file system';
+                    case 421:
+                      return 'Device or resource busy';
+                    case 599:
+                      return 'No such task of the file operation';
+                  }
+                  return FileStation.__super__.error.apply(this, arguments);
+                };
         
                 FileStation.prototype.getFileStationInfo = function(params, done) {
                   return this.requestAPI({
@@ -1438,11 +1678,11 @@
                 };
         
                 upload = function(syno, params, done) {
-                  var api, formData, host, method, path, port, protocol, url, version, _ref;
-                  _ref = Utils.optionalParamsAndDone({
+                  var api, formData, host, method, path, port, protocol, ref, url, version;
+                  ref = Utils.optionalParamsAndDone({
                     params: params,
                     done: done
-                  }), params = _ref.params, done = _ref.done;
+                  }), params = ref.params, done = ref.done;
                   Utils.checkRequiredParams(params, ['dest_folder_path', 'filename']);
                   protocol = syno.protocol, host = syno.host, port = syno.port;
                   api = 'SYNO.FileStation.Upload';
@@ -1489,11 +1729,11 @@
                 };
         
                 download = function(syno, params, done) {
-                  var api, host, method, path, port, protocol, qs, stream, url, version, _ref;
-                  _ref = Utils.optionalParamsAndDone({
+                  var api, host, method, path, port, protocol, qs, ref, stream, url, version;
+                  ref = Utils.optionalParamsAndDone({
                     params: params,
                     done: done
-                  }), params = _ref.params, done = _ref.done;
+                  }), params = ref.params, done = ref.done;
                   Utils.checkRequiredParams(params, ['path', 'stream']);
                   stream = params.stream;
                   delete params.stream;
@@ -1539,15 +1779,15 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
                   keys = (function() {
-                    var _results;
-                    _results = [];
+                    var results;
+                    results = [];
                     for (k in this) {
                       v = this[k];
                       if (typeof v === 'function') {
-                        _results.push(k);
+                        results.push(k);
                       }
                     }
-                    return _results;
+                    return results;
                   }).call(this);
                   filtered = keys.filter(function(method_name) {
                     return to_exclude.indexOf(method_name) === -1;
@@ -1612,8 +1852,8 @@
             module = {};
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
-              var Utils, each, isFunction, isPlainObject, _ref;
-              _ref = require('lodash'), isFunction = _ref.isFunction, isPlainObject = _ref.isPlainObject, each = _ref.each;
+              var Utils, each, isFunction, isPlainObject, ref;
+              ref = require('lodash'), isFunction = ref.isFunction, isPlainObject = ref.isPlainObject, each = ref.each;
               Utils = (function() {
                 function Utils() {}
         
