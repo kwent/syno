@@ -187,7 +187,9 @@ nconf.defaults({
   }
 });
 
-console.log('[DEBUG] : DSM Connection URL configured : %s://%s:%s@%s:%s', nconf.get('url:protocol'), nconf.get('url:account'), nconf.get('url:passwd'), nconf.get('url:host'), program.debug ? nconf.get('url:port') : void 0);
+if (program.debug) {
+  console.log('[DEBUG] : DSM Connection URL configured : %s://%s:%s@%s:%s', nconf.get('url:protocol'), nconf.get('url:account'), nconf.get('url:passwd'), nconf.get('url:host'), nconf.get('url:port'));
+}
 
 syno = new Syno({
   protocol: nconf.get('url:protocol'),
