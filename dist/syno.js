@@ -1932,6 +1932,20 @@
                   });
                 };
         
+                VideoStation.prototype.searchMovie = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Movie',
+                      version: 1,
+                      path: 'VideoStation/movie.cgi',
+                      method: 'search'
+                    }
+                  });
+                };
+        
                 VideoStation.prototype.getMovieInfo = function(params, done) {
                   return this.requestAPI({
                     params: params,
@@ -1955,6 +1969,20 @@
                       version: 1,
                       path: 'VideoStation/tvshow.cgi',
                       method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.searchTVShow = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.TVShow',
+                      version: 1,
+                      path: 'VideoStation/tvshow.cgi',
+                      method: 'search'
                     }
                   });
                 };
@@ -1986,6 +2014,20 @@
                   });
                 };
         
+                VideoStation.prototype.searchTVShowEpisode = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.TVShowEpisode',
+                      version: 1,
+                      path: 'VideoStation/tvshow_episode.cgi',
+                      method: 'search'
+                    }
+                  });
+                };
+        
                 VideoStation.prototype.getTVShowEpisodeInfo = function(params, done) {
                   return this.requestAPI({
                     params: params,
@@ -2013,6 +2055,20 @@
                   });
                 };
         
+                VideoStation.prototype.searchHomeVideo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.HomeVideo',
+                      version: 1,
+                      path: 'VideoStation/homevideo.cgi',
+                      method: 'search'
+                    }
+                  });
+                };
+        
                 VideoStation.prototype.getHomeVideoInfo = function(params, done) {
                   return this.requestAPI({
                     params: params,
@@ -2027,7 +2083,7 @@
                   });
                 };
         
-                VideoStation.prototype.listTVRecording = function(params, done) {
+                VideoStation.prototype.listTVRecordings = function(params, done) {
                   return this.requestAPI({
                     params: params,
                     done: done,
@@ -2036,6 +2092,20 @@
                       version: 1,
                       path: 'VideoStation/tvrecord.cgi',
                       method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.searchTVRecording = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.TVRecording',
+                      version: 1,
+                      path: 'VideoStation/tvrecord.cgi',
+                      method: 'search'
                     }
                   });
                 };
@@ -2067,6 +2137,20 @@
                   });
                 };
         
+                VideoStation.prototype.searchCollection = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Collection',
+                      version: 1,
+                      path: 'VideoStation/collection.cgi',
+                      method: 'search'
+                    }
+                  });
+                };
+        
                 VideoStation.prototype.getCollectionInfo = function(params, done) {
                   return this.requestAPI({
                     params: params,
@@ -2074,7 +2158,7 @@
                     requiredParams: ['id'],
                     apiInfos: {
                       api: 'SYNO.VideoStation.Collection',
-                      version: 1,
+                      version: 2,
                       path: 'VideoStation/collection.cgi',
                       method: 'getinfo'
                     }
@@ -2087,7 +2171,7 @@
                     done: done,
                     apiInfos: {
                       api: 'SYNO.VideoStation.Metadata',
-                      version: 1,
+                      version: 2,
                       path: 'VideoStation/metadata.cgi',
                       method: 'list'
                     }
@@ -2101,7 +2185,7 @@
                     apiInfos: {
                       api: 'SYNO.VideoStation.Rating',
                       version: 1,
-                      path: 'VideoStation/rating.cgi',
+                      path: 'VideoStation/rater.cgi',
                       method: 'getinfo'
                     }
                   });
@@ -2113,7 +2197,7 @@
                     done: done,
                     apiInfos: {
                       api: 'SYNO.VideoStation.Subtitle',
-                      version: 1,
+                      version: 2,
                       path: 'VideoStation/subtitle.cgi',
                       method: 'list'
                     }
@@ -2124,6 +2208,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
+                    requiredParams: ['id'],
                     apiInfos: {
                       api: 'SYNO.VideoStation.AudioTrack',
                       version: 1,
