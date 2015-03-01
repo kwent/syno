@@ -23,4 +23,4 @@ class Utils
     # If a required param is not present, raise an Error
     @checkRequiredParams: (params, required = [])->
         # Return missing params
-        filter required, (key)-> params[key]
+        filter required, (key)-> not params[key]
