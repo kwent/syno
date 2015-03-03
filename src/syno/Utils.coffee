@@ -13,7 +13,7 @@ class Utils
         if not done
             options.done = if isFunction params then params else ->
 
-                # If params is not a plain object, use an empty one
+        # If params is not a plain object, use an empty one
         if not isPlainObject params then options.params = {}
 
         # Return processed options
