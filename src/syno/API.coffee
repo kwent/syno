@@ -1,5 +1,5 @@
 # Require lodash functions
-{extend, defaults} = require 'lodash'
+{extend, defaults, isEmpty, mapValues} = require 'lodash'
 
 # Class API
 class API
@@ -75,8 +75,12 @@ class API
 
         # Process optional parameters and done callback
         {params, done} = Utils.optionalParamsAndDone {params, done}
+        # Force params to be string if they can be converted to strings (boolean, numbers...)
+        params = mapValues params, (param)-> param and param.toString()
         # Check that required parmeters are passed
-        Utils.checkRequiredParams params, requiredParams
+        missing = Utils.checkRequiredParams params, requiredParams
+        # If the missing params array is not empty, stop everything
+        if not isEmpty missing then return done new Error "Missing required params: #{missing.join(', ')}"
         # Create request options based on parameters and api infos
         opts = extend {}, apiInfos, {params}
         # Call request with options and done callback

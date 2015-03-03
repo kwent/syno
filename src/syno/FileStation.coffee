@@ -415,7 +415,7 @@ class FileStation extends AuthenticatedAPI
     createFolder: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'path', 'name' ]
+            requiredParams: [ 'folder_path', 'name' ]
             apiInfos:
                 api: 'SYNO.FileStation.CreateFolder'
                 version: 1

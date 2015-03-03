@@ -24,16 +24,16 @@
     }
     with(modules){
         (function() {
-          var extend1 = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-            hasProp = {}.hasOwnProperty;
+          var __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+            __hasProp = {}.hasOwnProperty;
         
           setModule('API', function() {
             var exports, module;
             module = {};
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
-              var API, defaults, extend, ref;
-              ref = require('lodash'), extend = ref.extend, defaults = ref.defaults;
+              var API, defaults, extend, isEmpty, mapValues, _ref;
+              _ref = require('lodash'), extend = _ref.extend, defaults = _ref.defaults, isEmpty = _ref.isEmpty, mapValues = _ref.mapValues;
               API = (function() {
                 var noop;
         
@@ -60,19 +60,19 @@
         
                 noop = function() {};
         
-                function API(syno1) {
-                  this.syno = syno1;
+                function API(_at_syno) {
+                  this.syno = _at_syno;
                 }
         
                 API.prototype.request = function(options, done) {
-                  var api, host, method, params, path, port, protocol, qs, ref1, url, version;
+                  var api, host, method, params, path, port, protocol, qs, url, version, _ref1;
                   if (options == null) {
                     options = {};
                   }
                   if (done == null) {
                     done = noop;
                   }
-                  ref1 = this.syno, protocol = ref1.protocol, host = ref1.host, port = ref1.port;
+                  _ref1 = this.syno, protocol = _ref1.protocol, host = _ref1.host, port = _ref1.port;
                   api = options.api, version = options.version, path = options.path, method = options.method, params = options.params;
                   url = protocol + "://" + host + ":" + port + "/webapi/" + path;
                   qs = defaults({
@@ -109,13 +109,19 @@
                 };
         
                 API.prototype.requestAPI = function(args) {
-                  var apiInfos, done, opts, params, ref1, requiredParams;
+                  var apiInfos, done, missing, opts, params, requiredParams, _ref1;
                   apiInfos = args.apiInfos, requiredParams = args.requiredParams, params = args.params, done = args.done;
-                  ref1 = Utils.optionalParamsAndDone({
+                  _ref1 = Utils.optionalParamsAndDone({
                     params: params,
                     done: done
-                  }), params = ref1.params, done = ref1.done;
-                  Utils.checkRequiredParams(params, requiredParams);
+                  }), params = _ref1.params, done = _ref1.done;
+                  params = mapValues(params, function(param) {
+                    return param && param.toString();
+                  });
+                  missing = Utils.checkRequiredParams(params, requiredParams);
+                  if (!isEmpty(missing)) {
+                    return done(new Error("Missing required params: " + (missing.join(', '))));
+                  }
                   opts = extend({}, apiInfos, {
                     params: params
                   });
@@ -136,8 +142,8 @@
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
               var AudioStation;
-              AudioStation = (function(superClass) {
-                extend1(AudioStation, superClass);
+              AudioStation = (function(_super) {
+                __extends(AudioStation, _super);
         
                 function AudioStation() {
                   return AudioStation.__super__.constructor.apply(this, arguments);
@@ -359,15 +365,15 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
                   keys = (function() {
-                    var results;
-                    results = [];
+                    var _results;
+                    _results = [];
                     for (k in this) {
                       v = this[k];
                       if (typeof v === 'function') {
-                        results.push(k);
+                        _results.push(k);
                       }
                     }
-                    return results;
+                    return _results;
                   }).call(this);
                   filtered = keys.filter(function(method_name) {
                     return to_exclude.indexOf(method_name) === -1;
@@ -389,10 +395,10 @@
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
               var Auth;
-              Auth = (function(superClass) {
+              Auth = (function(_super) {
                 var api, path, version;
         
-                extend1(Auth, superClass);
+                __extends(Auth, _super);
         
                 function Auth() {
                   return Auth.__super__.constructor.apply(this, arguments);
@@ -472,10 +478,10 @@
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
               var AuthenticatedAPI;
-              AuthenticatedAPI = (function(superClass) {
+              AuthenticatedAPI = (function(_super) {
                 var noop;
         
-                extend1(AuthenticatedAPI, superClass);
+                __extends(AuthenticatedAPI, _super);
         
                 function AuthenticatedAPI() {
                   return AuthenticatedAPI.__super__.constructor.apply(this, arguments);
@@ -516,8 +522,8 @@
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
               var DownloadStation;
-              DownloadStation = (function(superClass) {
-                extend1(DownloadStation, superClass);
+              DownloadStation = (function(_super) {
+                __extends(DownloadStation, _super);
         
                 function DownloadStation() {
                   return DownloadStation.__super__.constructor.apply(this, arguments);
@@ -809,15 +815,15 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
                   keys = (function() {
-                    var results;
-                    results = [];
+                    var _results;
+                    _results = [];
                     for (k in this) {
                       v = this[k];
                       if (typeof v === 'function') {
-                        results.push(k);
+                        _results.push(k);
                       }
                     }
-                    return results;
+                    return _results;
                   }).call(this);
                   filtered = keys.filter(function(method_name) {
                     return to_exclude.indexOf(method_name) === -1;
@@ -882,10 +888,10 @@
             (function(modules, module, exports, setModule, setter) {
               var FileStation, defaults;
               defaults = require('lodash').defaults;
-              FileStation = (function(superClass) {
+              FileStation = (function(_super) {
                 var download, upload;
         
-                extend1(FileStation, superClass);
+                __extends(FileStation, _super);
         
                 function FileStation() {
                   return FileStation.__super__.constructor.apply(this, arguments);
@@ -1445,7 +1451,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['path', 'name'],
+                    requiredParams: ['folder_path', 'name'],
                     apiInfos: {
                       api: 'SYNO.FileStation.CreateFolder',
                       version: 1,
@@ -1692,11 +1698,11 @@
                 };
         
                 upload = function(syno, params, done) {
-                  var api, formData, host, method, path, port, protocol, ref, url, version;
-                  ref = Utils.optionalParamsAndDone({
+                  var api, formData, host, method, path, port, protocol, url, version, _ref;
+                  _ref = Utils.optionalParamsAndDone({
                     params: params,
                     done: done
-                  }), params = ref.params, done = ref.done;
+                  }), params = _ref.params, done = _ref.done;
                   Utils.checkRequiredParams(params, ['dest_folder_path', 'filename']);
                   protocol = syno.protocol, host = syno.host, port = syno.port;
                   api = 'SYNO.FileStation.Upload';
@@ -1743,11 +1749,11 @@
                 };
         
                 download = function(syno, params, done) {
-                  var api, host, method, path, port, protocol, qs, ref, stream, url, version;
-                  ref = Utils.optionalParamsAndDone({
+                  var api, host, method, path, port, protocol, qs, stream, url, version, _ref;
+                  _ref = Utils.optionalParamsAndDone({
                     params: params,
                     done: done
-                  }), params = ref.params, done = ref.done;
+                  }), params = _ref.params, done = _ref.done;
                   Utils.checkRequiredParams(params, ['path', 'stream']);
                   stream = params.stream;
                   delete params.stream;
@@ -1793,15 +1799,15 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
                   keys = (function() {
-                    var results;
-                    results = [];
+                    var _results;
+                    _results = [];
                     for (k in this) {
                       v = this[k];
                       if (typeof v === 'function') {
-                        results.push(k);
+                        _results.push(k);
                       }
                     }
-                    return results;
+                    return _results;
                   }).call(this);
                   filtered = keys.filter(function(method_name) {
                     return to_exclude.indexOf(method_name) === -1;
@@ -1866,8 +1872,8 @@
             module = {};
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
-              var Utils, each, isFunction, isPlainObject, ref;
-              ref = require('lodash'), isFunction = ref.isFunction, isPlainObject = ref.isPlainObject, each = ref.each;
+              var Utils, each, filter, isFunction, isPlainObject, _ref;
+              _ref = require('lodash'), isFunction = _ref.isFunction, isPlainObject = _ref.isPlainObject, each = _ref.each, filter = _ref.filter;
               Utils = (function() {
                 function Utils() {}
         
@@ -1890,10 +1896,8 @@
                   if (required == null) {
                     required = [];
                   }
-                  return each(required, function(key) {
-                    if (!params[key]) {
-                      throw new Error(key + " param is required");
-                    }
+                  return filter(required, function(key) {
+                    return !params[key];
                   });
                 };
         
