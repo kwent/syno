@@ -72,7 +72,7 @@ class SurveillanceStation extends AuthenticatedAPI
     enableCamera: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds' ]
+            requiredParams: [ 'cameraId' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.Camera'
                 version: 8
@@ -83,7 +83,7 @@ class SurveillanceStation extends AuthenticatedAPI
     disableCamera: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds' ]
+            requiredParams: [ 'cameraId' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.Camera'
                 version: 8
@@ -96,7 +96,7 @@ class SurveillanceStation extends AuthenticatedAPI
     movePTZCamera: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds', 'direction' ]
+            requiredParams: [ 'cameraId', 'direction' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.PTZ'
                 version: 3
@@ -107,7 +107,7 @@ class SurveillanceStation extends AuthenticatedAPI
     zoomPTZCamera: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds', 'control' ]
+            requiredParams: [ 'cameraId', 'control' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.PTZ'
                 version: 3
@@ -118,7 +118,7 @@ class SurveillanceStation extends AuthenticatedAPI
     listPTZCameraPresets: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds' ]
+            requiredParams: [ 'cameraId' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.PTZ'
                 version: 3
@@ -129,7 +129,7 @@ class SurveillanceStation extends AuthenticatedAPI
     goPTZCameraToPreset: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds' ]
+            requiredParams: [ 'cameraId' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.PTZ'
                 version: 3
@@ -140,7 +140,7 @@ class SurveillanceStation extends AuthenticatedAPI
     listPTZCameraPatrols: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds' ]
+            requiredParams: [ 'cameraId' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.PTZ'
                 version: 3
@@ -151,7 +151,7 @@ class SurveillanceStation extends AuthenticatedAPI
     runPTZCameraPatrol: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds', 'patrolId' ]
+            requiredParams: [ 'cameraId', 'patrolId' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.PTZ'
                 version: 3
@@ -162,7 +162,7 @@ class SurveillanceStation extends AuthenticatedAPI
     getPTZCameraPatrolsSchedule: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds' ]
+            requiredParams: [ 'cameraId' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.PTZ'
                 version: 3
@@ -173,7 +173,7 @@ class SurveillanceStation extends AuthenticatedAPI
     focusPTZCamera: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds', 'control' ]
+            requiredParams: [ 'cameraId', 'control' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.PTZ'
                 version: 3
@@ -184,7 +184,7 @@ class SurveillanceStation extends AuthenticatedAPI
     irisPTZCamera: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds', 'control' ]
+            requiredParams: [ 'cameraId', 'control' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.PTZ'
                 version: 3
@@ -195,7 +195,7 @@ class SurveillanceStation extends AuthenticatedAPI
     autoFocusPTZCamera: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds' ]
+            requiredParams: [ 'cameraId' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.PTZ'
                 version: 3
@@ -206,7 +206,7 @@ class SurveillanceStation extends AuthenticatedAPI
     movePTZCameraToAbsolutePosition: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds', 'posX', 'posY' ]
+            requiredParams: [ 'cameraId', 'posX', 'posY' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.PTZ'
                 version: 3
@@ -219,7 +219,7 @@ class SurveillanceStation extends AuthenticatedAPI
     recordCamera: (params, done)->
         @requestAPI {
             params, done
-            requiredParams: [ 'cameraIds', 'action' ]
+            requiredParams: [ 'cameraId', 'action' ]
             apiInfos:
                 api: 'SYNO.SurveillanceStation.ExternalRecording'
                 version: 2

@@ -1915,7 +1915,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds'],
+                    requiredParams: ['cameraId'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.Camera',
                       version: 8,
@@ -1929,7 +1929,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds'],
+                    requiredParams: ['cameraId'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.Camera',
                       version: 8,
@@ -1943,7 +1943,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds', 'direction'],
+                    requiredParams: ['cameraId', 'direction'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.PTZ',
                       version: 3,
@@ -1957,7 +1957,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds', 'control'],
+                    requiredParams: ['cameraId', 'control'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.PTZ',
                       version: 3,
@@ -1971,7 +1971,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds'],
+                    requiredParams: ['cameraId'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.PTZ',
                       version: 3,
@@ -1985,7 +1985,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds'],
+                    requiredParams: ['cameraId'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.PTZ',
                       version: 3,
@@ -1999,7 +1999,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds'],
+                    requiredParams: ['cameraId'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.PTZ',
                       version: 3,
@@ -2013,7 +2013,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds', 'patrolId'],
+                    requiredParams: ['cameraId', 'patrolId'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.PTZ',
                       version: 3,
@@ -2027,7 +2027,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds'],
+                    requiredParams: ['cameraId'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.PTZ',
                       version: 3,
@@ -2041,7 +2041,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds', 'control'],
+                    requiredParams: ['cameraId', 'control'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.PTZ',
                       version: 3,
@@ -2055,7 +2055,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds', 'control'],
+                    requiredParams: ['cameraId', 'control'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.PTZ',
                       version: 3,
@@ -2069,7 +2069,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds'],
+                    requiredParams: ['cameraId'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.PTZ',
                       version: 3,
@@ -2083,7 +2083,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds', 'posX', 'posY'],
+                    requiredParams: ['cameraId', 'posX', 'posY'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.PTZ',
                       version: 3,
@@ -2097,7 +2097,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
-                    requiredParams: ['cameraIds', 'action'],
+                    requiredParams: ['cameraId', 'action'],
                     apiInfos: {
                       api: 'SYNO.SurveillanceStation.ExternalRecording',
                       version: 2,
