@@ -1,4 +1,4 @@
-{isFunction, isPlainObject, each} = require 'lodash'
+{isFunction, isPlainObject, each, filter} = require 'lodash'
 
 class Utils
     # Processes optional parameters and done callback
@@ -13,7 +13,7 @@ class Utils
         if not done
             options.done = if isFunction params then params else ->
 
-                # If params is not a plain object, use an empty one
+        # If params is not a plain object, use an empty one
         if not isPlainObject params then options.params = {}
 
         # Return processed options
@@ -22,5 +22,5 @@ class Utils
     # Check if required parameters are present in `params`
     # If a required param is not present, raise an Error
     @checkRequiredParams: (params, required = [])->
-        # For each required params, if it is not present in the params argument, raise an Error
-        each required, (key)-> throw new Error "#{key} param is required" if not params[key]
+        # Return missing params
+        filter required, (key)-> not params[key]
