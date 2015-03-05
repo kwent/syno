@@ -2113,6 +2113,174 @@
                   });
                 };
         
+                SurveillanceStation.prototype.queryEvents = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Event',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'Query'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.deleteMultiEvents = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['idList'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Event',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'DeleteMulti'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.deleteEventFilter = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Event',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'DeleteFilter'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.deleteAllEvents = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Event',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'DeleteAll'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listVisualStationsDevices = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Device',
+                      version: 2,
+                      path: 'SurveillanceStation/device.cgi',
+                      method: 'ListVS'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listSlaveDSDevices = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Device',
+                      version: 2,
+                      path: 'SurveillanceStation/device.cgi',
+                      method: 'ListCMS'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getServiceSettingDevice = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Device',
+                      version: 2,
+                      path: 'SurveillanceStation/device.cgi',
+                      method: 'GetServiceSetting'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listEmaps = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Emap',
+                      version: 1,
+                      path: 'SurveillanceStation/emap.cgi',
+                      method: 'List'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getEmapInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['emapIds'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Emap',
+                      version: 1,
+                      path: 'SurveillanceStation/emap.cgi',
+                      method: 'GetInfo'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getNotificationRegisterToken = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Notification',
+                      version: 1,
+                      path: 'entry.cgi',
+                      method: 'GetRegisterToken'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.error = function(code, api) {
+                  if (api === 'SYNO.SurveillanceStation.Camera' || 'SYNO.SurveillanceStation.PTZ') {
+                    switch (code) {
+                      case 400:
+                        return 'Execution failed';
+                      case 401:
+                        return 'Parameter invalid';
+                      case 402:
+                        return 'Camera disabled';
+                    }
+                  }
+                  if (api === 'SYNO.SurveillanceStation.Event' || 'SYNO.SurveillanceStation.Emap') {
+                    switch (code) {
+                      case 400:
+                        return 'Execution failed';
+                      case 401:
+                        return 'Parameter invalid';
+                    }
+                  }
+                  if (api === 'SYNO.SurveillanceStation.Device') {
+                    switch (code) {
+                      case 400:
+                        return 'Execution failed';
+                      case 401:
+                        return 'Service is not enabled';
+                    }
+                  }
+                  if (api === 'SYNO.SurveillanceStation.Notification') {
+                    switch (code) {
+                      case 400:
+                        return 'Execution failed';
+                    }
+                  }
+                  return SurveillanceStation.__super__.error.apply(this, arguments);
+                };
+        
                 return SurveillanceStation;
         
               })(AuthenticatedAPI);

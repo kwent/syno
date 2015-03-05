@@ -180,7 +180,7 @@ More usage [examples](https://github.com/JimRobs/syno/wiki/CLI) in the [wiki](ht
 
 # Browser
 
-## Note
+### Note
 
 Be sure to disable [same-origin policy](http://en.wikipedia.org/wiki/Same-origin_policy) in your browser.
 

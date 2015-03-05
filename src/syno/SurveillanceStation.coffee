@@ -227,24 +227,105 @@ class SurveillanceStation extends AuthenticatedAPI
                 method: 'Record'
         }
     
-    # SYNO.SurveillanceStation.Event
-    # TODO
-    # Query
-    # DeleteMulti
-    # DeleteFilter
-    # DeleteAll
+    # SYNO.SurveillanceStation.Event (entry.cgi)
+    
+    queryEvents: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.SurveillanceStation.Event'
+                version: 3
+                path: 'entry.cgi'
+                method: 'Query'
+        }
 
-    # SYNO.SurveillanceStation.Device
-    # TODO
-    # ListVS
-    # ListCMS
-    # GetServiceSetting
+    deleteMultiEvents: (params, done)->
+        @requestAPI {
+            params, done
+            requiredParams: [ 'idList' ]
+            apiInfos:
+                api: 'SYNO.SurveillanceStation.Event'
+                version: 3
+                path: 'entry.cgi'
+                method: 'DeleteMulti'
+        }
+
+    deleteEventFilter: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.SurveillanceStation.Event'
+                version: 3
+                path: 'entry.cgi'
+                method: 'DeleteFilter'
+        }
+
+    deleteAllEvents: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.SurveillanceStation.Event'
+                version: 3
+                path: 'entry.cgi'
+                method: 'DeleteAll'
+        }
+        
+    # SYNO.SurveillanceStation.Device (SurveillanceStation/device.cgi)
+    
+    listVisualStationsDevices: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.SurveillanceStation.Device'
+                version: 2
+                path: 'SurveillanceStation/device.cgi'
+                method: 'ListVS'
+        }
+
+    listSlaveDSDevices: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.SurveillanceStation.Device'
+                version: 2
+                path: 'SurveillanceStation/device.cgi'
+                method: 'ListCMS'
+        }
+
+    getServiceSettingDevice: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.SurveillanceStation.Device'
+                version: 2
+                path: 'SurveillanceStation/device.cgi'
+                method: 'GetServiceSetting'
+        }
 
     # SYNO.SurveillanceStation.Emap
     # TODO
-    # List
-    # GetInfo
     # GetImage
+
+    listEmaps: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.SurveillanceStation.Emap'
+                version: 1
+                path: 'SurveillanceStation/emap.cgi'
+                method: 'List'
+        }
+
+    getEmapInfo: (params, done)->
+        @requestAPI {
+            params, done
+            requiredParams: [ 'emapIds' ]
+            apiInfos:
+                api: 'SYNO.SurveillanceStation.Emap'
+                version: 1
+                path: 'SurveillanceStation/emap.cgi'
+                method: 'GetInfo'
+        }
 
     # SYNO.SurveillanceStation.Streaming
     # TODO
@@ -265,6 +346,39 @@ class SurveillanceStation extends AuthenticatedAPI
     # Open
     # Close
     
-    # SYNO.SurveillanceStation.Notification
-    # TODO
-    # GetRegisterToken
+    # SYNO.SurveillanceStation.Notification (entry.cgi)
+
+    getNotificationRegisterToken: (params, done)->
+        @requestAPI {
+            params, done
+            apiInfos:
+                api: 'SYNO.SurveillanceStation.Notification'
+                version: 1
+                path: 'entry.cgi'
+                method: 'GetRegisterToken'
+        }
+
+    # Handle Surveillance Station specific errors
+    error: (code, api)->
+        # Task API specific errors
+        if api is 'SYNO.SurveillanceStation.Camera' or 'SYNO.SurveillanceStation.PTZ'
+            switch code
+                when 400 then return 'Execution failed'
+                when 401 then return 'Parameter invalid'
+                when 402 then return 'Camera disabled'
+        # Event API specific errors
+        if api is 'SYNO.SurveillanceStation.Event' or 'SYNO.SurveillanceStation.Emap'
+            switch code
+                when 400 then return 'Execution failed'
+                when 401 then return 'Parameter invalid'
+        # Device API specific errors
+        if api is 'SYNO.SurveillanceStation.Device'
+            switch code
+                when 400 then return 'Execution failed'
+                when 401 then return 'Service is not enabled'
+        # Device API specific errors
+        if api is 'SYNO.SurveillanceStation.Notification'
+            switch code
+                when 400 then return 'Execution failed'
+        # Did not find any specifi error, so call super function
+        return super

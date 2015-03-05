@@ -37,7 +37,7 @@ module.exports =
           test.done()
       return
 
-  # Not available on demo.synology.com ?
+  ## Not available on demo.synology.com ?
   # Unknown error
   # getCameraCapability: (test)->
   #     @syno.ss.getCameraCapability {'vendor': 'AXIS', 'model': 'P3364-VE'}, (error, data)->
@@ -57,63 +57,63 @@ module.exports =
           test.done()
       return
 
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # disableCamera: (test)->
   #     @syno.ss.disableCamera {'cameraId': 4}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
   
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # enableCamera: (test)->
   #     @syno.ss.enableCamera {'cameraId': 4}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
   
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # movePTZCamera: (test)->
   #     @syno.ss.movePTZCamera {'cameraId': 4, 'direction': 'right'}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
 
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # zoomPTZCamera: (test)->
   #     @syno.ss.zoomPTZCamera {'cameraId': 4, 'control': 'in'}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
   
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # listPTZCameraPresets: (test)->
   #     @syno.ss.listPTZCameraPresets {'cameraId': 4}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
   
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # goPTZCameraToPreset: (test)->
   #     @syno.ss.goPTZCameraToPreset {'cameraId': 4, 'presetId': 1}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
       
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # listPTZCameraPatrols: (test)->
   #     @syno.ss.listPTZCameraPatrols {'cameraId': 4}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
 
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # runPTZCameraPatrol: (test)->
   #     @syno.ss.runPTZCameraPatrol {'cameraId': 4, 'patrolId': 1}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
 
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # Error: The requested method does not exist
   # getPTZCameraPatrolsSchedule: (test)->
   #     @syno.ss.getPTZCameraPatrolsSchedule {'cameraId': 4}, (error, data)->
@@ -121,37 +121,101 @@ module.exports =
   #         test.done()
   #     return
 
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # focusPTZCamera: (test)->
   #     @syno.ss.focusPTZCamera {'cameraId': 4, 'control': 'in'}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
 
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # irisPTZCamera: (test)->
   #     @syno.ss.irisPTZCamera {'cameraId': 4, 'control': 'in'}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
 
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # autoFocusPTZCamera: (test)->
   #     @syno.ss.autoFocusPTZCamera {'cameraId': 4}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
       
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # movePTZCameraToAbsolutePosition: (test)->
   #     @syno.ss.movePTZCameraToAbsolutePosition {'cameraId': 4, 'posX': 10, 'posY': 20}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
   
-  # Not available on demo.synology.com
+  ## Not available on demo.synology.com
   # recordCamera: (test)->
   #     @syno.ss.recordCamera {'cameraId': 4, 'action': 'start'}, (error, data)->
   #         test.ifError error
   #         test.done()
   #     return
+
+  queryEvents: (test)->
+      @syno.ss.queryEvents (error, data)->
+          test.ifError error
+          test.done()
+      return
+
+  ## Not available on demo.synology.com
+  # deleteMultiEvents: (test)->
+  #     @syno.ss.deleteMultiEvents {'idList': [{'id': '1:5', 'dsId': 1}, {'id': '2:10', 'dsId': 0}]}, (error, data)->
+  #         test.ifError error
+  #         test.done()
+  #     return
+
+  ## Not available on demo.synology.com
+  # deleteEventFilter: (test)->
+  #     @syno.ss.deleteEventFilter (error, data)->
+  #         test.ifError error
+  #         test.done()
+  #     return
+
+  ## Not available on demo.synology.com
+  # deleteAllEvents: (test)->
+  #     @syno.ss.deleteAllEvents (error, data)->
+  #         test.ifError error
+  #         test.done()
+  #     return
+
+  listVisualStationsDevices: (test)->
+      @syno.ss.listVisualStationsDevices (error, data)->
+          test.ifError error
+          test.done()
+      return
+
+  ## Not available on demo.synology.com
+  # listSlaveDSDevices: (test)->
+  #     @syno.ss.listSlaveDSDevices (error, data)->
+  #         test.ifError error
+  #         test.done()
+  #     return
+
+  getServiceSettingDevice: (test)->
+      @syno.ss.getServiceSettingDevice (error, data)->
+          test.ifError error
+          test.done()
+      return
+
+  listEmaps: (test)->
+      @syno.ss.listEmaps (error, data)->
+          test.ifError error
+          test.done()
+      return
+
+  getEmapInfo: (test)->
+      @syno.ss.getEmapInfo {'emapIds': '1,2'}, (error, data)->
+          test.ifError error
+          test.done()
+      return
+
+  getNotificationRegisterToken: (test)->
+      @syno.ss.getNotificationRegisterToken (error, data)->
+          test.ifError error
+          test.done()
+      return
