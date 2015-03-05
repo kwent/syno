@@ -37,8 +37,8 @@ module.exports =
           test.done()
       return
 
-  ## Not available on demo.synology.com ?
-  # Unknown error
+  # # Not available on demo.synology.com ?
+  # # Parameter invalid
   # getCameraCapability: (test)->
   #     @syno.ss.getCameraCapability {'vendor': 'AXIS', 'model': 'P3364-VE'}, (error, data)->
   #         test.ifError error
@@ -114,7 +114,7 @@ module.exports =
   #     return
 
   ## Not available on demo.synology.com
-  # Error: The requested method does not exist
+  ## Error: The requested method does not exist
   # getPTZCameraPatrolsSchedule: (test)->
   #     @syno.ss.getPTZCameraPatrolsSchedule {'cameraId': 4}, (error, data)->
   #         test.ifError error
