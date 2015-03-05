@@ -42,6 +42,7 @@ To get more information (parameters, response data, ...) use the PDF documents (
 * [Audio Station Syno API](https://github.com/JimRobs/syno/wiki/Audio-Station-API)
 * [Video Station Syno API](https://github.com/JimRobs/syno/wiki/Video-Station-API)
 * [Video Station DTV Syno API](https://github.com/JimRobs/syno/wiki/Video-Station-DTV-API)
+* [Surveillance Station Syno API](https://github.com/JimRobs/syno/wiki/Surveillance-Station-API)
 
 # Javascript wrapper
 
@@ -106,6 +107,8 @@ syno.as.searchSong({'title':'my_title_song'}, callback);
 syno.vs.listMovies({'limit':5}, callback);
 // Video Station DTV API - List channels
 syno.dtv.listDTVChannels({'limit':5}, callback);
+// Surveillance Station API - Get camera information
+syno.ss.getCameraInfo({'cameraIds': 4}, callback);
 ```
 # CLI
 
@@ -126,6 +129,7 @@ Usage: syno [options]
     downloadstation|dl [options] <method>  DSM Download Station API
     audiostation|as [options] <method>  DSM Audio Station API
     videostation|vs [options] <method>  DSM Video Station API
+    surveillancestation|ss [options] <method>  DSM Surveillance Station API
 
   Examples:
 
@@ -133,6 +137,7 @@ Usage: syno [options]
     $ syno downloadstation|dl getDownloadStationInfo
     $ syno audiostation|as getAudioStationInfo
     $ syno videostation|vs getVideoStationInfo
+    $ syno surveillancestation|ss getSurveillanceStationInfo
 ```
 ## Examples
 
@@ -151,6 +156,8 @@ $ syno as searchSong --payload '{"title":"my_title_song"}' --pretty
 $ syno vs listMovies --payload '{"limit":5}' --pretty
 # Video Station DTV API - List channels
 $ syno dtv listDTVChannels --payload '{"limit":5}' --pretty
+# Surveillance Station API - Get camera information
+$ syno ss getCameraInfo --payload '{"cameraIds":4}' --pretty
 ```
 
 
@@ -185,7 +192,7 @@ More usage [examples](https://github.com/JimRobs/syno/wiki/CLI) in the [wiki](ht
 
 # Browser
 
-## Note
+### Note
 
 Be sure to disable [same-origin policy](http://en.wikipedia.org/wiki/Same-origin_policy) in your browser.
 

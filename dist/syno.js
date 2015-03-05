@@ -1823,6 +1823,472 @@
             return module.exports;
           });
         
+          setModule('SurveillanceStation', function() {
+            var exports, module;
+            module = {};
+            exports = module.exports = {};
+            (function(modules, module, exports, setModule, setter) {
+              var SurveillanceStation;
+              SurveillanceStation = (function(superClass) {
+                extend1(SurveillanceStation, superClass);
+        
+                function SurveillanceStation() {
+                  return SurveillanceStation.__super__.constructor.apply(this, arguments);
+                }
+        
+                SurveillanceStation.prototype.getSurveillanceStationInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Info',
+                      version: 1,
+                      path: 'entry.cgi',
+                      method: 'GetInfo'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listCameras = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'List'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getCameraInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraIds'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'GetInfo'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getCameraCapability = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['vendor', 'model'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'GetCapability'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getCameraCapabilityById = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'GetCapabilityByCamId'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listCameraGroups = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'ListGroup'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.enableCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'Enable'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.disableCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'Disable'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.movePTZCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'direction'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'Move'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.zoomPTZCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'control'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'Zoom'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listPTZCameraPresets = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'ListPreset'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.goPTZCameraToPreset = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'GoPreset'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listPTZCameraPatrols = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'ListPatrol'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.runPTZCameraPatrol = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'patrolId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'RunPatrol'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getPTZCameraPatrolsSchedule = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'GetPatrolSchedule'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.focusPTZCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'control'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'Focus'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.irisPTZCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'control'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'Iris'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.autoFocusPTZCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'AutoFocus'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.movePTZCameraToAbsolutePosition = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'posX', 'posY'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'AbsPtz'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.recordCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'action'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.ExternalRecording',
+                      version: 2,
+                      path: 'entry.cgi',
+                      method: 'Record'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.queryEvents = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Event',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'Query'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.deleteMultiEvents = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['idList'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Event',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'DeleteMulti'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.deleteEventFilter = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Event',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'DeleteFilter'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.deleteAllEvents = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Event',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'DeleteAll'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listVisualStationsDevices = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Device',
+                      version: 2,
+                      path: 'SurveillanceStation/device.cgi',
+                      method: 'ListVS'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listSlaveDSDevices = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Device',
+                      version: 2,
+                      path: 'SurveillanceStation/device.cgi',
+                      method: 'ListCMS'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getServiceSettingDevice = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Device',
+                      version: 2,
+                      path: 'SurveillanceStation/device.cgi',
+                      method: 'GetServiceSetting'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listEmaps = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Emap',
+                      version: 1,
+                      path: 'SurveillanceStation/emap.cgi',
+                      method: 'List'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getEmapInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['emapIds'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Emap',
+                      version: 1,
+                      path: 'SurveillanceStation/emap.cgi',
+                      method: 'GetInfo'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getNotificationRegisterToken = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Notification',
+                      version: 1,
+                      path: 'entry.cgi',
+                      method: 'GetRegisterToken'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.error = function(code, api) {
+                  if (api === 'SYNO.SurveillanceStation.Camera' || 'SYNO.SurveillanceStation.PTZ') {
+                    switch (code) {
+                      case 400:
+                        return 'Execution failed';
+                      case 401:
+                        return 'Parameter invalid';
+                      case 402:
+                        return 'Camera disabled';
+                    }
+                  }
+                  if (api === 'SYNO.SurveillanceStation.Event' || 'SYNO.SurveillanceStation.Emap') {
+                    switch (code) {
+                      case 400:
+                        return 'Execution failed';
+                      case 401:
+                        return 'Parameter invalid';
+                    }
+                  }
+                  if (api === 'SYNO.SurveillanceStation.Device') {
+                    switch (code) {
+                      case 400:
+                        return 'Execution failed';
+                      case 401:
+                        return 'Service is not enabled';
+                    }
+                  }
+                  if (api === 'SYNO.SurveillanceStation.Notification') {
+                    switch (code) {
+                      case 400:
+                        return 'Execution failed';
+                    }
+                  }
+                  return SurveillanceStation.__super__.error.apply(this, arguments);
+                };
+        
+                return SurveillanceStation;
+        
+              })(AuthenticatedAPI);
+              return module.exports = SurveillanceStation;
+            })(modules, module, exports, void 0, void 0);
+            return module.exports;
+          });
+        
           setModule('Syno', function() {
             var exports, module;
             module = {};
@@ -1859,6 +2325,7 @@
                   this.as = this.audioStation = new AudioStation(this);
                   this.vs = this.videoStation = new VideoStation(this);
                   this.dtv = this.videoStationDTV = new VideoStationDTV(this);
+                  this.ss = this.surveillanceStation = new SurveillanceStation(this);
                 }
         
                 return Syno;

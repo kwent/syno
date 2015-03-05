@@ -74,6 +74,7 @@ program.version('1.0.4').description('Synology Rest API Command Line').option('-
   console.log('    downloadstation|dl [options] <method>  DSM Download Station API');
   console.log('    audiostation|as [options] <method>  DSM Audio Station API');
   console.log('    videostation|vs [options] <method>  DSM Video Station API');
+  console.log('    surveillancestation|ss [options] <method>  DSM Surveillance Station API');
   return console.log('');
 }).on('--help', function() {
   console.log('  Examples:');
@@ -82,6 +83,7 @@ program.version('1.0.4').description('Synology Rest API Command Line').option('-
   console.log('    $ syno downloadstation|dl getDownloadStationInfo');
   console.log('    $ syno audiostation|as getAudioStationInfo');
   console.log('    $ syno videostation|vs getVideoStationInfo');
+  console.log('    $ syno surveillancestation|ss getSurveillanceStationInfo');
   return console.log('');
 });
 
@@ -89,7 +91,7 @@ program.parse(process.argv);
 
 if (program.args.length === 0) {
   program.help();
-} else if (program.args.length > 0 && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'audiostation' && program.args[0] !== 'videostation' && program.args[0] !== 'videostationdtv' && program.args[0] !== 'fs' && program.args[0] !== 'dl' && program.args[0] !== 'as' && program.args[0] !== 'vs' && program.args[0] !== 'dtv') {
+} else if (program.args.length > 0 && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'audiostation' && program.args[0] !== 'videostation' && program.args[0] !== 'videostationdtv' && program.args[0] !== 'surveillancestation' && program.args[0] !== 'fs' && program.args[0] !== 'dl' && program.args[0] !== 'as' && program.args[0] !== 'vs' && program.args[0] !== 'dtv' && program.args[0] !== 'ss') {
   console.log('');
   console.log("  [ERROR] : " + program.args[0] + " is not a valid command !");
   console.log('');
@@ -99,6 +101,7 @@ if (program.args.length === 0) {
   console.log('    $ syno downloadstation|dl [options] <method> DSM Download Station API');
   console.log('    $ syno audiostation|as [options] <method> DSM Audio Station API');
   console.log('    $ syno videostation|vs [options] <method> DSM Video Station API');
+  console.log('    $ surveillancestation|ss [options] <method>  DSM Surveillance Station API');
   console.log('');
   process.exit(1);
 }
@@ -268,6 +271,20 @@ program.command('videostationdtv <method>').alias('dtv').description('DSM Video 
     console.log('[DEBUG] : DSM Video Station DTV API command selected');
   }
   return execute('dtv', cmd, options);
+});
+
+program.command('surveillancestation <method>').alias('ss').description('DSM Surveillance Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
+  console.log('  Examples:');
+  console.log('');
+  console.log('    $ syno surveillancestation|ss listCameras');
+  console.log('    $ syno surveillancestation|ss getCameraInfo --payload \'{"cameraIds":4}\'');
+  console.log('    $ syno surveillancestation|ss zoomPTZCamera --payload \'{"cameraId":4, "control": "in"}\'');
+  return console.log('');
+}).action(function(cmd, options) {
+  if (program.debug) {
+    console.log('[DEBUG] : DSM Surveillance Station API command selected');
+  }
+  return execute('ss', cmd, options);
 });
 
 program.parse(process.argv);
