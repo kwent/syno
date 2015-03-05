@@ -101,8 +101,8 @@ syno.dl.listFiles({'limit':5, 'offset':10}, callback);
 syno.dl.createTask({'uri':'https://link'}, callback);
 // Audio Station API - Search a song
 syno.as.searchSong({'title':'my_title_song'}, callback);
-// Surveillance Station API - ToComplete
-syno.ss.toComplete(callback);
+// Surveillance Station API - Get camera information
+syno.ss.getCameraInfo({'cameraIds': 4}, callback);
 ```
 # CLI
 
@@ -144,8 +144,8 @@ $ syno dl listFiles --payload '{"limit":5, "offset":10}' --pretty
 $ syno dl createTask --payload '{"uri":"https://link"}'
 # Audio Station API - Search a song
 $ syno as searchSong --payload '{"title":"my_title_song"}' --pretty
-# Surveillance Station API - ToComplete
-$ syno ss ToComplete
+# Surveillance Station API - Get camera information
+$ syno ss getCameraInfo --payload '{"cameraIds":4}' --pretty
 ```
 
 

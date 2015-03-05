@@ -247,9 +247,9 @@ program.command('audiostation <method>').alias('as').description('DSM Audio Stat
 program.command('surveillancestation <method>').alias('ss').description('DSM Surveillance Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
   console.log('  Examples:');
   console.log('');
-  console.log('    $ syno surveillancestation|ss toComplete');
-  console.log('    $ syno surveillancestation|ss toComplete');
-  console.log('    $ syno surveillancestation|ss toComplete');
+  console.log('    $ syno surveillancestation|ss listCameras');
+  console.log('    $ syno surveillancestation|ss getCameraInfo --payload \'{"cameraIds":4}\'');
+  console.log('    $ syno surveillancestation|ss zoomPTZCamera --payload \'{"cameraId":4, "control": "in"}\'');
   return console.log('');
 }).action(function(cmd, options) {
   if (program.debug) {

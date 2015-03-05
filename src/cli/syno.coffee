@@ -245,9 +245,9 @@ program
 .on '--help', ->
     console.log '  Examples:'
     console.log ''
-    console.log '    $ syno surveillancestation|ss toComplete'
-    console.log '    $ syno surveillancestation|ss toComplete'
-    console.log '    $ syno surveillancestation|ss toComplete'
+    console.log '    $ syno surveillancestation|ss listCameras'
+    console.log '    $ syno surveillancestation|ss getCameraInfo --payload \'{"cameraIds":4}\''
+    console.log '    $ syno surveillancestation|ss zoomPTZCamera --payload \'{"cameraId":4, "control": "in"}\''
     console.log ''
 .action (cmd, options) ->
     console.log '[DEBUG] : DSM Surveillance Station API command selected' if program.debug
