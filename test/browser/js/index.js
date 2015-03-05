@@ -53,7 +53,8 @@ app.controller('SynoController', function($scope, SynoRequestFactory) {
     $scope.syno_api_name = [
       {'name':'FileStation | fs', 'value':'fs'}, 
       {'name':'DownloadStation | dl', 'value':'dl'},
-      {'name':'AudioStation | as', 'value':'as'}
+      {'name':'AudioStation | as', 'value':'as'},
+      {'name':'SurveillanceStation | ss', 'value':'ss'}
     ];
     $scope.syno_api_name_selected = 'fs';
     $scope.syno_response_success = false;

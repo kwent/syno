@@ -24,16 +24,16 @@
     }
     with(modules){
         (function() {
-          var __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-            __hasProp = {}.hasOwnProperty;
+          var extend1 = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+            hasProp = {}.hasOwnProperty;
         
           setModule('API', function() {
             var exports, module;
             module = {};
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
-              var API, defaults, extend, isEmpty, mapValues, _ref;
-              _ref = require('lodash'), extend = _ref.extend, defaults = _ref.defaults, isEmpty = _ref.isEmpty, mapValues = _ref.mapValues;
+              var API, defaults, extend, isEmpty, mapValues, ref;
+              ref = require('lodash'), extend = ref.extend, defaults = ref.defaults, isEmpty = ref.isEmpty, mapValues = ref.mapValues;
               API = (function() {
                 var noop;
         
@@ -60,19 +60,19 @@
         
                 noop = function() {};
         
-                function API(_at_syno) {
-                  this.syno = _at_syno;
+                function API(syno1) {
+                  this.syno = syno1;
                 }
         
                 API.prototype.request = function(options, done) {
-                  var api, host, method, params, path, port, protocol, qs, url, version, _ref1;
+                  var api, host, method, params, path, port, protocol, qs, ref1, url, version;
                   if (options == null) {
                     options = {};
                   }
                   if (done == null) {
                     done = noop;
                   }
-                  _ref1 = this.syno, protocol = _ref1.protocol, host = _ref1.host, port = _ref1.port;
+                  ref1 = this.syno, protocol = ref1.protocol, host = ref1.host, port = ref1.port;
                   api = options.api, version = options.version, path = options.path, method = options.method, params = options.params;
                   url = protocol + "://" + host + ":" + port + "/webapi/" + path;
                   qs = defaults({
@@ -109,12 +109,12 @@
                 };
         
                 API.prototype.requestAPI = function(args) {
-                  var apiInfos, done, missing, opts, params, requiredParams, _ref1;
+                  var apiInfos, done, missing, opts, params, ref1, requiredParams;
                   apiInfos = args.apiInfos, requiredParams = args.requiredParams, params = args.params, done = args.done;
-                  _ref1 = Utils.optionalParamsAndDone({
+                  ref1 = Utils.optionalParamsAndDone({
                     params: params,
                     done: done
-                  }), params = _ref1.params, done = _ref1.done;
+                  }), params = ref1.params, done = ref1.done;
                   params = mapValues(params, function(param) {
                     return param && param.toString();
                   });
@@ -142,8 +142,8 @@
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
               var AudioStation;
-              AudioStation = (function(_super) {
-                __extends(AudioStation, _super);
+              AudioStation = (function(superClass) {
+                extend1(AudioStation, superClass);
         
                 function AudioStation() {
                   return AudioStation.__super__.constructor.apply(this, arguments);
@@ -365,15 +365,15 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
                   keys = (function() {
-                    var _results;
-                    _results = [];
+                    var results;
+                    results = [];
                     for (k in this) {
                       v = this[k];
                       if (typeof v === 'function') {
-                        _results.push(k);
+                        results.push(k);
                       }
                     }
-                    return _results;
+                    return results;
                   }).call(this);
                   filtered = keys.filter(function(method_name) {
                     return to_exclude.indexOf(method_name) === -1;
@@ -395,10 +395,10 @@
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
               var Auth;
-              Auth = (function(_super) {
+              Auth = (function(superClass) {
                 var api, path, version;
         
-                __extends(Auth, _super);
+                extend1(Auth, superClass);
         
                 function Auth() {
                   return Auth.__super__.constructor.apply(this, arguments);
@@ -478,10 +478,10 @@
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
               var AuthenticatedAPI;
-              AuthenticatedAPI = (function(_super) {
+              AuthenticatedAPI = (function(superClass) {
                 var noop;
         
-                __extends(AuthenticatedAPI, _super);
+                extend1(AuthenticatedAPI, superClass);
         
                 function AuthenticatedAPI() {
                   return AuthenticatedAPI.__super__.constructor.apply(this, arguments);
@@ -522,8 +522,8 @@
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
               var DownloadStation;
-              DownloadStation = (function(_super) {
-                __extends(DownloadStation, _super);
+              DownloadStation = (function(superClass) {
+                extend1(DownloadStation, superClass);
         
                 function DownloadStation() {
                   return DownloadStation.__super__.constructor.apply(this, arguments);
@@ -815,15 +815,15 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
                   keys = (function() {
-                    var _results;
-                    _results = [];
+                    var results;
+                    results = [];
                     for (k in this) {
                       v = this[k];
                       if (typeof v === 'function') {
-                        _results.push(k);
+                        results.push(k);
                       }
                     }
-                    return _results;
+                    return results;
                   }).call(this);
                   filtered = keys.filter(function(method_name) {
                     return to_exclude.indexOf(method_name) === -1;
@@ -888,10 +888,10 @@
             (function(modules, module, exports, setModule, setter) {
               var FileStation, defaults;
               defaults = require('lodash').defaults;
-              FileStation = (function(_super) {
+              FileStation = (function(superClass) {
                 var download, upload;
         
-                __extends(FileStation, _super);
+                extend1(FileStation, superClass);
         
                 function FileStation() {
                   return FileStation.__super__.constructor.apply(this, arguments);
@@ -1698,11 +1698,11 @@
                 };
         
                 upload = function(syno, params, done) {
-                  var api, formData, host, method, path, port, protocol, url, version, _ref;
-                  _ref = Utils.optionalParamsAndDone({
+                  var api, formData, host, method, path, port, protocol, ref, url, version;
+                  ref = Utils.optionalParamsAndDone({
                     params: params,
                     done: done
-                  }), params = _ref.params, done = _ref.done;
+                  }), params = ref.params, done = ref.done;
                   Utils.checkRequiredParams(params, ['dest_folder_path', 'filename']);
                   protocol = syno.protocol, host = syno.host, port = syno.port;
                   api = 'SYNO.FileStation.Upload';
@@ -1749,11 +1749,11 @@
                 };
         
                 download = function(syno, params, done) {
-                  var api, host, method, path, port, protocol, qs, stream, url, version, _ref;
-                  _ref = Utils.optionalParamsAndDone({
+                  var api, host, method, path, port, protocol, qs, ref, stream, url, version;
+                  ref = Utils.optionalParamsAndDone({
                     params: params,
                     done: done
-                  }), params = _ref.params, done = _ref.done;
+                  }), params = ref.params, done = ref.done;
                   Utils.checkRequiredParams(params, ['path', 'stream']);
                   stream = params.stream;
                   delete params.stream;
@@ -1799,15 +1799,15 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
                   keys = (function() {
-                    var _results;
-                    _results = [];
+                    var results;
+                    results = [];
                     for (k in this) {
                       v = this[k];
                       if (typeof v === 'function') {
-                        _results.push(k);
+                        results.push(k);
                       }
                     }
-                    return _results;
+                    return results;
                   }).call(this);
                   filtered = keys.filter(function(method_name) {
                     return to_exclude.indexOf(method_name) === -1;
@@ -1819,6 +1819,472 @@
         
               })(AuthenticatedAPI);
               return module.exports = FileStation;
+            })(modules, module, exports, void 0, void 0);
+            return module.exports;
+          });
+        
+          setModule('SurveillanceStation', function() {
+            var exports, module;
+            module = {};
+            exports = module.exports = {};
+            (function(modules, module, exports, setModule, setter) {
+              var SurveillanceStation;
+              SurveillanceStation = (function(superClass) {
+                extend1(SurveillanceStation, superClass);
+        
+                function SurveillanceStation() {
+                  return SurveillanceStation.__super__.constructor.apply(this, arguments);
+                }
+        
+                SurveillanceStation.prototype.getSurveillanceStationInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Info',
+                      version: 1,
+                      path: 'entry.cgi',
+                      method: 'GetInfo'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listCameras = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'List'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getCameraInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraIds'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'GetInfo'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getCameraCapability = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['vendor', 'model'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'GetCapability'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getCameraCapabilityById = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'GetCapabilityByCamId'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listCameraGroups = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'ListGroup'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.enableCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'Enable'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.disableCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Camera',
+                      version: 8,
+                      path: 'entry.cgi',
+                      method: 'Disable'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.movePTZCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'direction'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'Move'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.zoomPTZCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'control'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'Zoom'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listPTZCameraPresets = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'ListPreset'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.goPTZCameraToPreset = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'GoPreset'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listPTZCameraPatrols = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'ListPatrol'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.runPTZCameraPatrol = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'patrolId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'RunPatrol'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getPTZCameraPatrolsSchedule = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'GetPatrolSchedule'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.focusPTZCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'control'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'Focus'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.irisPTZCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'control'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'Iris'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.autoFocusPTZCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'AutoFocus'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.movePTZCameraToAbsolutePosition = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'posX', 'posY'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.PTZ',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'AbsPtz'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.recordCamera = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['cameraId', 'action'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.ExternalRecording',
+                      version: 2,
+                      path: 'entry.cgi',
+                      method: 'Record'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.queryEvents = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Event',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'Query'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.deleteMultiEvents = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['idList'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Event',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'DeleteMulti'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.deleteEventFilter = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Event',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'DeleteFilter'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.deleteAllEvents = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Event',
+                      version: 3,
+                      path: 'entry.cgi',
+                      method: 'DeleteAll'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listVisualStationsDevices = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Device',
+                      version: 2,
+                      path: 'SurveillanceStation/device.cgi',
+                      method: 'ListVS'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listSlaveDSDevices = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Device',
+                      version: 2,
+                      path: 'SurveillanceStation/device.cgi',
+                      method: 'ListCMS'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getServiceSettingDevice = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Device',
+                      version: 2,
+                      path: 'SurveillanceStation/device.cgi',
+                      method: 'GetServiceSetting'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.listEmaps = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Emap',
+                      version: 1,
+                      path: 'SurveillanceStation/emap.cgi',
+                      method: 'List'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getEmapInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['emapIds'],
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Emap',
+                      version: 1,
+                      path: 'SurveillanceStation/emap.cgi',
+                      method: 'GetInfo'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.getNotificationRegisterToken = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.SurveillanceStation.Notification',
+                      version: 1,
+                      path: 'entry.cgi',
+                      method: 'GetRegisterToken'
+                    }
+                  });
+                };
+        
+                SurveillanceStation.prototype.error = function(code, api) {
+                  if (api === 'SYNO.SurveillanceStation.Camera' || 'SYNO.SurveillanceStation.PTZ') {
+                    switch (code) {
+                      case 400:
+                        return 'Execution failed';
+                      case 401:
+                        return 'Parameter invalid';
+                      case 402:
+                        return 'Camera disabled';
+                    }
+                  }
+                  if (api === 'SYNO.SurveillanceStation.Event' || 'SYNO.SurveillanceStation.Emap') {
+                    switch (code) {
+                      case 400:
+                        return 'Execution failed';
+                      case 401:
+                        return 'Parameter invalid';
+                    }
+                  }
+                  if (api === 'SYNO.SurveillanceStation.Device') {
+                    switch (code) {
+                      case 400:
+                        return 'Execution failed';
+                      case 401:
+                        return 'Service is not enabled';
+                    }
+                  }
+                  if (api === 'SYNO.SurveillanceStation.Notification') {
+                    switch (code) {
+                      case 400:
+                        return 'Execution failed';
+                    }
+                  }
+                  return SurveillanceStation.__super__.error.apply(this, arguments);
+                };
+        
+                return SurveillanceStation;
+        
+              })(AuthenticatedAPI);
+              return module.exports = SurveillanceStation;
             })(modules, module, exports, void 0, void 0);
             return module.exports;
           });
@@ -1857,6 +2323,7 @@
                   this.fs = this.fileStation = new FileStation(this);
                   this.dl = this.downloadStation = new DownloadStation(this);
                   this.as = this.audioStation = new AudioStation(this);
+                  this.ss = this.surveillanceStation = new SurveillanceStation(this);
                 }
         
                 return Syno;
@@ -1872,8 +2339,8 @@
             module = {};
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
-              var Utils, each, filter, isFunction, isPlainObject, _ref;
-              _ref = require('lodash'), isFunction = _ref.isFunction, isPlainObject = _ref.isPlainObject, each = _ref.each, filter = _ref.filter;
+              var Utils, each, filter, isFunction, isPlainObject, ref;
+              ref = require('lodash'), isFunction = ref.isFunction, isPlainObject = ref.isPlainObject, each = ref.each, filter = ref.filter;
               Utils = (function() {
                 function Utils() {}
         

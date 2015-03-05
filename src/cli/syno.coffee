@@ -37,7 +37,7 @@ execute = (api, cmd, options)->
         process.exit 0
 
 program
-.version '1.0.2'
+.version '1.0.4'
 .description 'Synology Rest API Command Line'
 .option '-c, --config <path>', "DSM Configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}"
 .option '-u, --url <url>',
@@ -49,6 +49,7 @@ program
     console.log '    filestation|fs [options] <method>  DSM File Station API'
     console.log '    downloadstation|dl [options] <method>  DSM Download Station API'
     console.log '    audiostation|as [options] <method>  DSM Audio Station API'
+    console.log '    surveillancestation|ss [options] <method>  DSM Surveillance Station API'
     console.log ''
 .on '--help', ->
     console.log '  Examples:'
@@ -56,6 +57,7 @@ program
     console.log '    $ syno filestation|fs getFileStationInfo'
     console.log '    $ syno downloadstation|dl getDownloadStationInfo'
     console.log '    $ syno audiostation|as getAudioStationInfo'
+    console.log '    $ syno surveillancestation|ss getSurveillanceStationInfo'
     console.log ''
 
 program.parse process.argv
@@ -66,9 +68,11 @@ else if (program.args.length > 0 and
           program.args[0] isnt 'filestation' and
           program.args[0] isnt 'downloadstation' and
           program.args[0] isnt 'audiostation' and
+          program.args[0] isnt 'surveillancestation' and
           program.args[0] isnt 'fs' and
           program.args[0] isnt 'dl' and
-          program.args[0] isnt 'as')
+          program.args[0] isnt 'as'
+          program.args[0] isnt 'ss')
     console.log ''
     console.log "  [ERROR] : #{program.args[0]} is not a valid command !"
     console.log ''
@@ -77,6 +81,7 @@ else if (program.args.length > 0 and
     console.log '    $ syno filestation|fs [options] <method> DSM File Station API'
     console.log '    $ syno downloadstation|dl [options] <method> DSM Download Station API'
     console.log '    $ syno audiostation|as [options] <method> DSM Audio Station API'
+    console.log '    $ surveillancestation|ss [options] <method>  DSM Surveillance Station API'
     console.log ''
     process.exit 1
 
@@ -227,4 +232,25 @@ program
     console.log '[DEBUG] : DSM Audio Station API command selected' if program.debug
     execute 'as', cmd, options
   
+program
+.command('surveillancestation <method>')
+.alias('ss')
+.description('DSM Surveillance Station API')
+.option('-c, --config <path>', "DSM configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
+.option('-u, --url <url>'
+    , "DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}")
+.option('-p, --payload <payload>', 'JSON Payload')
+.option('-P, --pretty', 'Prettyprint JSON Output')
+.option('-d, --debug', 'Enabling Debugging Output')
+.on '--help', ->
+    console.log '  Examples:'
+    console.log ''
+    console.log '    $ syno surveillancestation|ss listCameras'
+    console.log '    $ syno surveillancestation|ss getCameraInfo --payload \'{"cameraIds":4}\''
+    console.log '    $ syno surveillancestation|ss zoomPTZCamera --payload \'{"cameraId":4, "control": "in"}\''
+    console.log ''
+.action (cmd, options) ->
+    console.log '[DEBUG] : DSM Surveillance Station API command selected' if program.debug
+    execute 'ss', cmd, options
+    
 program.parse process.argv
