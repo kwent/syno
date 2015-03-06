@@ -16,7 +16,8 @@
     "dsm",
     "filestation",
     "downloadstation",
-    "audiostation"
+    "audiostation",
+    "surveillancestation"
   ],
   "author": {
     "name": "jimrobs",
