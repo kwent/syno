@@ -125,11 +125,12 @@ Usage: syno [options]
 
   Commands:
 
-    filestation|fs [options] <method>  DSM File Station API
-    downloadstation|dl [options] <method>  DSM Download Station API
-    audiostation|as [options] <method>  DSM Audio Station API
-    videostation|vs [options] <method>  DSM Video Station API
-    surveillancestation|ss [options] <method>  DSM Surveillance Station API
+    filestation|fs [options] <method> DSM File Station API
+    downloadstation|dl [options] <method> DSM Download Station API
+    audiostation|as [options] <method> DSM Audio Station API
+    videostation|vs [options] <method> DSM Video Station API
+    videostationdtv|dtv [options] <method> DSM Video Station DTV API
+    surveillancestation|ss [options] <method> DSM Surveillance Station API
 
   Examples:
 
@@ -137,6 +138,7 @@ Usage: syno [options]
     $ syno downloadstation|dl getDownloadStationInfo
     $ syno audiostation|as getAudioStationInfo
     $ syno videostation|vs getVideoStationInfo
+    $ syno videostationdtv|dtv listDTVChannels --payload '{"limit":5}' --pretty
     $ syno surveillancestation|ss getSurveillanceStationInfo
 ```
 ## Examples
