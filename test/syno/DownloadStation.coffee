@@ -61,7 +61,6 @@ module.exports =
   listTasks: (test)->
       @syno.dl.listTasks (error, data)->
           test.ifError error
-          test.ok data.tasks.length > 0
           test.done()
       return
 
