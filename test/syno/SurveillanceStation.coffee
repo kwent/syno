@@ -45,11 +45,13 @@ module.exports =
   #         test.done()
   #     return
 
-  getCameraCapabilityById: (test)->
-      @syno.ss.getCameraCapabilityById {'cameraId': 4}, (error, data)->
-          test.ifError error
-          test.done()
-      return
+  # # Not available on demo.synology.com ?
+  # # Parameter invalid
+  # getCameraCapabilityById: (test)->
+  #     @syno.ss.getCameraCapabilityById {'cameraId': 4}, (error, data)->
+  #         test.ifError error
+  #         test.done()
+  #     return
 
   listCameraGroups: (test)->
       @syno.ss.listCameraGroups (error, data)->

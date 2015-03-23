@@ -2410,7 +2410,7 @@
                     done: done,
                     apiInfos: {
                       api: 'SYNO.VideoStation.Movie',
-                      version: 1,
+                      version: 2,
                       path: 'VideoStation/movie.cgi',
                       method: 'list'
                     }
@@ -2424,7 +2424,7 @@
                     requiredParams: ['title'],
                     apiInfos: {
                       api: 'SYNO.VideoStation.Movie',
-                      version: 1,
+                      version: 2,
                       path: 'VideoStation/movie.cgi',
                       method: 'search'
                     }
@@ -2533,7 +2533,7 @@
                     done: done,
                     apiInfos: {
                       api: 'SYNO.VideoStation.HomeVideo',
-                      version: 1,
+                      version: 2,
                       path: 'VideoStation/homevideo.cgi',
                       method: 'list'
                     }
@@ -2547,7 +2547,7 @@
                     requiredParams: ['title'],
                     apiInfos: {
                       api: 'SYNO.VideoStation.HomeVideo',
-                      version: 1,
+                      version: 2,
                       path: 'VideoStation/homevideo.cgi',
                       method: 'search'
                     }
@@ -2574,7 +2574,7 @@
                     done: done,
                     apiInfos: {
                       api: 'SYNO.VideoStation.TVRecording',
-                      version: 1,
+                      version: 2,
                       path: 'VideoStation/tvrecord.cgi',
                       method: 'list'
                     }
@@ -2588,7 +2588,7 @@
                     requiredParams: ['title'],
                     apiInfos: {
                       api: 'SYNO.VideoStation.TVRecording',
-                      version: 1,
+                      version: 2,
                       path: 'VideoStation/tvrecord.cgi',
                       method: 'search'
                     }
@@ -2615,7 +2615,7 @@
                     done: done,
                     apiInfos: {
                       api: 'SYNO.VideoStation.Collection',
-                      version: 1,
+                      version: 2,
                       path: 'VideoStation/collection.cgi',
                       method: 'list'
                     }
@@ -2629,7 +2629,7 @@
                     requiredParams: ['title'],
                     apiInfos: {
                       api: 'SYNO.VideoStation.Collection',
-                      version: 1,
+                      version: 2,
                       path: 'VideoStation/collection.cgi',
                       method: 'search'
                     }
@@ -2654,6 +2654,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
+                    requiredParams: ['id'],
                     apiInfos: {
                       api: 'SYNO.VideoStation.Metadata',
                       version: 2,
@@ -2663,26 +2664,14 @@
                   });
                 };
         
-                VideoStation.prototype.getRatingInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.Rating',
-                      version: 1,
-                      path: 'VideoStation/rater.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
                 VideoStation.prototype.listSubtitles = function(params, done) {
                   return this.requestAPI({
                     params: params,
                     done: done,
+                    requiredParams: ['id'],
                     apiInfos: {
                       api: 'SYNO.VideoStation.Subtitle',
-                      version: 2,
+                      version: 3,
                       path: 'VideoStation/subtitle.cgi',
                       method: 'list'
                     }
@@ -2709,7 +2698,7 @@
                     done: done,
                     apiInfos: {
                       api: 'SYNO.VideoStation.Folder',
-                      version: 1,
+                      version: 2,
                       path: 'VideoStation/folder.cgi',
                       method: 'list'
                     }
@@ -2720,6 +2709,7 @@
                   return this.requestAPI({
                     params: params,
                     done: done,
+                    requiredParams: ['id'],
                     apiInfos: {
                       api: 'SYNO.VideoStation.WatchStatus',
                       version: 1,

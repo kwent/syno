@@ -121,56 +121,55 @@ module.exports =
             test.done()
         return
         
-    searchCollection: (test)->
-        @syno.vs.searchCollection {'title': 'favorite'}, (error, data)->
-            test.ifError error
-            test.done()
-        return
+    ## Not available on demo.synology.com
+    # searchCollection: (test)->
+    #     @syno.vs.searchCollection {'title': 'favorite'}, (error, data)->
+    #         test.ifError error
+    #         test.done()
+    #     return
         
     getCollectionInfo: (test)->
-        @syno.vs.getCollectionInfo {'id': '1'}, (error, data)->
+        @syno.vs.getCollectionInfo {'id': 1}, (error, data)->
             test.ifError error
             test.done()
         return
 
-    listMetadatas: (test)->
-        @syno.vs.listMetadatas (error, data)->
-            test.ifError error
-            test.done()
-        return
+    ## Not available on demo.synology.com
+    # listMetadatas: (test)->
+    #     @syno.vs.listMetadatas {'id': 1}, (error, data)->
+    #         test.ifError error
+    #         test.done()
+    #     return
 
-    listSubtitles: (test)->
-        @syno.vs.listSubtitles (error, data)->
-            test.ifError error
-            test.done()
-        return
+    ## Not available on demo.synology.com
+    # listSubtitles: (test)->
+    #     @syno.vs.listSubtitles {'id': 1}, (error, data)->
+    #         test.ifError error
+    #         test.done()
+    #     return
 
-    listAudioTracks: (test)->
-        @syno.vs.listAudioTracks {'id': '1'}, (error, data)->
-            test.ifError error
-            test.done()
-        return
-
-    listFolders: (test)->
-        @syno.vs.listFolders (error, data)->
-            test.ifError error
-            test.done()
-        return
+    ## Not available on demo.synology.com
+    # listAudioTracks: (test)->
+    #     @syno.vs.listAudioTracks {'id': 1}, (error, data)->
+    #         test.ifError error
+    #         test.done()
+    #     return
+        
+    ## Not available on demo.synology.com
+    # listFolders: (test)->
+    #     @syno.vs.listFolders (error, data)->
+    #         test.ifError error
+    #         test.done()
+    #     return
 
     listLibraries: (test)->
         @syno.vs.listLibraries (error, data)->
             test.ifError error
             test.done()
         return
-        
-    getRatingInfo: (test)->
-        @syno.vs.getRatingInfo (error, data)->
-            test.ifError error
-            test.done()
-        return
-        
+
     getWatchStatusInfo: (test)->
-        @syno.vs.getWatchStatusInfo (error, data)->
+        @syno.vs.getWatchStatusInfo {'id': 1}, (error, data)->
             test.ifError error
             test.done()
         return

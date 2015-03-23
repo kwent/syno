@@ -25,7 +25,7 @@ class VideoStation extends AuthenticatedAPI
             params, done
             apiInfos:
                 api: 'SYNO.VideoStation.Movie'
-                version: 1
+                version: 2
                 path: 'VideoStation/movie.cgi'
                 method: 'list'
         }
@@ -36,7 +36,7 @@ class VideoStation extends AuthenticatedAPI
             requiredParams: [ 'title' ]
             apiInfos:
                 api: 'SYNO.VideoStation.Movie'
-                version: 1
+                version: 2
                 path: 'VideoStation/movie.cgi'
                 method: 'search'
         }
@@ -134,7 +134,7 @@ class VideoStation extends AuthenticatedAPI
             params, done
             apiInfos:
                 api: 'SYNO.VideoStation.HomeVideo'
-                version: 1
+                version: 2
                 path: 'VideoStation/homevideo.cgi'
                 method: 'list'
         }
@@ -145,7 +145,7 @@ class VideoStation extends AuthenticatedAPI
             requiredParams: [ 'title' ]
             apiInfos:
                 api: 'SYNO.VideoStation.HomeVideo'
-                version: 1
+                version: 2
                 path: 'VideoStation/homevideo.cgi'
                 method: 'search'
         }
@@ -170,7 +170,7 @@ class VideoStation extends AuthenticatedAPI
             params, done
             apiInfos:
                 api: 'SYNO.VideoStation.TVRecording'
-                version: 1
+                version: 2
                 path: 'VideoStation/tvrecord.cgi'
                 method: 'list'
         }
@@ -181,7 +181,7 @@ class VideoStation extends AuthenticatedAPI
             requiredParams: [ 'title' ]
             apiInfos:
                 api: 'SYNO.VideoStation.TVRecording'
-                version: 1
+                version: 2
                 path: 'VideoStation/tvrecord.cgi'
                 method: 'search'
         }
@@ -212,7 +212,7 @@ class VideoStation extends AuthenticatedAPI
             params, done
             apiInfos:
                 api: 'SYNO.VideoStation.Collection'
-                version: 1
+                version: 2
                 path: 'VideoStation/collection.cgi'
                 method: 'list'
         }
@@ -223,7 +223,7 @@ class VideoStation extends AuthenticatedAPI
             requiredParams: [ 'title' ]
             apiInfos:
                 api: 'SYNO.VideoStation.Collection'
-                version: 1
+                version: 2
                 path: 'VideoStation/collection.cgi'
                 method: 'search'
         }
@@ -244,6 +244,7 @@ class VideoStation extends AuthenticatedAPI
     listMetadatas: (params, done)->
         @requestAPI {
             params, done
+            requiredParams: [ 'id' ]
             apiInfos:
                 api: 'SYNO.VideoStation.Metadata'
                 version: 2
@@ -258,17 +259,8 @@ class VideoStation extends AuthenticatedAPI
 
     # SYNO.VideoStation.Rating (VideoStation/rater.cgi)
     # TODO
+    # getRatingInfo
     # updateinfo
-    
-    getRatingInfo: (params, done)->
-        @requestAPI {
-            params, done
-            apiInfos:
-                api: 'SYNO.VideoStation.Rating'
-                version: 1
-                path: 'VideoStation/rater.cgi'
-                method: 'getinfo'
-        }
 
     # SYNO.VideoStation.Streaming (VideoStation/vtestreaming.cgi)
     # TODO
@@ -290,9 +282,10 @@ class VideoStation extends AuthenticatedAPI
     listSubtitles: (params, done)->
         @requestAPI {
             params, done
+            requiredParams: [ 'id' ]
             apiInfos:
                 api: 'SYNO.VideoStation.Subtitle'
-                version: 2
+                version: 3
                 path: 'VideoStation/subtitle.cgi'
                 method: 'list'
         }
@@ -317,7 +310,7 @@ class VideoStation extends AuthenticatedAPI
             params, done
             apiInfos:
                 api: 'SYNO.VideoStation.Folder'
-                version: 1
+                version: 2
                 path: 'VideoStation/folder.cgi'
                 method: 'list'
         }
@@ -329,6 +322,7 @@ class VideoStation extends AuthenticatedAPI
     getWatchStatusInfo: (params, done)->
         @requestAPI {
             params, done
+            requiredParams: [ 'id' ]
             apiInfos:
                 api: 'SYNO.VideoStation.WatchStatus'
                 version: 1
