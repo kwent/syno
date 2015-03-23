@@ -2323,6 +2323,8 @@
                   this.fs = this.fileStation = new FileStation(this);
                   this.dl = this.downloadStation = new DownloadStation(this);
                   this.as = this.audioStation = new AudioStation(this);
+                  this.vs = this.videoStation = new VideoStation(this);
+                  this.dtv = this.videoStationDTV = new VideoStationDTV(this);
                   this.ss = this.surveillanceStation = new SurveillanceStation(this);
                 }
         
@@ -2372,6 +2374,635 @@
         
               })();
               return module.exports = Utils;
+            })(modules, module, exports, void 0, void 0);
+            return module.exports;
+          });
+        
+          setModule('VideoStation', function() {
+            var exports, module;
+            module = {};
+            exports = module.exports = {};
+            (function(modules, module, exports, setModule, setter) {
+              var VideoStation;
+              VideoStation = (function(superClass) {
+                extend1(VideoStation, superClass);
+        
+                function VideoStation() {
+                  return VideoStation.__super__.constructor.apply(this, arguments);
+                }
+        
+                VideoStation.prototype.getVideoStationInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Info',
+                      version: 1,
+                      path: 'VideoStation/info.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.listMovies = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Movie',
+                      version: 1,
+                      path: 'VideoStation/movie.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.searchMovie = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Movie',
+                      version: 1,
+                      path: 'VideoStation/movie.cgi',
+                      method: 'search'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.getMovieInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['id'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Movie',
+                      version: 1,
+                      path: 'VideoStation/movie.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.listTVShows = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.TVShow',
+                      version: 1,
+                      path: 'VideoStation/tvshow.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.searchTVShow = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.TVShow',
+                      version: 1,
+                      path: 'VideoStation/tvshow.cgi',
+                      method: 'search'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.getTVShowInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['id'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.TVShow',
+                      version: 1,
+                      path: 'VideoStation/tvshow.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.listTVShowEpisodes = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.TVShowEpisode',
+                      version: 1,
+                      path: 'VideoStation/tvshow_episode.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.searchTVShowEpisode = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.TVShowEpisode',
+                      version: 1,
+                      path: 'VideoStation/tvshow_episode.cgi',
+                      method: 'search'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.getTVShowEpisodeInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['id'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.TVShowEpisode',
+                      version: 1,
+                      path: 'VideoStation/tvshow_episode.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.listHomeVideos = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.HomeVideo',
+                      version: 1,
+                      path: 'VideoStation/homevideo.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.searchHomeVideo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.HomeVideo',
+                      version: 1,
+                      path: 'VideoStation/homevideo.cgi',
+                      method: 'search'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.getHomeVideoInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['id'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.HomeVideo',
+                      version: 1,
+                      path: 'VideoStation/homevideo.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.listTVRecordings = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.TVRecording',
+                      version: 1,
+                      path: 'VideoStation/tvrecord.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.searchTVRecording = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.TVRecording',
+                      version: 1,
+                      path: 'VideoStation/tvrecord.cgi',
+                      method: 'search'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.getTVRecordingInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['id'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.TVRecording',
+                      version: 1,
+                      path: 'VideoStation/tvrecord.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.listCollections = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Collection',
+                      version: 1,
+                      path: 'VideoStation/collection.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.searchCollection = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Collection',
+                      version: 1,
+                      path: 'VideoStation/collection.cgi',
+                      method: 'search'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.getCollectionInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['id'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Collection',
+                      version: 2,
+                      path: 'VideoStation/collection.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.listMetadatas = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Metadata',
+                      version: 2,
+                      path: 'VideoStation/metadata.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.getRatingInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Rating',
+                      version: 1,
+                      path: 'VideoStation/rater.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.listSubtitles = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Subtitle',
+                      version: 2,
+                      path: 'VideoStation/subtitle.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.listAudioTracks = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['id'],
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.AudioTrack',
+                      version: 1,
+                      path: 'VideoStation/audiotrack.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.listFolders = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Folder',
+                      version: 1,
+                      path: 'VideoStation/folder.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.getWatchStatusInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.WatchStatus',
+                      version: 1,
+                      path: 'VideoStation/watchstatus.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.listLibraries = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.VideoStation.Library',
+                      version: 1,
+                      path: 'VideoStation/library.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStation.prototype.getMethods = function(params, done) {
+                  var filtered, k, keys, to_exclude, v;
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
+                  keys = (function() {
+                    var results;
+                    results = [];
+                    for (k in this) {
+                      v = this[k];
+                      if (typeof v === 'function') {
+                        results.push(k);
+                      }
+                    }
+                    return results;
+                  }).call(this);
+                  filtered = keys.filter(function(method_name) {
+                    return to_exclude.indexOf(method_name) === -1;
+                  });
+                  return done(filtered);
+                };
+        
+                return VideoStation;
+        
+              })(AuthenticatedAPI);
+              return module.exports = VideoStation;
+            })(modules, module, exports, void 0, void 0);
+            return module.exports;
+          });
+        
+          setModule('VideoStationDTV', function() {
+            var exports, module;
+            module = {};
+            exports = module.exports = {};
+            (function(modules, module, exports, setModule, setter) {
+              var VideoStationDTV;
+              VideoStationDTV = (function(superClass) {
+                extend1(VideoStationDTV, superClass);
+        
+                function VideoStationDTV() {
+                  return VideoStationDTV.__super__.constructor.apply(this, arguments);
+                }
+        
+                VideoStationDTV.prototype.startChannelScan = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.ChannelScan',
+                      version: 1,
+                      path: 'VideoStation/channelscan.cgi',
+                      method: 'start'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.stopChannelScan = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.ChannelScan',
+                      version: 1,
+                      path: 'VideoStation/channelscan.cgi',
+                      method: 'stop'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.statusChannelScan = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.ChannelScan',
+                      version: 1,
+                      path: 'VideoStation/channelscan.cgi',
+                      method: 'status'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.startDVBSScan = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.DVBSScan',
+                      version: 1,
+                      path: 'VideoStation/dvbsscan.cgi',
+                      method: 'start'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.stopDVBSScan = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.DVBSScan',
+                      version: 1,
+                      path: 'VideoStation/dvbsscan.cgi',
+                      method: 'stop'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.statusDVBSScan = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.DVBSScan',
+                      version: 1,
+                      path: 'VideoStation/dvbsscan.cgi',
+                      method: 'status'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.listDTVChannels = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Channel',
+                      version: 1,
+                      path: 'VideoStation/channellist.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.getDTVChannelsInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Channel',
+                      version: 1,
+                      path: 'VideoStation/channellist.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.listDTVPrograms = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Program',
+                      version: 1,
+                      path: 'VideoStation/programlist.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.searchDTVProgram = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    requiredParams: ['title'],
+                    apiInfos: {
+                      api: 'SYNO.DTV.Program',
+                      version: 1,
+                      path: 'VideoStation/programlist.cgi',
+                      method: 'search'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.listDTVSchedules = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Schedule',
+                      version: 1,
+                      path: 'VideoStation/schedule_recording.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.getDTVStatusInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Status',
+                      version: 1,
+                      path: 'VideoStation/dvtstatus.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.getDTVStatisticsInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Statistic',
+                      version: 1,
+                      path: 'VideoStation/dtvstatistic.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.listDTVTuners = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Tuner',
+                      version: 1,
+                      path: 'VideoStation/tuner.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.getDTVTunerInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DTV.Tuner',
+                      version: 1,
+                      path: 'VideoStation/tuner.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                VideoStationDTV.prototype.getMethods = function(params, done) {
+                  var filtered, k, keys, to_exclude, v;
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
+                  keys = (function() {
+                    var results;
+                    results = [];
+                    for (k in this) {
+                      v = this[k];
+                      if (typeof v === 'function') {
+                        results.push(k);
+                      }
+                    }
+                    return results;
+                  }).call(this);
+                  filtered = keys.filter(function(method_name) {
+                    return to_exclude.indexOf(method_name) === -1;
+                  });
+                  return done(filtered);
+                };
+        
+                return VideoStationDTV;
+        
+              })(AuthenticatedAPI);
+              return module.exports = VideoStationDTV;
             })(modules, module, exports, void 0, void 0);
             return module.exports;
           });

@@ -49,6 +49,7 @@ program
     console.log '    filestation|fs [options] <method>  DSM File Station API'
     console.log '    downloadstation|dl [options] <method>  DSM Download Station API'
     console.log '    audiostation|as [options] <method>  DSM Audio Station API'
+    console.log '    videostation|vs [options] <method>  DSM Video Station API'
     console.log '    surveillancestation|ss [options] <method>  DSM Surveillance Station API'
     console.log ''
 .on '--help', ->
@@ -57,6 +58,7 @@ program
     console.log '    $ syno filestation|fs getFileStationInfo'
     console.log '    $ syno downloadstation|dl getDownloadStationInfo'
     console.log '    $ syno audiostation|as getAudioStationInfo'
+    console.log '    $ syno videostation|vs getVideoStationInfo'
     console.log '    $ syno surveillancestation|ss getSurveillanceStationInfo'
     console.log ''
 
@@ -68,10 +70,14 @@ else if (program.args.length > 0 and
           program.args[0] isnt 'filestation' and
           program.args[0] isnt 'downloadstation' and
           program.args[0] isnt 'audiostation' and
+          program.args[0] isnt 'videostation' and
+          program.args[0] isnt 'videostationdtv' and
           program.args[0] isnt 'surveillancestation' and
           program.args[0] isnt 'fs' and
           program.args[0] isnt 'dl' and
-          program.args[0] isnt 'as'
+          program.args[0] isnt 'as' and
+          program.args[0] isnt 'vs' and
+          program.args[0] isnt 'dtv' and
           program.args[0] isnt 'ss')
     console.log ''
     console.log "  [ERROR] : #{program.args[0]} is not a valid command !"
@@ -81,6 +87,7 @@ else if (program.args.length > 0 and
     console.log '    $ syno filestation|fs [options] <method> DSM File Station API'
     console.log '    $ syno downloadstation|dl [options] <method> DSM Download Station API'
     console.log '    $ syno audiostation|as [options] <method> DSM Audio Station API'
+    console.log '    $ syno videostation|vs [options] <method> DSM Video Station API'
     console.log '    $ surveillancestation|ss [options] <method>  DSM Surveillance Station API'
     console.log ''
     process.exit 1
@@ -231,6 +238,46 @@ program
 .action (cmd, options) ->
     console.log '[DEBUG] : DSM Audio Station API command selected' if program.debug
     execute 'as', cmd, options
+    
+program
+.command('videostation <method>')
+.alias('vs')
+.description('DSM Video Station API')
+.option('-c, --config <path>', "DSM configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
+.option('-u, --url <url>'
+    , "DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}")
+.option('-p, --payload <payload>', 'JSON Payload')
+.option('-P, --pretty', 'Prettyprint JSON Output')
+.option('-d, --debug', 'Enabling Debugging Output')
+.on '--help', ->
+    console.log '  Examples:'
+    console.log ''
+    console.log '    $ syno videostation|vs listMovies --payload \'{"limit":1}\''
+    console.log '    $ syno videostation|vs getTVShowEpisodeInfo --payload \'{"id":"episode_id"}\''
+    console.log ''
+.action (cmd, options) ->
+    console.log '[DEBUG] : DSM Video Station API command selected' if program.debug
+    execute 'vs', cmd, options
+    
+program
+.command('videostationdtv <method>')
+.alias('dtv')
+.description('DSM Video Station DTV API')
+.option('-c, --config <path>', "DSM configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}")
+.option('-u, --url <url>'
+    , "DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}")
+.option('-p, --payload <payload>', 'JSON Payload')
+.option('-P, --pretty', 'Prettyprint JSON Output')
+.option('-d, --debug', 'Enabling Debugging Output')
+.on '--help', ->
+    console.log '  Examples:'
+    console.log ''
+    console.log '    $ syno videostationdtv|dtv listDTVChannels --payload \'{"limit":1}\''
+    console.log '    $ syno videostationdtv|dtv getDTVTunerInfo --payload \'{"id":"tuner_id"}\''
+    console.log ''
+.action (cmd, options) ->
+    console.log '[DEBUG] : DSM Video Station DTV API command selected' if program.debug
+    execute 'dtv', cmd, options
   
 program
 .command('surveillancestation <method>')

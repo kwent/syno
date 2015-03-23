@@ -40,6 +40,8 @@ To get more information (parameters, response data, ...) use the PDF documents (
 * [File Station Syno API](https://github.com/JimRobs/syno/wiki/File-Station-API)
 * [Download Station Syno API](https://github.com/JimRobs/syno/wiki/Download-Station-API)
 * [Audio Station Syno API](https://github.com/JimRobs/syno/wiki/Audio-Station-API)
+* [Video Station Syno API](https://github.com/JimRobs/syno/wiki/Video-Station-API)
+* [Video Station DTV Syno API](https://github.com/JimRobs/syno/wiki/Video-Station-DTV-API)
 * [Surveillance Station Syno API](https://github.com/JimRobs/syno/wiki/Surveillance-Station-API)
 
 # Javascript wrapper
@@ -101,6 +103,10 @@ syno.dl.listFiles({'limit':5, 'offset':10}, callback);
 syno.dl.createTask({'uri':'https://link'}, callback);
 // Audio Station API - Search a song
 syno.as.searchSong({'title':'my_title_song'}, callback);
+// Video Station API - List movies
+syno.vs.listMovies({'limit':5}, callback);
+// Video Station DTV API - List channels
+syno.dtv.listDTVChannels({'limit':5}, callback);
 // Surveillance Station API - Get camera information
 syno.ss.getCameraInfo({'cameraIds': 4}, callback);
 ```
@@ -122,6 +128,7 @@ Usage: syno [options]
     filestation|fs [options] <method>  DSM File Station API
     downloadstation|dl [options] <method>  DSM Download Station API
     audiostation|as [options] <method>  DSM Audio Station API
+    videostation|vs [options] <method>  DSM Video Station API
     surveillancestation|ss [options] <method>  DSM Surveillance Station API
 
   Examples:
@@ -129,6 +136,7 @@ Usage: syno [options]
     $ syno filestation|fs getFileStationInfo
     $ syno downloadstation|dl getDownloadStationInfo
     $ syno audiostation|as getAudioStationInfo
+    $ syno videostation|vs getVideoStationInfo
     $ syno surveillancestation|ss getSurveillanceStationInfo
 ```
 ## Examples
@@ -144,6 +152,10 @@ $ syno dl listFiles --payload '{"limit":5, "offset":10}' --pretty
 $ syno dl createTask --payload '{"uri":"https://link"}'
 # Audio Station API - Search a song
 $ syno as searchSong --payload '{"title":"my_title_song"}' --pretty
+# Video Station API - List movies
+$ syno vs listMovies --payload '{"limit":5}' --pretty
+# Video Station DTV API - List channels
+$ syno dtv listDTVChannels --payload '{"limit":5}' --pretty
 # Surveillance Station API - Get camera information
 $ syno ss getCameraInfo --payload '{"cameraIds":4}' --pretty
 ```

@@ -42,5 +42,8 @@ class Syno
         @dl = @downloadStation = new DownloadStation this
         # Add Audio Station API
         @as = @audioStation = new AudioStation this
-        # Add Surveillance Station API
+        # Add Video Station API
+        @vs = @videoStation = new VideoStation this
+        # Add Video Station DTV API
+        @dtv = @videoStationDTV = new VideoStationDTV this        # Add Surveillance Station API
         @ss = @surveillanceStation = new SurveillanceStation this
