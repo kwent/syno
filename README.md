@@ -108,7 +108,7 @@ syno.vs.listMovies({'limit':5}, callback);
 // Video Station DTV API - List channels
 syno.dtv.listDTVChannels({'limit':5}, callback);
 // Surveillance Station API - Get camera information
-syno.ss.getCameraInfo({'cameraIds': 4}, callback);
+syno.ss.getCameraInfo({'cameraIds':4}, callback);
 ```
 # CLI
 
