@@ -17,6 +17,8 @@
     "filestation",
     "downloadstation",
     "audiostation",
+    "videostation",
+    "videostation_dtv",
     "surveillancestation"
   ],
   "author": {
