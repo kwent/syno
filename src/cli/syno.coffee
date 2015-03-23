@@ -46,11 +46,12 @@ program
 .on '--help', ->
     console.log '  Commands:'
     console.log ''
-    console.log '    filestation|fs [options] <method>  DSM File Station API'
-    console.log '    downloadstation|dl [options] <method>  DSM Download Station API'
-    console.log '    audiostation|as [options] <method>  DSM Audio Station API'
-    console.log '    videostation|vs [options] <method>  DSM Video Station API'
-    console.log '    surveillancestation|ss [options] <method>  DSM Surveillance Station API'
+    console.log '    filestation|fs [options] <method> DSM File Station API'
+    console.log '    downloadstation|dl [options] <method> DSM Download Station API'
+    console.log '    audiostation|as [options] <method> DSM Audio Station API'
+    console.log '    videostation|vs [options] <method> DSM Video Station API'
+    console.log '    videostationdtv|dtv [options] <method> DSM Video Station DTV API'
+    console.log '    surveillancestation|ss [options] <method> DSM Surveillance Station API'
     console.log ''
 .on '--help', ->
     console.log '  Examples:'
@@ -59,6 +60,7 @@ program
     console.log '    $ syno downloadstation|dl getDownloadStationInfo'
     console.log '    $ syno audiostation|as getAudioStationInfo'
     console.log '    $ syno videostation|vs getVideoStationInfo'
+    console.log '    $ syno videostationdtv|dtv listDTVChannels --payload \'{"limit":5}\' --pretty'
     console.log '    $ syno surveillancestation|ss getSurveillanceStationInfo'
     console.log ''
 
@@ -88,7 +90,8 @@ else if (program.args.length > 0 and
     console.log '    $ syno downloadstation|dl [options] <method> DSM Download Station API'
     console.log '    $ syno audiostation|as [options] <method> DSM Audio Station API'
     console.log '    $ syno videostation|vs [options] <method> DSM Video Station API'
-    console.log '    $ surveillancestation|ss [options] <method>  DSM Surveillance Station API'
+    console.log '    $ syno videostationdtv|dtv listDTVChannels --payload \'{"limit":5}\' --pretty'
+    console.log '    $ syno surveillancestation|ss [options] <method> DSM Surveillance Station API'
     console.log ''
     process.exit 1
 
