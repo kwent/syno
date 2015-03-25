@@ -2991,7 +2991,7 @@
         
                 VideoStationDTV.prototype.getMethods = function(params, done) {
                   var filtered, k, keys, to_exclude, v;
-                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods'];
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'error'];
                   keys = (function() {
                     var results;
                     results = [];
