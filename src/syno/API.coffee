@@ -4,18 +4,6 @@
 # Class API
 class API
 
-    # Handle API errors
-    error: (code)->
-        switch code
-            when 101 then 'No parameter of API, method or version'
-            when 102 then 'The requested API does not exist'
-            when 103 then 'The requested method does not exist'
-            when 104 then 'The requested version does not support the functionality'
-            when 105 then 'The logged in session does not have permission'
-            when 106 then 'Session timeout'
-            when 107 then 'Session interrupted by duplicate login'
-            else 'Unknown error'
-
     # Privat noop class
     noop = ->
 
@@ -85,3 +73,15 @@ class API
         opts = extend {}, apiInfos, {params}
         # Call request with options and done callback
         @request opts, done
+
+    # Handle API errors
+    error: (code)->
+        switch code
+            when 101 then 'No parameter of API, method or version'
+            when 102 then 'The requested API does not exist'
+            when 103 then 'The requested method does not exist'
+            when 104 then 'The requested version does not support the functionality'
+            when 105 then 'The logged in session does not have permission'
+            when 106 then 'Session timeout'
+            when 107 then 'Session interrupted by duplicate login'
+            else 'Unknown error'
