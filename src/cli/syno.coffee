@@ -37,7 +37,7 @@ execute = (api, cmd, options)->
         process.exit 0
 
 program
-.version '1.0.4'
+.version '1.0.5'
 .description 'Synology Rest API Command Line'
 .option '-c, --config <path>', "DSM Configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}"
 .option '-u, --url <url>',
