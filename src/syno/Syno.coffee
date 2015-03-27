@@ -45,5 +45,6 @@ class Syno
         # Add Video Station API
         @vs = @videoStation = new VideoStation this
         # Add Video Station DTV API
-        @dtv = @videoStationDTV = new VideoStationDTV this        # Add Surveillance Station API
+        @dtv = @videoStationDTV = new VideoStationDTV this
+        # Add Surveillance Station API
         @ss = @surveillanceStation = new SurveillanceStation this
