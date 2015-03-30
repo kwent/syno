@@ -176,7 +176,7 @@ $ syno fs getFileStationInfo --url https://admin:synology@demo.synology.com:5001
 ```yaml
 
 # Example config file, by default it should be located at:
-# ~/.syno/config.conf
+# ~/.syno/config.yaml
 
 url:
   protocol: https
