@@ -1,6 +1,6 @@
 {
   "name": "syno",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Simple Node.js wrapper (browser included) and CLI for Synology DSM REST API.",
   "main": "dist/syno.js",
   "scripts": {
