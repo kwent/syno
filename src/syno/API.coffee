@@ -40,7 +40,7 @@ class API
                 return done error
             # Call done callback with error if there is an error server side
             if not body.success or
-              (body.success and body.data and body.data instanceof Array and body.data[0] and body.data[0].error)
+            (body.success and body.data and body.data instanceof Array and body.data[0] and body.data[0].error)
                 code = if body.error then body.error.code else body.data[0].error
                 error = new Error @error code, api
                 error.code = code

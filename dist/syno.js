@@ -5,21 +5,22 @@
         if(modules.hasOwnProperty(name)){
             throw new Error('Module '+name+' already exists.');
         }
-        var module;
         Object.defineProperty(modules, name, {
             get: function(){
-                if(module) {
-                    return module;
-                }
                 if(factory.busy) {
                     throw new Error('Cyclic dependency detected on module '+name);
                 }
                 factory.busy = true;
-                module = factory();
+                var value = factory();
+                Object.defineProperty(modules, name, {
+                    value: value
+                });
                 factory.busy = false;
-                return module;
+                return value;
             },
-            set: setter
+            set: setter,
+            enumerable: true,
+            configurable: true
         });
     }
     with(modules){
