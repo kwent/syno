@@ -3,10 +3,10 @@
 Simple Node.js wrapper (browser included) and CLI for Synology DSM REST API.
 
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
-[![Build Status](https://travis-ci.org/JimRobs/syno.svg?branch=master)](https://travis-ci.org/JimRobs/syno)
+[![Build Status](https://travis-ci.org/kwent/syno.svg?branch=master)](https://travis-ci.org/kwent/syno)
 [![npm version](https://img.shields.io/npm/v/syno.svg?style=flat)](https://www.npmjs.com/package/syno)
-[![Dependency Status](https://david-dm.org/JimRobs/syno.svg?theme=shields.io)](https://www.npmjs.com/package/syno)
-[![devDependency Status](https://david-dm.org/JimRobs/syno/dev-status.svg?theme=shields.io)](https://www.npmjs.com/package/syno)
+[![Dependency Status](https://david-dm.org/kwent/syno.svg?theme=shields.io)](https://www.npmjs.com/package/syno)
+[![devDependency Status](https://david-dm.org/kwent/syno/dev-status.svg?theme=shields.io)](https://www.npmjs.com/package/syno)
 ![Synology Development Tool](https://www.synology.com/img/support/developer/banner.png)
 
 See [Synology Development Tool](https://www.synology.com/en-us/support/developer#tool).
@@ -34,15 +34,15 @@ $ npm install syno --global
 # Syno API
 
 This is a simple presentation of the syno API and its methods.
-To get more information (parameters, response data, ...) use the PDF documents (see in the [wiki](https://github.com/JimRobs/syno/wiki)).
+To get more information (parameters, response data, ...) use the PDF documents (see in the [wiki](https://github.com/kwent/syno/wiki)).
 
-* [Authentication Syno API](https://github.com/JimRobs/syno/wiki/Authentication-API)
-* [File Station Syno API](https://github.com/JimRobs/syno/wiki/File-Station-API)
-* [Download Station Syno API](https://github.com/JimRobs/syno/wiki/Download-Station-API)
-* [Audio Station Syno API](https://github.com/JimRobs/syno/wiki/Audio-Station-API)
-* [Video Station Syno API](https://github.com/JimRobs/syno/wiki/Video-Station-API)
-* [Video Station DTV Syno API](https://github.com/JimRobs/syno/wiki/Video-Station-DTV-API)
-* [Surveillance Station Syno API](https://github.com/JimRobs/syno/wiki/Surveillance-Station-API)
+* [Authentication Syno API](https://github.com/kwent/syno/wiki/Authentication-API)
+* [File Station Syno API](https://github.com/kwent/syno/wiki/File-Station-API)
+* [Download Station Syno API](https://github.com/kwent/syno/wiki/Download-Station-API)
+* [Audio Station Syno API](https://github.com/kwent/syno/wiki/Audio-Station-API)
+* [Video Station Syno API](https://github.com/kwent/syno/wiki/Video-Station-API)
+* [Video Station DTV Syno API](https://github.com/kwent/syno/wiki/Video-Station-DTV-API)
+* [Surveillance Station Syno API](https://github.com/kwent/syno/wiki/Surveillance-Station-API)
 
 # Javascript wrapper
 
@@ -190,7 +190,7 @@ url:
 $ syno fs getFileStationInfo --pretty
 ```
 
-More usage [examples](https://github.com/JimRobs/syno/wiki/CLI) in the [wiki](https://github.com/JimRobs/syno/wiki).
+More usage [examples](https://github.com/kwent/syno/wiki/CLI) in the [wiki](https://github.com/kwent/syno/wiki).
 
 # Browser
 
@@ -229,17 +229,16 @@ Be sure to disable [same-origin policy](http://en.wikipedia.org/wiki/Same-origin
 
 ## Demo
 
-A demo is available [online](http://jimrobs.github.io/syno/) or in the `test/browser` folder.
+A demo is available [online](http://kwent.github.io/syno/) or in the `test/browser` folder.
 
 # Authors
 
-- [Jimmy Roberts](https://github.com/JimRobs)
 - [Quentin Rousseau](https://github.com/kwent)
 
 # License
 
 ```plain
-Copyright (c) 2015 Jimmy Robert <jimmy@jimrobs.com> & Quentin Rousseau <contact@quent.in>
+Copyright (c) 2016 Quentin Rousseau <contact@quent.in>
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

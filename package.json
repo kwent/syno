@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jimrobs/syno.git"
+    "url": "https://github.com/kwent/syno.git"
   },
   "keywords": [
     "syno",
@@ -22,22 +22,15 @@
     "surveillancestation"
   ],
   "author": {
-    "name": "jimrobs",
-    "email": "jimmy@jimrobs.com",
-    "url": "https://github.com/jimrobs"
+    "name": "kwent",
+    "email": "contact@quent.in",
+    "url": "https://github.com/kwent"
   },
-  "contributors": [
-    {
-      "name": "kwent",
-      "email": "contact@quent.in",
-      "url": "https://github.com/kwent"
-    }
-  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jimrobs/syno/issues"
+    "url": "https://github.com/kwent/syno/issues"
   },
-  "homepage": "https://github.com/jimrobs/syno",
+  "homepage": "https://github.com/kwent/syno",
   "bin": {
     "syno": "bin/syno.js"
   },
