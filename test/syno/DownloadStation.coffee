@@ -5,10 +5,10 @@ module.exports =
   setUp: (callback)->
       @syno = new Syno(
           protocol: 'https'
-          host: 'demo.synology.com'
+          host: 'kwentakill.synology.me'
           port: '5001'
-          account: 'admin'
-          passwd: 'synology')
+          account: 'travis'
+          passwd: 'travis')
         
       @syno.auth.login
       callback()

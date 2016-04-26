@@ -2,16 +2,16 @@ Syno = require('../../dist/syno.js')
 
 synoWithValidCredentials = new Syno(
     protocol: 'https'
-    host: 'demo.synology.com'
+    host: 'kwentakill.synology.me'
     port: '5001'
-    account: 'admin'
-    passwd: 'synology')
+    account: 'travis'
+    passwd: 'travis')
   
 synoWithNotValidCredentials = new Syno(
     protocol: 'https'
-    host: 'demo.synology.com'
+    host: 'kwentakill.synology.me'
     port: '5001'
-    account: 'admin'
+    account: 'travis'
     passwd: 'wrong_password')
   
 exports.loginWithValidCredentials = (test)->
