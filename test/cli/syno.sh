@@ -21,11 +21,14 @@ valid () {
   fi
 }
 
+# Do not check https cert
+NODE_TLS_REJECT_UNAUTHORIZED=0
+
 # URL Possibilities
-URL="https://admin:synology@demo.synology.com:5001"
-URL_WRONG_PROTOCOL="ftp://synology@demo.synology.com:5001"
-URL_NO_PORT="https://admin:synology@demo.synology.com"
-URL_NO_PORT_NO_AUTH="demo.synology.com"
+URL="https://travis:travis@kwentakill.synology.me:5001"
+URL_WRONG_PROTOCOL="ftp://travis@kwentakill.synology.me:5001"
+URL_NO_PORT="https://travis:travis@kwentakill.synology.me"
+URL_NO_PORT_NO_AUTH="kwentakill.synology.me"
 
 # Tests
 # Syntax: valid cmd [options] Exit code 0 (Success) expected.
