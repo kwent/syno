@@ -1,5 +1,6 @@
 all: ['test/syno/*.coffee']
 auth: ['test/syno/auth.coffee']
+dsm: ['test/syno/DSM.coffee']
 ds: ['test/syno/DownloadStation.coffee']
 fs: ['test/syno/FileStation.coffee']
 as: ['test/syno/AudioStation.coffee']

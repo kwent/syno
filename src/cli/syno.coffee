@@ -46,6 +46,7 @@ program
 .on '--help', ->
     console.log '  Commands:'
     console.log ''
+    console.log '    diskstationmanager|dsm [options] <method> DSM API'
     console.log '    filestation|fs [options] <method> DSM File Station API'
     console.log '    downloadstation|dl [options] <method> DSM Download Station API'
     console.log '    audiostation|as [options] <method> DSM Audio Station API'
@@ -56,6 +57,7 @@ program
 .on '--help', ->
     console.log '  Examples:'
     console.log ''
+    console.log '    $ syno diskstationmanager|dsm getDSMInfo'
     console.log '    $ syno filestation|fs getFileStationInfo'
     console.log '    $ syno downloadstation|dl getDownloadStationInfo'
     console.log '    $ syno audiostation|as getAudioStationInfo'
@@ -69,12 +71,14 @@ program.parse process.argv
 if program.args.length is 0
     program.help()
 else if (program.args.length > 0 and
+          program.args[0] isnt 'diskstationmanager' and
           program.args[0] isnt 'filestation' and
           program.args[0] isnt 'downloadstation' and
           program.args[0] isnt 'audiostation' and
           program.args[0] isnt 'videostation' and
           program.args[0] isnt 'videostationdtv' and
           program.args[0] isnt 'surveillancestation' and
+          program.args[0] isnt 'dsm' and
           program.args[0] isnt 'fs' and
           program.args[0] isnt 'dl' and
           program.args[0] isnt 'as' and
@@ -86,6 +90,7 @@ else if (program.args.length > 0 and
     console.log ''
     console.log '  Examples:'
     console.log ''
+    console.log '    $ syno diskstationmanager|dsm [options] <method> DSM API'
     console.log '    $ syno filestation|fs [options] <method> DSM File Station API'
     console.log '    $ syno downloadstation|dl [options] <method> DSM Download Station API'
     console.log '    $ syno audiostation|as [options] <method> DSM Audio Station API'
@@ -178,6 +183,26 @@ syno = new Syno
     port: nconf.get 'url:port'
     account: nconf.get 'url:account'
     passwd: nconf.get 'url:passwd'
+
+program
+.command 'diskstationmanager <method>'
+.alias 'dsm'
+.description 'DSM API'
+.option '-c, --config <path>', "DSM configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}"
+.option '-u, --url <url>',
+    "DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}"
+.option '-p, --payload <payload>', 'JSON Payload'
+.option '-P, --pretty', 'Prettyprint JSON Output'
+.option '-d, --debug', 'Enabling Debugging Output'
+.on '--help', ->
+    console.log '  Examples:'
+    console.log ''
+    console.log '    $ syno diskstationmanager|dsm startFindme'
+    console.log '    $ syno diskstationmanager|dsm getDSMInfo --pretty\''
+    console.log ''
+.action (cmd, options) ->
+    console.log '[DEBUG] : DSM API command selected' if program.debug
+    execute 'dsm', cmd, options
 
 program
 .command 'filestation <method>'

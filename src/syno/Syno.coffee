@@ -36,6 +36,8 @@ class Syno
 
         # Add auth API
         @auth = new Auth this
+        # Add DSM API
+        @dsm = @dsm = new DSM this
         # Add FileStation API
         @fs = @fileStation = new FileStation this
         # Add Download Station API

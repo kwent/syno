@@ -517,6 +517,164 @@
             return module.exports;
           });
         
+          setModule('DSM', function() {
+            var exports, module;
+            module = {};
+            exports = module.exports = {};
+            (function(modules, module, exports, setModule, setter) {
+              var DSM;
+              DSM = (function(superClass) {
+                extend1(DSM, superClass);
+        
+                function DSM() {
+                  return DSM.__super__.constructor.apply(this, arguments);
+                }
+        
+                DSM.prototype.getDSMInfo = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DSM.Info',
+                      version: 2,
+                      path: 'entry.cgi',
+                      method: 'getinfo'
+                    }
+                  });
+                };
+        
+                DSM.prototype.isFindMeSupported = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DSM.FindMe',
+                      version: 2,
+                      path: 'entry.cgi',
+                      method: 'supported'
+                    }
+                  });
+                };
+        
+                DSM.prototype.startFindMe = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DSM.FindMe',
+                      version: 2,
+                      path: 'entry.cgi',
+                      method: 'start'
+                    }
+                  });
+                };
+        
+                DSM.prototype.stopFindMe = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DSM.FindMe',
+                      version: 2,
+                      path: 'entry.cgi',
+                      method: 'stop'
+                    }
+                  });
+                };
+        
+                DSM.prototype.listNetwork = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DSM.Network',
+                      version: 2,
+                      path: 'entry.cgi',
+                      method: 'list'
+                    }
+                  });
+                };
+        
+                DSM.prototype.isPortPkgEnabled = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DSM.PortEnable',
+                      version: 1,
+                      path: 'entry.cgi',
+                      method: 'is_pkg_enable'
+                    }
+                  });
+                };
+        
+                DSM.prototype.isPortBlocked = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DSM.PortEnable',
+                      version: 1,
+                      path: 'entry.cgi',
+                      method: 'is_port_block'
+                    }
+                  });
+                };
+        
+                DSM.prototype.openPortBlocked = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DSM.PortEnable',
+                      version: 1,
+                      path: 'entry.cgi',
+                      method: 'open_block_port'
+                    }
+                  });
+                };
+        
+                DSM.prototype.requestPushNotificationToken = function(params, done) {
+                  return this.requestAPI({
+                    params: params,
+                    done: done,
+                    apiInfos: {
+                      api: 'SYNO.DSM.PushNotification',
+                      version: 2,
+                      path: 'entry.cgi',
+                      method: 'requesttoken'
+                    }
+                  });
+                };
+        
+                DSM.prototype.getMethods = function(params, done) {
+                  var filtered, k, keys, to_exclude, v;
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'error'];
+                  keys = (function() {
+                    var results;
+                    results = [];
+                    for (k in this) {
+                      v = this[k];
+                      if (typeof v === 'function') {
+                        results.push(k);
+                      }
+                    }
+                    return results;
+                  }).call(this);
+                  filtered = keys.filter(function(method_name) {
+                    return to_exclude.indexOf(method_name) === -1;
+                  });
+                  return done(filtered);
+                };
+        
+                return DSM;
+        
+              })(AuthenticatedAPI);
+              return module.exports = DSM;
+            })(modules, module, exports, void 0, void 0);
+            return module.exports;
+          });
+        
           setModule('DownloadStation', function() {
             var exports, module;
             module = {};
@@ -2341,6 +2499,7 @@
                   });
                   this.session = null;
                   this.auth = new Auth(this);
+                  this.dsm = this.dsm = new DSM(this);
                   this.fs = this.fileStation = new FileStation(this);
                   this.dl = this.downloadStation = new DownloadStation(this);
                   this.as = this.audioStation = new AudioStation(this);

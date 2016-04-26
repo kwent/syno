@@ -70,6 +70,7 @@ execute = function(api, cmd, options) {
 program.version('1.0.6').description('Synology Rest API Command Line').option('-c, --config <path>', "DSM Configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
   console.log('  Commands:');
   console.log('');
+  console.log('    diskstationmanager|dsm [options] <method> DSM API');
   console.log('    filestation|fs [options] <method> DSM File Station API');
   console.log('    downloadstation|dl [options] <method> DSM Download Station API');
   console.log('    audiostation|as [options] <method> DSM Audio Station API');
@@ -80,6 +81,7 @@ program.version('1.0.6').description('Synology Rest API Command Line').option('-
 }).on('--help', function() {
   console.log('  Examples:');
   console.log('');
+  console.log('    $ syno diskstationmanager|dsm getDSMInfo');
   console.log('    $ syno filestation|fs getFileStationInfo');
   console.log('    $ syno downloadstation|dl getDownloadStationInfo');
   console.log('    $ syno audiostation|as getAudioStationInfo');
@@ -93,12 +95,13 @@ program.parse(process.argv);
 
 if (program.args.length === 0) {
   program.help();
-} else if (program.args.length > 0 && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'audiostation' && program.args[0] !== 'videostation' && program.args[0] !== 'videostationdtv' && program.args[0] !== 'surveillancestation' && program.args[0] !== 'fs' && program.args[0] !== 'dl' && program.args[0] !== 'as' && program.args[0] !== 'vs' && program.args[0] !== 'dtv' && program.args[0] !== 'ss') {
+} else if (program.args.length > 0 && program.args[0] !== 'diskstationmanager' && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'audiostation' && program.args[0] !== 'videostation' && program.args[0] !== 'videostationdtv' && program.args[0] !== 'surveillancestation' && program.args[0] !== 'dsm' && program.args[0] !== 'fs' && program.args[0] !== 'dl' && program.args[0] !== 'as' && program.args[0] !== 'vs' && program.args[0] !== 'dtv' && program.args[0] !== 'ss') {
   console.log('');
   console.log("  [ERROR] : " + program.args[0] + " is not a valid command !");
   console.log('');
   console.log('  Examples:');
   console.log('');
+  console.log('    $ syno diskstationmanager|dsm [options] <method> DSM API');
   console.log('    $ syno filestation|fs [options] <method> DSM File Station API');
   console.log('    $ syno downloadstation|dl [options] <method> DSM Download Station API');
   console.log('    $ syno audiostation|as [options] <method> DSM Audio Station API');
@@ -206,6 +209,19 @@ syno = new Syno({
   port: nconf.get('url:port'),
   account: nconf.get('url:account'),
   passwd: nconf.get('url:passwd')
+});
+
+program.command('diskstationmanager <method>').alias('dsm').description('DSM API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
+  console.log('  Examples:');
+  console.log('');
+  console.log('    $ syno diskstationmanager|dsm startFindme');
+  console.log('    $ syno diskstationmanager|dsm getDSMInfo --pretty\'');
+  return console.log('');
+}).action(function(cmd, options) {
+  if (program.debug) {
+    console.log('[DEBUG] : DSM API command selected');
+  }
+  return execute('dsm', cmd, options);
 });
 
 program.command('filestation <method>').alias('fs').description('DSM File Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').on('--help', function() {
