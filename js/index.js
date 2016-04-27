@@ -14,7 +14,7 @@ app.factory("SynoRequestFactory", function() {
           // Requests protocol
           protocol: protocol || 'https',
           // DSM host : ip, domain name
-          host: host || 'demo.synology.com',
+          host: host || 'localhost',
           // DSM port : port number
           port: port || '5001',
           // DSM User account (required)
@@ -46,12 +46,13 @@ app.controller('SynoController', function($scope, SynoRequestFactory) {
     //Default values
     $scope.syno_protocol = ["http","https"];
     $scope.syno_protocol_selected = $scope.syno_protocol[1];
-    $scope.syno_host = 'demo.synology.com';
+    $scope.syno_host = 'localhost';
     $scope.syno_username = 'admin';
     $scope.syno_password = 'synology';
     $scope.syno_port = 5001;
     $scope.syno_api_name = [
-      {'name':'FileStation | fs', 'value':'fs'}, 
+      {'name':'DiskStationManager | dsm', 'value':'dsm'},
+      {'name':'FileStation | fs', 'value':'fs'},
       {'name':'DownloadStation | dl', 'value':'dl'},
       {'name':'AudioStation | as', 'value':'as'},
       {'name':'VideoStation | vs', 'value':'vs'},
