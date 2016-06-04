@@ -3,3 +3,5 @@ node_js:
   - "0.10"
 before_install: npm i -g grunt-cli
 install: npm i
+env:
+  - NODE_TLS_REJECT_UNAUTHORIZED=0

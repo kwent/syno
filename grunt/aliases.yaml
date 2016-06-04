@@ -4,20 +4,19 @@ default:
     - coffee:syno-cli
     - concat:syno-cli
     - mokuai-coffee:syno
-    - shell:syno-browserify
-    - uglify:syno
+    - shell:compile-definitions-5.x
+    - shell:compile-definitions-6.x
+    - shell:syno-browserify-5.x
+    - shell:syno-browserify-6.x
+    - uglify:syno-5.x.min.js
+    - uglify:syno-6.x.min.js
     - concat:syno-browser
     - clean:tmp
 
 test:
     - default
-    - nodeunit:all
     - shell:syno-cli
-    
-test-syno:
-    - default
-    - nodeunit:all
-    
+
 test-syno-cli:
     - default
     - shell:syno-cli

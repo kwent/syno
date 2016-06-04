@@ -1,0 +1,17 @@
+{
+	"SYNO.Core.TFTP": {
+		"lib": "lib/libCoreTFTP.so",
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+					"get": {
+						 "allowDemo": true
+					}
+				},
+				"set"
+			]
+		}
+	}
+}

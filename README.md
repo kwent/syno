@@ -1,12 +1,12 @@
 # Syno
 
-Simple Node.js wrapper (browser included) and CLI for Synology DSM REST API.
+Simple Node.js wrapper (browser included) and CLI for Synology DSM REST API 5.x and 6.x.
 
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
-[![Build Status](https://travis-ci.org/JimRobs/syno.svg?branch=master)](https://travis-ci.org/JimRobs/syno)
+[![Build Status](https://travis-ci.org/kwent/syno.svg?branch=master)](https://travis-ci.org/kwent/syno)
 [![npm version](https://img.shields.io/npm/v/syno.svg?style=flat)](https://www.npmjs.com/package/syno)
-[![Dependency Status](https://david-dm.org/JimRobs/syno.svg?theme=shields.io)](https://www.npmjs.com/package/syno)
-[![devDependency Status](https://david-dm.org/JimRobs/syno/dev-status.svg?theme=shields.io)](https://www.npmjs.com/package/syno)
+[![Dependency Status](https://david-dm.org/kwent/syno.svg?theme=shields.io)](https://www.npmjs.com/package/syno)
+[![devDependency Status](https://david-dm.org/kwent/syno/dev-status.svg?theme=shields.io)](https://www.npmjs.com/package/syno)
 ![Synology Development Tool](https://www.synology.com/img/support/developer/banner.png)
 
 See [Synology Development Tool](https://www.synology.com/en-us/support/developer#tool).
@@ -34,15 +34,15 @@ $ npm install syno --global
 # Syno API
 
 This is a simple presentation of the syno API and its methods.
-To get more information (parameters, response data, ...) use the PDF documents (see in the [wiki](https://github.com/JimRobs/syno/wiki)).
+To get more information (parameters, response data, ...) refer to the Synology Developer Tool [page](https://www.synology.com/en-us/support/developer#tool)).
 
-* [Authentication Syno API](https://github.com/JimRobs/syno/wiki/Authentication-API)
-* [File Station Syno API](https://github.com/JimRobs/syno/wiki/File-Station-API)
-* [Download Station Syno API](https://github.com/JimRobs/syno/wiki/Download-Station-API)
-* [Audio Station Syno API](https://github.com/JimRobs/syno/wiki/Audio-Station-API)
-* [Video Station Syno API](https://github.com/JimRobs/syno/wiki/Video-Station-API)
-* [Video Station DTV Syno API](https://github.com/JimRobs/syno/wiki/Video-Station-DTV-API)
-* [Surveillance Station Syno API](https://github.com/JimRobs/syno/wiki/Surveillance-Station-API)
+* **DSM API**
+* **File Station API**
+* **Download Station API**
+* **Audio Station API**
+* **Video Station API**
+* **Video Station DTV API**
+* **Surveillance Station API**
 
 # Javascript wrapper
 
@@ -52,13 +52,15 @@ var syno = new Syno({
     // Requests protocol : 'http' or 'https' (default: http)
     protocol: 'https',
     // DSM host : ip, domain name (default: localhost)
-    host: 'demo.synology.com',
+    host: 'localhost',
     // DSM port : port number (default: 5000)
     port: '5001',
     // DSM User account (required)
-    account: 'admin',
+    account: 'my_username',
     // DSM User password (required)
-    passwd: 'synology'
+    passwd: 'my_password'
+    // DSM User password (optional, default: 6.0)
+    apiVersion: '6.0'
 });
 ```
 
@@ -93,10 +95,12 @@ thrown.
 ## Examples
 
 ```js
+// DSM API - Provide DSM information
+syno.dsm.getInfo(callback);
 // File Station API - Provide File Station information
-syno.fs.getFileStationInfo(callback);
+syno.fs.getInfo(callback);
 // File Station API - Enumerate files in a given folder
-syno.fs.listFiles({'folder_path':'/path/to/folder'}, callback);
+syno.fs.list({'folder_path':'/path/to/folder'}, callback);
 // Download Station API - List download tasks
 syno.dl.listFiles({'limit':5, 'offset':10}, callback);
 // Download Station API - Create a download task
@@ -106,9 +110,9 @@ syno.as.searchSong({'title':'my_title_song'}, callback);
 // Video Station API - List movies
 syno.vs.listMovies({'limit':5}, callback);
 // Video Station DTV API - List channels
-syno.dtv.listDTVChannels({'limit':5}, callback);
+syno.dtv.listChannels({'limit':5}, callback);
 // Surveillance Station API - Get camera information
-syno.ss.getCameraInfo({'cameraIds':4}, callback);
+syno.ss.getInfoCamera({'cameraIds':4}, callback);
 ```
 # CLI
 
@@ -120,11 +124,17 @@ Usage: syno [options]
 
   Options:
 
-    -h, --help           output usage information
-    -V, --version        output the version number
+    -h, --help                       output usage information
+    -V, --version                    output the version number
+    -c, --config <path>              DSM Configuration file. Default to ~/.syno/config.yaml
+    -u, --url <url>                  DSM URL. Default to https://admin:password@localhost:5001
+    -d, --debug                      Enabling Debugging Output
+    -a, --api <version>              DSM API Version. Default to 6.0
+    -i, --ignore-certificate-errors  Ignore certificate errors
 
   Commands:
 
+    diskstationmanager|dsm [options] <method> DSM API
     filestation|fs [options] <method> DSM File Station API
     downloadstation|dl [options] <method> DSM Download Station API
     audiostation|as [options] <method> DSM Audio Station API
@@ -134,18 +144,21 @@ Usage: syno [options]
 
   Examples:
 
-    $ syno filestation|fs getFileStationInfo
-    $ syno downloadstation|dl getDownloadStationInfo
-    $ syno audiostation|as getAudioStationInfo
-    $ syno videostation|vs getVideoStationInfo
-    $ syno videostationdtv|dtv listDTVChannels --payload '{"limit":5}' --pretty
-    $ syno surveillancestation|ss getSurveillanceStationInfo
+    $ syno diskstationmanager|dsm getInfo
+    $ syno filestation|fs getInfo
+    $ syno downloadstation|dl getInfo
+    $ syno audiostation|as getInfo
+    $ syno videostation|vs getInfo
+    $ syno videostationdtv|dtv listChannels --payload '{"limit":5}' --pretty
+    $ syno surveillancestation|ss getInfo
 ```
 ## Examples
 
 ```bash
+# DSM API - Provide DSM information
+$ syno dsm getInfo --pretty
 # File Station API - Provide File Station information
-$ syno fs getFileStationInfo --pretty
+$ syno fs getInfo --pretty
 # File Station API - Enumerate files in a given folder
 $ syno fs listFiles --payload '{"folder_path":"/path/to/folder"}' --pretty
 # Download Station API - List download tasks
@@ -157,18 +170,28 @@ $ syno as searchSong --payload '{"title":"my_title_song"}' --pretty
 # Video Station API - List movies
 $ syno vs listMovies --payload '{"limit":5}' --pretty
 # Video Station DTV API - List channels
-$ syno dtv listDTVChannels --payload '{"limit":5}' --pretty
+$ syno dtv listChannels --payload '{"limit":5}' --pretty
 # Surveillance Station API - Get camera information
-$ syno ss getCameraInfo --payload '{"cameraIds":4}' --pretty
+$ syno ss getInfoCamera --payload '{"cameraIds":4}' --pretty
 ```
 
 
 ## CLI Authentication
 
+### Via environment variables
+
+```bash
+export SYNO_ACCOUNT=user
+export SYNO_PASSWORD=password
+export SYNO_PROTOCOL=https
+export SYNO_HOST=localhost
+export SYNO_PORT=5001
+```
+
 ### Without a configuration file
 
 ```bash
-$ syno fs getFileStationInfo --url https://admin:synology@demo.synology.com:5001 --pretty
+$ syno fs getInfo --url https://user:password@localhost:5001 --pretty
 ```
 
 ### With a configuration file
@@ -187,10 +210,10 @@ url:
 ```
 
 ```bash
-$ syno fs getFileStationInfo --pretty
+$ syno fs getInfo --pretty
 ```
 
-More usage [examples](https://github.com/JimRobs/syno/wiki/CLI) in the [wiki](https://github.com/JimRobs/syno/wiki).
+More usage [examples](https://github.com/kwent/syno/wiki/CLI) in the [wiki](https://github.com/kwent/syno/wiki).
 
 # Browser
 
@@ -203,23 +226,23 @@ Be sure to disable [same-origin policy](http://en.wikipedia.org/wiki/Same-origin
 ```html
 <html>
   <head>
-  <script src="syno.min.js"></script>
+  <script src="syno-6.x.min.js"></script>
   <script type="text/javascript">
   var Syno = require('syno.Syno');
   var syno = new Syno({
       // Requests protocol : 'http' or 'https' (default: http)
       protocol: 'https',
       // DSM host : ip, domain name (default: localhost)
-      host: 'demo.synology.com',
+      host: 'localhost',
       // DSM port : port number (default: 5000)
       port: '5001',
       // DSM User account (required)
-      account: 'admin',
+      account: 'my_username',
       // DSM User password (required)
-      passwd: 'synology'
+      passwd: 'my_password'
   });
 
-  syno.fs.getFileStationInfo(function(error, data) {
+  syno.fs.getInfo(function(error, data) {
     console.log(data)  
   });
   </script>
@@ -229,17 +252,59 @@ Be sure to disable [same-origin policy](http://en.wikipedia.org/wiki/Same-origin
 
 ## Demo
 
-A demo is available [online](http://jimrobs.github.io/syno/) or in the `test/browser` folder.
+A demo is available [online](http://kwent.github.io/syno/) or in the `test/browser` folder.
+
+# Migrating from 1.0.x to 2.x
+
+## Breaking changes
+
+- Some method names might have change. For example (`getFileStationInfo` to `getInfo`)
+- Optional and required parameters are not checked before sending the request anymore.
+
+# Tips & Tricks
+
+If you meet this error when using an `https` connection:
+
+```bash
+[ERROR] : Error: UNABLE_TO_VERIFY_LEAF_SIGNATURE
+```
+
+You will need to tell `request` to ignore certificate errors:
+
+CLI:
+
+```bash
+syno as getInfo --ignore-certificate-errors
+```
+
+or
+
+```bash
+export SYNO_IGNORE_CERTIFICATE_ERRORS=0
+```
+
+Code:
+
+```js
+var syno = new Syno({
+    ignoreCertificateErrors: false
+    // Other options
+    // ...
+});
+```
+
+# History
+
+View the [changelog](https://github.com/kwent/syno/blob/master/CHANGELOG.md)
 
 # Authors
 
-- [Jimmy Roberts](https://github.com/JimRobs)
 - [Quentin Rousseau](https://github.com/kwent)
 
 # License
 
 ```plain
-Copyright (c) 2015 Jimmy Robert <jimmy@jimrobs.com> & Quentin Rousseau <contact@quent.in>
+Copyright (c) 2016 Quentin Rousseau <contact@quent.in>
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

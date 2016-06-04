@@ -1,0 +1,489 @@
+{
+	"SYNO.Core.Network": {
+		"lib": "lib/libwebapi-Network.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set", "test_internet"]
+		}
+	},
+	"SYNO.Core.Network.Interface": {
+		"lib": "lib/libwebapi-Network-Interface.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"list": {
+					"allowDemo": true
+				}
+			}]
+		}
+	},
+	"SYNO.Core.Network.Proxy": {
+		"lib": "lib/libwebapi-Proxy.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.IPv6Tunnel": {
+		"lib": "lib/libwebapi-IPv6Tunnel.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.Ethernet": {
+		"lib": "lib/libwebapi-Ethernet.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, {
+				"list": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.PPPoE": {
+		"lib": "lib/libwebapi-PPPoE.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set", {
+				"list": {
+					"allowDemo": true
+				}
+			}, "connect", "disconnect"]
+		}
+	},
+	"SYNO.Core.Network.Bond": {
+		"lib": "lib/libwebapi-Bond.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set", {
+				"list": {
+					"allowDemo": true
+				}
+			}, "create", "delete", "set_mode"]
+		}
+	},
+	"SYNO.Core.Network.PPPoE.Relay": {
+		"lib": "lib/libwebapi-PPPoE.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.IPv6": {
+		"lib": "lib/libwebapi-ipv6.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.Router.ConnectionList": {
+		"lib": "lib/libwebapi-Router.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}]
+		}
+	},
+	"SYNO.Core.Network.Router.PortForward": {
+		"lib": "lib/libwebapi-Router.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.Router.DMZ": {
+		"lib": "lib/libwebapi-Router.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.Router.ParentalControl": {
+		"lib": "lib/libwebapi-Router.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.Router.MacFilter": {
+		"lib": "lib/libwebapi-Router.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.Router.LocalLan": {
+		"lib": "lib/libwebapi-Router.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}]
+		}
+	},
+	"SYNO.Core.Network.Router.Topology": {
+		"lib": "lib/libwebapi-Router.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.Wifi.Hotspot": {
+		"lib": "lib/libwebapi-Wifi.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"list": {
+					"allowDemo": true
+				}
+			}, {
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.Wifi.WPS": {
+		"lib": "lib/libwebapi-Wifi.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1":["start_pbc", "start_pin"]
+		}
+	},
+	"SYNO.Core.Network.DHCPServer": {
+		"lib": "lib/libwebapi-DHCPServer.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.DHCPServer.Reservation": {
+		"lib": "lib/libwebapi-DHCPServer.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.DHCPServer.PXE": {
+		"lib": "lib/libwebapi-DHCPServer.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set", {
+				"list": {
+					"allowDemo": true
+				}
+			}]
+		}
+	},
+	"SYNO.Core.Network.DHCPServer.ClientList": {
+		"lib": "lib/libwebapi-DHCPServer.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"list": {
+					"allowDemo": true
+				}
+			}]
+		}
+	},
+	"SYNO.Core.Network.USBModem": {
+		"lib": "lib/libwebapi-USBModem.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"list": {
+					"allowDemo": true
+				}
+			}, {
+				"get": {
+					"allowDemo": true
+				}
+			}, {
+				"getapn": {
+					"allowDemo": true
+				}
+			}, "set", "unlocksim", "modifypin", "unlockpuk", "connect", "disconnect"]
+		}
+	},
+	"SYNO.Core.Network.UPnPServer": {
+		"lib": "lib/libwebapi-UPnPServer.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.Bridge": {
+		"lib": "lib/libwebapi-Bridge.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"list": {
+					"allowDemo": true
+				}
+			}, {
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.LocalBridge": {
+		"lib": "lib/libwebapi-LocalBridge.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"list": {
+					"allowDemo": true
+				}
+			}, {
+				"get": {
+					"allowDemo": true
+				}
+			}, "set"]
+		}
+	},
+	"SYNO.Core.Network.Wifi.Client": {
+		"lib": "lib/libwebapi-Wifi.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"list": {
+					"allowDemo": true
+				}
+			}, {
+				"get": {
+					"allowDemo": true
+				}
+			}, "set", "connect", "disconnect", {
+				"scan": {
+					"allowDemo": true
+				}
+			}, "create_adhoc"]
+		}
+	},
+	"SYNO.Core.Network.VPN": {
+		"lib": "lib/libwebapi-VPNClient.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [
+				{"check": {"allowDemo": true}},
+				"connect",
+				"disconnect"
+			]
+		}
+	},
+	"SYNO.Core.Network.VPN.PPTP": {
+		"lib": "lib/libwebapi-VPNClient.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [
+				"create",
+				"set",
+				"delete",
+				{"list": {"allowDemo": true}}
+			]
+		}
+	},
+	"SYNO.Core.Network.VPN.OpenVPN": {
+		"lib": "lib/libwebapi-VPNClient.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [
+				{"create": {"allowUpload": true}},
+				"set",
+				"delete",
+				{"list": {"allowDemo": true}}
+			]
+		}
+	},
+	"SYNO.Core.Network.VPN.OpenVPN.CA": {
+		"lib": "lib/libwebapi-VPNClient.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{"upload": {"allowUpload": true}}]
+		}
+	},
+	"SYNO.Core.Network.VPN.L2TP": {
+		"lib": "lib/libwebapi-VPNClient.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [
+				"create",
+				"set",
+				"delete",
+				{"list": {"allowDemo": true}}
+			]
+		}
+	}
+}

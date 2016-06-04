@@ -1,0 +1,1 @@
+{"SYNO.Core.FileServ.SMB": {"allowUser": ["admin.local", "admin.domain", "admin.ldap"], "authLevel": 1, "lib": "lib/SYNO.Core.FileServ.SMB.so", "maxVersion": 2, "methods": {"1": ["set", {"get": {"allowDemo": true}}, "clean_cache"], "2": ["set", {"get": {"allowDemo": true}}, "clean_cache"]}, "minVersion": 1, "priority": -10}}

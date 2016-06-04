@@ -5,5 +5,5 @@ syno-cli:
     dest: bin/syno.js
     
 syno-browser:
-    src: dist/syno.min.js
-    dest: test/browser/js/syno.min.js
+    src: dist/syno-6.x.min.js
+    dest: test/browser/js/syno-6.x.min.js

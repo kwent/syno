@@ -1,0 +1,37 @@
+{
+        "SYNO.Core.Security.Firewall.Rules": {
+                "lib": "lib/SYNO.Core.Security.Firewall.so",
+                "authLevel": 1,
+                "allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+                "minVersion": 1,
+                "maxVersion": 1,
+                "methods": {
+                "1": [  {"load": {"allowDemo": true}},
+                        {"save_start": {"allowDemo": false}},
+                        {"save_status": {"allowDemo": false}},
+                        {"save_stop": {"allowDemo": false}}]
+                }
+        },
+        "SYNO.Core.Security.Firewall.Rules.Serv": {
+                "lib": "lib/SYNO.Core.Security.Firewall.so",
+                "authLevel": 1,
+                "allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+                "minVersion": 1,
+                "maxVersion": 1,
+                "methods": {
+                "1": [  {"policy_check": {"allowDemo": true}},
+                        {"set": {"allowDemo": false}}]
+                }
+        },
+        "SYNO.Core.Security.Firewall.Conf": {
+                "lib": "lib/SYNO.Core.Security.Firewall.so",
+                "authLevel": 1,
+                "allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+                "minVersion": 1,
+                "maxVersion": 1,
+                "methods": {
+                "1": [  {"get": {"allowDemo": true}},
+                        {"set": {"allowDemo": false}}]
+                }
+        }
+}

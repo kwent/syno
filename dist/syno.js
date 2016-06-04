@@ -40,8 +40,8 @@
         
                 noop = function() {};
         
-                function API(syno1) {
-                  this.syno = syno1;
+                function API(syno) {
+                  this.syno = syno;
                 }
         
                 API.prototype.request = function(options, done) {
@@ -89,7 +89,7 @@
                 };
         
                 API.prototype.requestAPI = function(args) {
-                  var apiInfos, done, missing, opts, params, ref1, requiredParams;
+                  var apiInfos, done, opts, params, ref1, requiredParams;
                   apiInfos = args.apiInfos, requiredParams = args.requiredParams, params = args.params, done = args.done;
                   ref1 = Utils.optionalParamsAndDone({
                     params: params,
@@ -98,10 +98,6 @@
                   params = mapValues(params, function(param) {
                     return param && param.toString();
                   });
-                  missing = Utils.checkRequiredParams(params, requiredParams);
-                  if (!isEmpty(missing)) {
-                    return done(new Error("Missing required params: " + (missing.join(', '))));
-                  }
                   opts = extend({}, apiInfos, {
                     params: params
                   });
@@ -146,225 +142,15 @@
               AudioStation = (function(superClass) {
                 extend1(AudioStation, superClass);
         
-                function AudioStation() {
-                  return AudioStation.__super__.constructor.apply(this, arguments);
+                function AudioStation(syno) {
+                  this.syno = syno;
+                  AudioStation.__super__.constructor.call(this, this.syno);
+                  this.syno.createFunctionsFor(this, ['SYNO.AudioStation']);
                 }
-        
-                AudioStation.prototype.getAudioStationInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Info',
-                      version: 1,
-                      path: 'AudioStation/info.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.listAlbums = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Album',
-                      version: 1,
-                      path: 'AudioStation/album.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.listComposers = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Composer',
-                      version: 1,
-                      path: 'AudioStation/composer.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.listGenres = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Genre',
-                      version: 1,
-                      path: 'AudioStation/genre.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.listArtists = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Artist',
-                      version: 1,
-                      path: 'AudioStation/artist.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.listFolders = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Folder',
-                      version: 1,
-                      path: 'AudioStation/folder.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.getFolderInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Folder',
-                      version: 1,
-                      path: 'AudioStation/folder.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.listSongs = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Song',
-                      version: 1,
-                      path: 'AudioStation/song.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.getSongInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Song',
-                      version: 1,
-                      path: 'AudioStation/song.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.searchSong = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Song',
-                      version: 1,
-                      path: 'AudioStation/song.cgi',
-                      method: 'search'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.listRadios = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Radio',
-                      version: 1,
-                      path: 'AudioStation/radio.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.listPlaylists = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Playlist',
-                      version: 1,
-                      path: 'AudioStation/playlist.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.getPlaylistInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.Playlist',
-                      version: 1,
-                      path: 'AudioStation/playlist.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.listRemotePlayers = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.RemotePlayer',
-                      version: 1,
-                      path: 'AudioStation/remote_player.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.searchLyrics = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['title'],
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.LyricsSearch',
-                      version: 1,
-                      path: 'AudioStation/lyrics_search.cgi',
-                      method: 'searchlyrics'
-                    }
-                  });
-                };
-        
-                AudioStation.prototype.listMediaServers = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.AudioStation.MediaServer',
-                      version: 1,
-                      path: 'AudioStation/media_server.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
         
                 AudioStation.prototype.getMethods = function(params, done) {
                   var filtered, k, keys, to_exclude, v;
-                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'error'];
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
                     var results;
                     results = [];
@@ -526,295 +312,15 @@
               DownloadStation = (function(superClass) {
                 extend1(DownloadStation, superClass);
         
-                function DownloadStation() {
-                  return DownloadStation.__super__.constructor.apply(this, arguments);
+                function DownloadStation(syno) {
+                  this.syno = syno;
+                  DownloadStation.__super__.constructor.call(this, this.syno);
+                  this.syno.createFunctionsFor(this, ['SYNO.DownloadStation']);
                 }
-        
-                DownloadStation.prototype.getDownloadStationInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Info',
-                      version: 1,
-                      path: 'DownloadStation/info.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.getDownloadStationConfig = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Info',
-                      version: 1,
-                      path: 'DownloadStation/info.cgi',
-                      method: 'getconfig'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.setDownloadStationConfig = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Info',
-                      version: 1,
-                      path: 'DownloadStation/info.cgi',
-                      method: 'setserverconfig'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.getScheduleConfig = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Schedule',
-                      version: 1,
-                      path: 'DownloadStation/schedule.cgi',
-                      method: 'getconfig'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.setScheduleConfig = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Schedule',
-                      version: 1,
-                      path: 'DownloadStation/schedule.cgi',
-                      method: 'setconfig'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.listTasks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Task',
-                      version: 1,
-                      path: 'DownloadStation/task.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.getTasksInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Task',
-                      version: 1,
-                      path: 'DownloadStation/task.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.createTask = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Task',
-                      version: 3,
-                      path: 'DownloadStation/task.cgi',
-                      method: 'create'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.deleteTasks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Task',
-                      version: 1,
-                      path: 'DownloadStation/task.cgi',
-                      method: 'delete'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.pauseTasks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Task',
-                      version: 1,
-                      path: 'DownloadStation/task.cgi',
-                      method: 'pause'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.resumeTasks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Task',
-                      version: 1,
-                      path: 'DownloadStation/task.cgi',
-                      method: 'resume'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.editTasks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Task',
-                      version: 2,
-                      path: 'DownloadStation/task.cgi',
-                      method: 'edit'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.getStats = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.Statistic',
-                      version: 1,
-                      path: 'DownloadStation/statistic.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.listRSSSites = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.RSS.Site',
-                      version: 1,
-                      path: 'DownloadStation/RSSsite.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.refreshRSSSites = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.RSS.Site',
-                      version: 1,
-                      path: 'DownloadStation/RSSsite.cgi',
-                      method: 'refresh'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.listRSSFeeds = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.RSS.Feed',
-                      version: 1,
-                      path: 'DownloadStation/RSSfeed.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.startBTSearch = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['keyword', 'module'],
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.BTSearch',
-                      version: 1,
-                      path: 'DownloadStation/btsearch.cgi',
-                      method: 'start'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.listBTSearch = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.BTSearch',
-                      version: 1,
-                      path: 'DownloadStation/btsearch.cgi',
-                      method: 'start'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.getBTSearchCategories = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.BTSearch',
-                      version: 1,
-                      path: 'DownloadStation/btsearch.cgi',
-                      method: 'getCategory'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.cleanBTSearch = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.BTSearch',
-                      version: 1,
-                      path: 'DownloadStation/btsearch.cgi',
-                      method: 'clean'
-                    }
-                  });
-                };
-        
-                DownloadStation.prototype.getBTSearchModules = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DownloadStation.BTSearch',
-                      version: 1,
-                      path: 'DownloadStation/btsearch.cgi',
-                      method: 'getModule'
-                    }
-                  });
-                };
         
                 DownloadStation.prototype.getMethods = function(params, done) {
                   var filtered, k, keys, to_exclude, v;
-                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'error'];
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
                     var results;
                     results = [];
@@ -882,773 +388,67 @@
             return module.exports;
           });
         
+          setModule('DSM', function() {
+            var exports, module;
+            module = {};
+            exports = module.exports = {};
+            (function(modules, module, exports, setModule, setter) {
+              var DSM;
+              DSM = (function(superClass) {
+                extend1(DSM, superClass);
+        
+                function DSM(syno) {
+                  this.syno = syno;
+                  DSM.__super__.constructor.call(this, this.syno);
+                  this.syno.createFunctionsFor(this, ['SYNO.DSM', 'SYNO.Core']);
+                }
+        
+                DSM.prototype.getMethods = function(params, done) {
+                  var filtered, k, keys, to_exclude, v;
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
+                  keys = (function() {
+                    var results;
+                    results = [];
+                    for (k in this) {
+                      v = this[k];
+                      if (typeof v === 'function') {
+                        results.push(k);
+                      }
+                    }
+                    return results;
+                  }).call(this);
+                  filtered = keys.filter(function(method_name) {
+                    return to_exclude.indexOf(method_name) === -1;
+                  });
+                  return done(filtered);
+                };
+        
+                return DSM;
+        
+              })(AuthenticatedAPI);
+              return module.exports = DSM;
+            })(modules, module, exports, void 0, void 0);
+            return module.exports;
+          });
+        
           setModule('FileStation', function() {
             var exports, module;
             module = {};
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
-              var FileStation, defaults;
-              defaults = require('lodash').defaults;
+              var FileStation;
               FileStation = (function(superClass) {
-                var download, upload;
-        
                 extend1(FileStation, superClass);
         
-                function FileStation() {
-                  return FileStation.__super__.constructor.apply(this, arguments);
+                function FileStation(syno) {
+                  this.syno = syno;
+                  FileStation.__super__.constructor.call(this, this.syno);
+                  this.syno.createFunctionsFor(this, ['SYNO.FileStation']);
                 }
-        
-                FileStation.prototype.getFileStationInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Info',
-                      version: 1,
-                      path: 'FileStation/info.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.listSharedFolders = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.FileStation.List',
-                      version: 1,
-                      path: 'FileStation/file_share.cgi',
-                      method: 'list_share'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.listFiles = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['folder_path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.List',
-                      version: 1,
-                      path: 'FileStation/file_share.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.getFilesInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.List',
-                      version: 1,
-                      path: 'FileStation/file_share.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.startSearch = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['folder_path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Search',
-                      version: 1,
-                      path: 'FileStation/file_find.cgi',
-                      method: 'start'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.stopSearch = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Search',
-                      version: 1,
-                      path: 'FileStation/file_find.cgi',
-                      method: 'stop'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.listSearch = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Search',
-                      version: 1,
-                      path: 'FileStation/file_find.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.cleanSearches = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Search',
-                      version: 1,
-                      path: 'FileStation/file_find.cgi',
-                      method: 'clean'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.listVirtualFolders = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['type'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.VirtualFolder',
-                      version: 1,
-                      path: 'FileStation/file_virtual.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.listFavorites = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Favorite',
-                      version: 1,
-                      path: 'FileStation/file_favorite.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.addFavorite = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path', 'name'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Favorite',
-                      version: 1,
-                      path: 'FileStation/file_favorite.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.deleteFavorite = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Favorite',
-                      version: 1,
-                      path: 'FileStation/file_favorite.cgi',
-                      method: 'delete'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.cleanBrokenFavorites = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Favorite',
-                      version: 1,
-                      path: 'FileStation/file_favorite.cgi',
-                      method: 'delete'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.editFavorite = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path', 'name'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Favorite',
-                      version: 1,
-                      path: 'FileStation/file_favorite.cgi',
-                      method: 'edit'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.replaceAllFavorites = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path', 'name'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Favorite',
-                      version: 1,
-                      path: 'FileStation/file_favorite.cgi',
-                      method: 'replace_all'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.getThumbnail = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Thumb',
-                      version: 1,
-                      path: 'FileStation/file_thumb.cgi',
-                      method: 'get'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.startDirSize = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.DirSize',
-                      version: 1,
-                      path: 'FileStation/file_dirSize.cgi',
-                      method: 'start'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.statusDirSize = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.DirSize',
-                      version: 1,
-                      path: 'FileStation/file_dirSize.cgi',
-                      method: 'status'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.stopDirSize = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.DirSize',
-                      version: 1,
-                      path: 'FileStation/file_dirSize.cgi',
-                      method: 'stop'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.startMD5 = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['file_path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.MD5',
-                      version: 1,
-                      path: 'FileStation/file_md5.cgi',
-                      method: 'start'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.statusMD5 = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.MD5',
-                      version: 1,
-                      path: 'FileStation/file_md5.cgi',
-                      method: 'status'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.stopMD5 = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.MD5',
-                      version: 1,
-                      path: 'FileStation/file_md5.cgi',
-                      method: 'stop'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.checkWritePermission = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.MD5',
-                      version: 1,
-                      path: 'FileStation/file_md5.cgi',
-                      method: 'status'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.getSharingLinkInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Sharing',
-                      version: 1,
-                      path: 'FileStation/file_sharing.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.listSharingLinks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Sharing',
-                      version: 1,
-                      path: 'FileStation/file_sharing.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.createSharingLinks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Sharing',
-                      version: 1,
-                      path: 'FileStation/file_sharing.cgi',
-                      method: 'create'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.deleteSharingLinks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Sharing',
-                      version: 1,
-                      path: 'FileStation/file_sharing.cgi',
-                      method: 'delete'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.clearInvalidSharingLinks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Sharing',
-                      version: 1,
-                      path: 'FileStation/file_sharing.cgi',
-                      method: 'clear_invalid'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.editSharingLinks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Sharing',
-                      version: 1,
-                      path: 'FileStation/file_sharing.cgi',
-                      method: 'edit'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.createFolder = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['folder_path', 'name'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.CreateFolder',
-                      version: 1,
-                      path: 'FileStation/file_crtfdr.cgi',
-                      method: 'create'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.rename = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path', 'name'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Rename',
-                      version: 1,
-                      path: 'FileStation/file_rename.cgi',
-                      method: 'rename'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.startCopyMove = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path', 'dest_folder_path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.CopyMove',
-                      version: 1,
-                      path: 'FileStation/file_MVCP.cgi',
-                      method: 'start'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.statusCopyMove = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.CopyMove',
-                      version: 1,
-                      path: 'FileStation/file_MVCP.cgi',
-                      method: 'status'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.stopCopyMove = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.CopyMove',
-                      version: 1,
-                      path: 'FileStation/file_MVCP.cgi',
-                      method: 'stop'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.startDelete = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Delete',
-                      version: 1,
-                      path: 'FileStation/file_delete.cgi',
-                      method: 'start'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.statusDelete = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Delete',
-                      version: 1,
-                      path: 'FileStation/file_delete.cgi',
-                      method: 'status'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.stopDelete = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Delete',
-                      version: 1,
-                      path: 'FileStation/file_delete.cgi',
-                      method: 'stop'
-                    }
-                  });
-                };
-        
-                FileStation.prototype["delete"] = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Delete',
-                      version: 1,
-                      path: 'FileStation/file_delete.cgi',
-                      method: 'delete'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.startExtract = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['file_path', 'dest_folder_path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Extract',
-                      version: 1,
-                      path: 'FileStation/file_extract.cgi',
-                      method: 'start'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.statusExtract = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Extract',
-                      version: 1,
-                      path: 'FileStation/file_extract.cgi',
-                      method: 'status'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.stopExtract = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Extract',
-                      version: 1,
-                      path: 'FileStation/file_extract.cgi',
-                      method: 'stop'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.listArchiveFiles = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['file_path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Extract',
-                      version: 1,
-                      path: 'FileStation/file_extract.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.startCompress = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['path', 'dest_file_path'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Compress',
-                      version: 1,
-                      path: 'FileStation/file_compress.cgi',
-                      method: 'start'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.statusCompress = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Compress',
-                      version: 1,
-                      path: 'FileStation/file_compress.cgi',
-                      method: 'status'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.stopCompress = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['taskid'],
-                    apiInfos: {
-                      api: 'SYNO.FileStation.Compress',
-                      version: 1,
-                      path: 'FileStation/file_compress.cgi',
-                      method: 'stop'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.listBackgroundTasks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.FileStation.BackgroundTask',
-                      version: 1,
-                      path: 'FileStation/background_task.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                FileStation.prototype.clearFinishedBackgroundTasks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.FileStation.BackgroundTask',
-                      version: 1,
-                      path: 'FileStation/background_task.cgi',
-                      method: 'clear_finished'
-                    }
-                  });
-                };
-        
-                upload = function(syno, params, done) {
-                  var api, formData, host, method, path, port, protocol, ref, url, version;
-                  ref = Utils.optionalParamsAndDone({
-                    params: params,
-                    done: done
-                  }), params = ref.params, done = ref.done;
-                  Utils.checkRequiredParams(params, ['dest_folder_path', 'filename']);
-                  protocol = syno.protocol, host = syno.host, port = syno.port;
-                  api = 'SYNO.FileStation.Upload';
-                  version = '1';
-                  path = 'FileStation/api_upload.cgi';
-                  method = 'upload';
-                  url = protocol + "://" + host + ":" + port + "/webapi/" + path;
-                  formData = defaults({
-                    api: api,
-                    version: version,
-                    method: method
-                  }, params);
-                  return syno.request.post({
-                    url: url,
-                    formData: formData
-                  }, function(error, response, data) {
-                    if (error) {
-                      return done(error);
-                    }
-                    if (response.statusCode !== 200) {
-                      return done(response.statusCode);
-                    }
-                    if (!data.success) {
-                      return done(data.error);
-                    }
-                    return done(null);
-                  });
-                };
-        
-                FileStation.prototype.upload = function(params, done) {
-                  var syno;
-                  syno = this.syno;
-                  if (syno.session) {
-                    return upload(syno, params, done);
-                  } else {
-                    return syno.auth.login(function(error) {
-                      if (error) {
-                        return done(error);
-                      } else {
-                        return upload(syno, params, done);
-                      }
-                    });
-                  }
-                };
-        
-                download = function(syno, params, done) {
-                  var api, host, method, path, port, protocol, qs, ref, stream, url, version;
-                  ref = Utils.optionalParamsAndDone({
-                    params: params,
-                    done: done
-                  }), params = ref.params, done = ref.done;
-                  Utils.checkRequiredParams(params, ['path', 'stream']);
-                  stream = params.stream;
-                  delete params.stream;
-                  protocol = syno.protocol, host = syno.host, port = syno.port;
-                  api = 'SYNO.FileStation.Download';
-                  version = 1;
-                  path = 'FileStation/file_download.cgi';
-                  method = 'download';
-                  url = protocol + "://" + host + ":" + port + "/webapi/" + path;
-                  qs = defaults({
-                    api: api,
-                    version: version,
-                    method: method
-                  }, params);
-                  return syno.request({
-                    url: url,
-                    qs: qs,
-                    json: false
-                  }).on('error', function(error) {
-                    return done(error);
-                  }).on('end', function() {
-                    return done(null);
-                  }).pipe(stream);
-                };
-        
-                FileStation.prototype.download = function(params, done) {
-                  var syno;
-                  syno = this.syno;
-                  if (syno.session) {
-                    return download(syno, params, done);
-                  } else {
-                    return syno.auth.login(function(error) {
-                      if (error) {
-                        return done(error);
-                      } else {
-                        return download(syno, params, done);
-                      }
-                    });
-                  }
-                };
         
                 FileStation.prototype.getMethods = function(params, done) {
                   var filtered, k, keys, to_exclude, v;
-                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'error'];
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
                     var results;
                     results = [];
@@ -1833,422 +633,15 @@
               SurveillanceStation = (function(superClass) {
                 extend1(SurveillanceStation, superClass);
         
-                function SurveillanceStation() {
-                  return SurveillanceStation.__super__.constructor.apply(this, arguments);
+                function SurveillanceStation(syno) {
+                  this.syno = syno;
+                  SurveillanceStation.__super__.constructor.call(this, this.syno);
+                  this.syno.createFunctionsFor(this, ['SYNO.SurveillanceStation']);
                 }
-        
-                SurveillanceStation.prototype.getSurveillanceStationInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Info',
-                      version: 1,
-                      path: 'entry.cgi',
-                      method: 'GetInfo'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.listCameras = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Camera',
-                      version: 8,
-                      path: 'entry.cgi',
-                      method: 'List'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.getCameraInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraIds'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Camera',
-                      version: 8,
-                      path: 'entry.cgi',
-                      method: 'GetInfo'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.getCameraCapability = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['vendor', 'model'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Camera',
-                      version: 8,
-                      path: 'entry.cgi',
-                      method: 'GetCapability'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.getCameraCapabilityById = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Camera',
-                      version: 8,
-                      path: 'entry.cgi',
-                      method: 'GetCapabilityByCamId'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.listCameraGroups = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Camera',
-                      version: 8,
-                      path: 'entry.cgi',
-                      method: 'ListGroup'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.enableCamera = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Camera',
-                      version: 8,
-                      path: 'entry.cgi',
-                      method: 'Enable'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.disableCamera = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Camera',
-                      version: 8,
-                      path: 'entry.cgi',
-                      method: 'Disable'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.movePTZCamera = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId', 'direction'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.PTZ',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'Move'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.zoomPTZCamera = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId', 'control'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.PTZ',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'Zoom'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.listPTZCameraPresets = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.PTZ',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'ListPreset'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.goPTZCameraToPreset = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.PTZ',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'GoPreset'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.listPTZCameraPatrols = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.PTZ',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'ListPatrol'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.runPTZCameraPatrol = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId', 'patrolId'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.PTZ',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'RunPatrol'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.getPTZCameraPatrolsSchedule = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.PTZ',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'GetPatrolSchedule'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.focusPTZCamera = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId', 'control'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.PTZ',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'Focus'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.irisPTZCamera = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId', 'control'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.PTZ',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'Iris'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.autoFocusPTZCamera = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.PTZ',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'AutoFocus'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.movePTZCameraToAbsolutePosition = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId', 'posX', 'posY'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.PTZ',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'AbsPtz'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.recordCamera = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['cameraId', 'action'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.ExternalRecording',
-                      version: 2,
-                      path: 'entry.cgi',
-                      method: 'Record'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.queryEvents = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Event',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'Query'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.deleteMultiEvents = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['idList'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Event',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'DeleteMulti'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.deleteEventFilter = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Event',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'DeleteFilter'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.deleteAllEvents = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Event',
-                      version: 3,
-                      path: 'entry.cgi',
-                      method: 'DeleteAll'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.listVisualStationsDevices = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Device',
-                      version: 2,
-                      path: 'SurveillanceStation/device.cgi',
-                      method: 'ListVS'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.listSlaveDSDevices = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Device',
-                      version: 2,
-                      path: 'SurveillanceStation/device.cgi',
-                      method: 'ListCMS'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.getServiceSettingDevice = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Device',
-                      version: 2,
-                      path: 'SurveillanceStation/device.cgi',
-                      method: 'GetServiceSetting'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.listEmaps = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Emap',
-                      version: 1,
-                      path: 'SurveillanceStation/emap.cgi',
-                      method: 'List'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.getEmapInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['emapIds'],
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Emap',
-                      version: 1,
-                      path: 'SurveillanceStation/emap.cgi',
-                      method: 'GetInfo'
-                    }
-                  });
-                };
-        
-                SurveillanceStation.prototype.getNotificationRegisterToken = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.SurveillanceStation.Notification',
-                      version: 1,
-                      path: 'entry.cgi',
-                      method: 'GetRegisterToken'
-                    }
-                  });
-                };
         
                 SurveillanceStation.prototype.getMethods = function(params, done) {
                   var filtered, k, keys, to_exclude, v;
-                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'error'];
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
                     var results;
                     results = [];
@@ -2315,32 +708,67 @@
             module = {};
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
-              var Syno, defaults, request;
+              var Syno, defaults, endsWith, filter, first, flatten, fs, isArray, keys, last, mapValues, merge, path, ref, request, some, startsWith, values;
               request = require('request');
-              defaults = require('lodash').defaults;
+              fs = require('fs');
+              path = require('path');
+              ref = require('lodash'), defaults = ref.defaults, mapValues = ref.mapValues, keys = ref.keys, values = ref.values, flatten = ref.flatten, filter = ref.filter, first = ref.first, last = ref.last, some = ref.some, merge = ref.merge, isArray = ref.isArray, startsWith = ref.startsWith, endsWith = ref.endsWith;
               Syno = (function() {
-                var defParams;
+                var apiVersionsAvailable, defParams;
         
                 defParams = {
-                  protocol: 'http',
-                  host: 'localhost',
-                  port: 5000
+                  account: process.env.SYNO_ACCOUNT,
+                  passwd: process.env.SYNO_PASSWORD,
+                  protocol: process.env.SYNO_PROTOCOL || 'http',
+                  host: process.env.SYNO_HOST || 'localhost',
+                  port: process.env.SYNO_PORT || 5000,
+                  apiVersion: process.env.SYNO_API_VERSION || '6.0',
+                  debug: process.env.SYNO_DEBUG || false,
+                  ignoreCertificateErrors: process.env.SYNO_IGNORE_CERTIFICATE_ERRORS || false
                 };
+        
+                apiVersionsAvailable = ['5.0', '5.1', '5.2', '6.0'];
         
                 function Syno(params) {
                   defaults(this, params, defParams);
+                  if (this.debug) {
+                    console.log("[DEBUG] : Account: " + this.account);
+                  }
+                  if (this.debug) {
+                    console.log("[DEBUG] : Password: " + this.passwd);
+                  }
+                  if (this.debug) {
+                    console.log("[DEBUG] : Host: " + this.host);
+                  }
+                  if (this.debug) {
+                    console.log("[DEBUG] : Port: " + this.port);
+                  }
+                  if (this.debug) {
+                    console.log("[DEBUG] : API: " + this.apiVersion);
+                  }
+                  if (this.debug) {
+                    console.log("[DEBUG] : Ignore certificate errors: " + this.ignoreCertificateErrors);
+                  }
                   if (!this.account) {
                     throw new Error('Did not specified `account` for syno');
                   }
                   if (!this.passwd) {
                     throw new Error('Did not specified `passwd` for syno');
                   }
+                  if (!(new RegExp(apiVersionsAvailable.join('|')).test(this.apiVersion))) {
+                    throw new Error("Api version: " + this.apiVersion + " is not available. Available versions are: " + (apiVersionsAvailable.join(', ')));
+                  }
                   this.request = request.defaults({
+                    rejectUnauthorized: !this.ignoreCertificateErrors,
                     jar: true,
                     json: true
                   });
+                  if (this.debug) {
+                    request.debug = true;
+                  }
                   this.session = null;
                   this.auth = new Auth(this);
+                  this.dsm = this.diskStationManager = new DSM(this);
                   this.fs = this.fileStation = new FileStation(this);
                   this.dl = this.downloadStation = new DownloadStation(this);
                   this.as = this.audioStation = new AudioStation(this);
@@ -2348,6 +776,63 @@
                   this.dtv = this.videoStationDTV = new VideoStationDTV(this);
                   this.ss = this.surveillanceStation = new SurveillanceStation(this);
                 }
+        
+                Syno.prototype.loadDefinitions = function() {
+                  if (this.definitions) {
+                    return this.definitions;
+                  }
+                  majorVersion = (this.apiVersion.charAt(0)) + ".x";
+                  this.definitions = JSON.parse(fs.readFileSync(__dirname + "/../definitions/6.x/_full.json", "utf8"));
+                  return this.definitions;
+                };
+        
+                Syno.prototype.createFunctionsFor = function(object, apis) {
+                  var api, apiKeys, definitions, functionName, i, lastApiVersionMethods, len, method, results, version;
+                  definitions = this.loadDefinitions();
+                  results = [];
+                  for (i = 0, len = apis.length; i < len; i++) {
+                    api = apis[i];
+                    apiKeys = filter(keys(definitions), function(key) {
+                      return startsWith(key, api);
+                    });
+                    results.push((function() {
+                      var j, len1, results1;
+                      results1 = [];
+                      for (j = 0, len1 = apiKeys.length; j < len1; j++) {
+                        api = apiKeys[j];
+                        if (definitions[api].methods) {
+                          lastApiVersionMethods = definitions[api].methods[last(keys(definitions[api].methods))];
+                          if (!some(lastApiVersionMethods, function(m) {
+                            return typeof m === 'string';
+                          })) {
+                            lastApiVersionMethods = flatten(values(mapValues(lastApiVersionMethods, function(m) {
+                              return keys(m);
+                            })));
+                          }
+                          results1.push((function() {
+                            var l, len2, results2;
+                            results2 = [];
+                            for (l = 0, len2 = lastApiVersionMethods.length; l < len2; l++) {
+                              method = lastApiVersionMethods[l];
+                              if (typeof method === 'object') {
+                                method = first(keys(method));
+                              }
+                              functionName = Utils.createFunctionName(api, method);
+                              path = 'path' in definitions[api] ? definitions[api].path : 'entry.cgi';
+                              version = 'minVersion' in definitions[api] ? definitions[api].minVersion : 1;
+                              results2.push(object.__proto__[functionName] = new Function('params', 'done', 'this.requestAPI({ params: params, done: done, apiInfos: { api: ' + "'" + api + "'" + ', version:' + "'" + version + "'" + ', path: ' + "'" + path + "'" + ', method: ' + "'" + method + "'" + '} });'));
+                            }
+                            return results2;
+                          })());
+                        } else {
+                          results1.push(void 0);
+                        }
+                      }
+                      return results1;
+                    })());
+                  }
+                  return results;
+                };
         
                 return Syno;
         
@@ -2362,10 +847,77 @@
             module = {};
             exports = module.exports = {};
             (function(modules, module, exports, setModule, setter) {
-              var Utils, each, filter, isFunction, isPlainObject, ref;
-              ref = require('lodash'), isFunction = ref.isFunction, isPlainObject = ref.isPlainObject, each = ref.each, filter = ref.filter;
+              var Utils, camelCase, each, endsWith, filter, isFunction, isPlainObject, last, pluralize, ref, startsWith;
+              ref = require('lodash'), isFunction = ref.isFunction, isPlainObject = ref.isPlainObject, each = ref.each, filter = ref.filter, camelCase = ref.camelCase, startsWith = ref.startsWith, endsWith = ref.endsWith, last = ref.last;
+              pluralize = require('pluralize');
               Utils = (function() {
                 function Utils() {}
+        
+                Utils.underscoreToCamelize = function(str) {
+                  str = str.replace(/(\_[a-z])/g, function($1) {
+                    return $1.toUpperCase().replace('_', '');
+                  });
+                  return str.substring(0, 1).toLowerCase() + str.slice(1);
+                };
+        
+                Utils.trimSyno = function(str) {
+                  str = str.replace(/SYNO\./, '');
+                  return str.replace(/\./g, function($1) {
+                    return $1.replace('.', '');
+                  });
+                };
+        
+                Utils.trimSynoNamespace = function(str) {
+                  return str.split('.')[1];
+                };
+        
+                Utils.fixCamelCase = function(str) {
+                  var i, idx, len, word, words;
+                  words = ['ack', 'add', 'apply', 'archive', 'arrange', 'audio', 'auth', 'bat', 'break', 'cam', 'card', 'category', 'check', 'chk', 'clear', 'close', 'compare', 'config', 'control', 'copy', 'count', 'create', 'delete', 'del', 'disabled', 'disable', 'door', 'download', 'edit', 'eject', 'enable', 'enabled', 'enum', 'event', 'export', 'force', 'format', 'get', 'go', 'holder', 'imported', 'import', 'info', 'io', 'keep', 'list', 'live', 'load', 'unlock', 'lock', 'log', 'mark', 'md', 'migration', 'modify', 'module', 'monitor', 'motion', 'notify', 'ntp', 'open', 'unpair', 'pair', 'play', 'poll', 'polling', 'query', 'quick', 'record', 'rec', 'recount', 'redirect', 'remove', 'resync', 'retrieve', 'roi', 'run', 'save', 'search', 'selected', 'select', 'send', 'server', 'set', 'setting', 'share', 'snapshot', 'start', 'stop', 'stream', 'sync', 'test', 'trigger', 'updated', 'update', 'upload', 'verify', 'view', 'volume'];
+                  for (idx = i = 0, len = words.length; i < len; idx = ++i) {
+                    word = words[idx];
+                    str = str.replace(RegExp(word + ".", 'i'), function($1) {
+                      var match;
+                      match = $1.slice(0, -1).toLowerCase();
+                      if (!(words.slice(0, idx).some(function(el) {
+                        return el.indexOf(match) >= 0;
+                      }))) {
+                        return $1.charAt(0).toUpperCase() + $1.slice(1, -1) + $1.charAt($1.length - 1).toUpperCase();
+                      } else {
+                        return $1;
+                      }
+                    });
+                  }
+                  return str;
+                };
+        
+                Utils.deletePattern = function(str, pattern) {
+                  var regex;
+                  regex = new RegExp(pattern, 'i');
+                  return str = str.replace(regex, '');
+                };
+        
+                Utils.listPluralize = function(method, apiSubNname) {
+                  var lastWord;
+                  if (startsWith(method.toLowerCase(), 'list') && !endsWith(apiSubNname, 's')) {
+                    lastWord = last(apiSubNname.split(/(?=[A-Z][^A-Z]+$)/));
+                    apiSubNname = pluralize(lastWord);
+                  }
+                  return apiSubNname;
+                };
+        
+                Utils.createFunctionName = function(apiName, method) {
+                  var functionName, nameSpace;
+                  nameSpace = Utils.trimSynoNamespace(apiName);
+                  apiName = Utils.trimSyno(apiName);
+                  apiName = Utils.deletePattern(apiName, nameSpace);
+                  apiName = Utils.deletePattern(apiName, method);
+                  method = Utils.deletePattern(method, apiName);
+                  method = Utils.fixCamelCase(method);
+                  apiName = Utils.listPluralize(method, apiName);
+                  functionName = "" + method + apiName;
+                  return functionName = camelCase(functionName);
+                };
         
                 Utils.optionalParamsAndDone = function(options) {
                   var done, params;
@@ -2380,15 +932,6 @@
                     options.params = {};
                   }
                   return options;
-                };
-        
-                Utils.checkRequiredParams = function(params, required) {
-                  if (required == null) {
-                    required = [];
-                  }
-                  return filter(required, function(key) {
-                    return !params[key];
-                  });
                 };
         
                 return Utils;
@@ -2408,354 +951,15 @@
               VideoStation = (function(superClass) {
                 extend1(VideoStation, superClass);
         
-                function VideoStation() {
-                  return VideoStation.__super__.constructor.apply(this, arguments);
+                function VideoStation(syno) {
+                  this.syno = syno;
+                  VideoStation.__super__.constructor.call(this, this.syno);
+                  this.syno.createFunctionsFor(this, ['SYNO.VideoStation']);
                 }
-        
-                VideoStation.prototype.getVideoStationInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.Info',
-                      version: 1,
-                      path: 'VideoStation/info.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listMovies = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.Movie',
-                      version: 2,
-                      path: 'VideoStation/movie.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.searchMovie = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['title'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.Movie',
-                      version: 2,
-                      path: 'VideoStation/movie.cgi',
-                      method: 'search'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.getMovieInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.Movie',
-                      version: 1,
-                      path: 'VideoStation/movie.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listTVShows = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.TVShow',
-                      version: 1,
-                      path: 'VideoStation/tvshow.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.searchTVShow = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['title'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.TVShow',
-                      version: 1,
-                      path: 'VideoStation/tvshow.cgi',
-                      method: 'search'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.getTVShowInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.TVShow',
-                      version: 1,
-                      path: 'VideoStation/tvshow.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listTVShowEpisodes = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.TVShowEpisode',
-                      version: 1,
-                      path: 'VideoStation/tvshow_episode.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.searchTVShowEpisode = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['title'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.TVShowEpisode',
-                      version: 1,
-                      path: 'VideoStation/tvshow_episode.cgi',
-                      method: 'search'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.getTVShowEpisodeInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.TVShowEpisode',
-                      version: 1,
-                      path: 'VideoStation/tvshow_episode.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listHomeVideos = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.HomeVideo',
-                      version: 2,
-                      path: 'VideoStation/homevideo.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.searchHomeVideo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['title'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.HomeVideo',
-                      version: 2,
-                      path: 'VideoStation/homevideo.cgi',
-                      method: 'search'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.getHomeVideoInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.HomeVideo',
-                      version: 1,
-                      path: 'VideoStation/homevideo.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listTVRecordings = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.TVRecording',
-                      version: 2,
-                      path: 'VideoStation/tvrecord.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.searchTVRecording = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['title'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.TVRecording',
-                      version: 2,
-                      path: 'VideoStation/tvrecord.cgi',
-                      method: 'search'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.getTVRecordingInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.TVRecording',
-                      version: 1,
-                      path: 'VideoStation/tvrecord.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listCollections = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.Collection',
-                      version: 2,
-                      path: 'VideoStation/collection.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.searchCollection = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['title'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.Collection',
-                      version: 2,
-                      path: 'VideoStation/collection.cgi',
-                      method: 'search'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.getCollectionInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.Collection',
-                      version: 2,
-                      path: 'VideoStation/collection.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listMetadatas = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.Metadata',
-                      version: 2,
-                      path: 'VideoStation/metadata.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listSubtitles = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.Subtitle',
-                      version: 3,
-                      path: 'VideoStation/subtitle.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listAudioTracks = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.AudioTrack',
-                      version: 1,
-                      path: 'VideoStation/audiotrack.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listFolders = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.Folder',
-                      version: 2,
-                      path: 'VideoStation/folder.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.getWatchStatusInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['id'],
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.WatchStatus',
-                      version: 1,
-                      path: 'VideoStation/watchstatus.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStation.prototype.listLibraries = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.VideoStation.Library',
-                      version: 1,
-                      path: 'VideoStation/library.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
         
                 VideoStation.prototype.getMethods = function(params, done) {
                   var filtered, k, keys, to_exclude, v;
-                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'error'];
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
                     var results;
                     results = [];
@@ -2790,209 +994,15 @@
               VideoStationDTV = (function(superClass) {
                 extend1(VideoStationDTV, superClass);
         
-                function VideoStationDTV() {
-                  return VideoStationDTV.__super__.constructor.apply(this, arguments);
+                function VideoStationDTV(syno) {
+                  this.syno = syno;
+                  VideoStationDTV.__super__.constructor.call(this, this.syno);
+                  this.syno.createFunctionsFor(this, ['SYNO.DTV']);
                 }
-        
-                VideoStationDTV.prototype.startChannelScan = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.ChannelScan',
-                      version: 1,
-                      path: 'VideoStation/channelscan.cgi',
-                      method: 'start'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.stopChannelScan = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.ChannelScan',
-                      version: 1,
-                      path: 'VideoStation/channelscan.cgi',
-                      method: 'stop'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.statusChannelScan = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.ChannelScan',
-                      version: 1,
-                      path: 'VideoStation/channelscan.cgi',
-                      method: 'status'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.startDVBSScan = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.DVBSScan',
-                      version: 1,
-                      path: 'VideoStation/dvbsscan.cgi',
-                      method: 'start'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.stopDVBSScan = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.DVBSScan',
-                      version: 1,
-                      path: 'VideoStation/dvbsscan.cgi',
-                      method: 'stop'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.statusDVBSScan = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.DVBSScan',
-                      version: 1,
-                      path: 'VideoStation/dvbsscan.cgi',
-                      method: 'status'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.listDTVChannels = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Channel',
-                      version: 1,
-                      path: 'VideoStation/channellist.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.getDTVChannelsInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Channel',
-                      version: 1,
-                      path: 'VideoStation/channellist.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.listDTVPrograms = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Program',
-                      version: 1,
-                      path: 'VideoStation/programlist.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.searchDTVProgram = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    requiredParams: ['title'],
-                    apiInfos: {
-                      api: 'SYNO.DTV.Program',
-                      version: 1,
-                      path: 'VideoStation/programlist.cgi',
-                      method: 'search'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.listDTVSchedules = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Schedule',
-                      version: 1,
-                      path: 'VideoStation/schedule_recording.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.getDTVStatusInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Status',
-                      version: 1,
-                      path: 'VideoStation/dvtstatus.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.getDTVStatisticsInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Statistic',
-                      version: 1,
-                      path: 'VideoStation/dtvstatistic.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.listDTVTuners = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Tuner',
-                      version: 1,
-                      path: 'VideoStation/tuner.cgi',
-                      method: 'list'
-                    }
-                  });
-                };
-        
-                VideoStationDTV.prototype.getDTVTunerInfo = function(params, done) {
-                  return this.requestAPI({
-                    params: params,
-                    done: done,
-                    apiInfos: {
-                      api: 'SYNO.DTV.Tuner',
-                      version: 1,
-                      path: 'VideoStation/tuner.cgi',
-                      method: 'getinfo'
-                    }
-                  });
-                };
         
                 VideoStationDTV.prototype.getMethods = function(params, done) {
                   var filtered, k, keys, to_exclude, v;
-                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'error'];
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
                     var results;
                     results = [];

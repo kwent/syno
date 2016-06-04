@@ -1,5 +1,8 @@
 .DS_Store
-.idea
 node_modules
 *.secret.*
 gen
+.env
+scripts/usdl.synology.com/
+npm-debug.log
+tmp

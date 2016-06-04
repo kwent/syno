@@ -1,0 +1,21 @@
+{
+	"SYNO.Core.QuickConnect": {
+		"lib": "lib/quickconnect.so",
+		"skipTimeout": true,
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"status": {"allowDemo": true}
+			}, {
+				"get": {"allowDemo": true}
+			}, {
+				"set": {"allowDemo": false}
+			}, {
+				"set_server_alias": {"allowDemo": false}
+			}]
+		}
+	}
+}

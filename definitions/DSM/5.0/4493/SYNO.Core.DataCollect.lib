@@ -1,0 +1,26 @@
+{
+        "SYNO.Core.DataCollect": {
+                "lib": "lib/libwebapi-DataCollect.so",
+                "authLevel": 1,
+                "allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+                "minVersion": 1,
+                "maxVersion": 1,
+                "priority":-10,
+                "methods": {
+                "1": [{"get": {"allowDemo": true}}, "set"]
+                }
+        },
+		"SYNO.Core.DataCollect.Application": {
+				"lib": "lib/libwebapi-DataCollect.so",
+				"authLevel": 1,
+				"allowUser": ["admin.local", "admin.domain", "admin.ldap", "normal.local", "normal.domain", "normal.ldap"],
+				"minVersion": 1,
+				"maxVersion": 1,
+				"priority":-10,
+				"methods": {
+				"1": ["record"]
+			}
+		}
+
+}
+

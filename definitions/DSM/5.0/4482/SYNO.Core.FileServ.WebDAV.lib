@@ -1,0 +1,44 @@
+{
+        "SYNO.Core.FileServ.WebDAV": {
+            "lib": "lib/SYNO.Core.FileServ.WebDAV.so",
+            "authLevel": 1,
+            "allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+            "minVersion": 1,
+            "maxVersion": 1,
+            "priority": -10,
+            "methods": {
+                    "1": [{"get": {"allowDemo": true}},
+                          {"set": {"allowDemo": false}}
+                         ]
+            }
+        },
+        "SYNO.Core.FileServ.WebDAV.CalDAV": {
+            "lib": "lib/SYNO.Core.FileServ.WebDAV.so",
+            "authLevel": 1,
+            "allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+            "minVersion": 1,
+            "maxVersion": 1,
+            "priority": -10,
+            "methods": {
+                    "1": [{"get": {"allowDemo": true}},
+                          {"set": {"allowDemo": false}}
+                         ]
+            }
+        },
+        "SYNO.Core.FileServ.WebDAV.CalDAV.Calendar": {
+            "lib": "lib/SYNO.Core.FileServ.WebDAV.so",
+            "authLevel": 1,
+            "allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+            "minVersion": 1,
+            "maxVersion": 1,
+            "priority": -10,
+            "methods": {
+                    "1": [{"list": {"allowDemo": true}},
+                          {"create": {"allowDemo": false}},
+                          {"delete": {"allowDemo": false}},
+                          {"set": {"allowDemo": false}}
+                         ]
+            }
+        }
+
+}

@@ -1,0 +1,16 @@
+{
+	"SYNO.Core.TaskScheduler": {
+		"lib": "lib/SYNO.Core.TaskScheduler.so",
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [
+				{"list": {"allowDemo": true}},
+				{"get": {"allowDemo": true}},
+				"set_enable", "delete", "run", "set", "create"
+			]
+		}
+	}
+}

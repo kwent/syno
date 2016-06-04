@@ -1,8 +1,0 @@
-all: ['test/syno/*.coffee']
-auth: ['test/syno/auth.coffee']
-ds: ['test/syno/DownloadStation.coffee']
-fs: ['test/syno/FileStation.coffee']
-as: ['test/syno/AudioStation.coffee']
-vs: ['test/syno/VideoStation.coffee']
-dtv: ['test/syno/VideoStationDTV.coffee']
-ss: ['test/syno/SurveillanceStation.coffee']

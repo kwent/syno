@@ -1,0 +1,15 @@
+{
+	"SYNO.Core.MyDSCenter": {
+		"lib": "lib/mydscenter.so",
+		"priority": -10,
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"register": {"allowDemo": false}
+			}]
+		}
+	}
+}

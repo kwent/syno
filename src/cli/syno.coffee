@@ -5,6 +5,7 @@ DEFAULT_HOST = 'localhost'
 DEFAULT_PORT = 5001
 DEFAULT_ACCOUNT = 'admin'
 DEFAULT_PASSWD = 'password'
+DEFAULT_API_VERSION = '6.0'
 
 program = require 'commander'
 fs = require 'fs'
@@ -36,16 +37,27 @@ execute = (api, cmd, options)->
         syno.auth.logout()
         process.exit 0
 
-program
-.version '1.0.6'
+show_methods_available = (api)->
+    console.log '  Available methods:'
+    console.log ''
+    syno[api]['getMethods'] {}, (data) ->
+        console.log "    $ syno #{api} #{method}" for method in data
+        console.log '    None' if data.length is 0
+    console.log ''
+
+main = program
+.version '2.0.0'
 .description 'Synology Rest API Command Line'
 .option '-c, --config <path>', "DSM Configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}"
 .option '-u, --url <url>',
     "DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}"
 .option '-d, --debug', 'Enabling Debugging Output'
+.option '-a, --api <version>', "DSM API Version. Default to #{DEFAULT_API_VERSION}"
+.option '-i, --ignore-certificate-errors', 'Ignore certificate errors'
 .on '--help', ->
     console.log '  Commands:'
     console.log ''
+    console.log '    diskstationmanager|dsm [options] <method> DSM API'
     console.log '    filestation|fs [options] <method> DSM File Station API'
     console.log '    downloadstation|dl [options] <method> DSM Download Station API'
     console.log '    audiostation|as [options] <method> DSM Audio Station API'
@@ -56,12 +68,13 @@ program
 .on '--help', ->
     console.log '  Examples:'
     console.log ''
-    console.log '    $ syno filestation|fs getFileStationInfo'
-    console.log '    $ syno downloadstation|dl getDownloadStationInfo'
-    console.log '    $ syno audiostation|as getAudioStationInfo'
-    console.log '    $ syno videostation|vs getVideoStationInfo'
-    console.log '    $ syno videostationdtv|dtv listDTVChannels --payload \'{"limit":5}\' --pretty'
-    console.log '    $ syno surveillancestation|ss getSurveillanceStationInfo'
+    console.log '    $ syno diskstationmanager|dsm getInfo'
+    console.log '    $ syno filestation|fs getInfo'
+    console.log '    $ syno downloadstation|dl getInfo'
+    console.log '    $ syno audiostation|as getInfo'
+    console.log '    $ syno videostation|vs getInfo'
+    console.log '    $ syno videostationdtv|dtv listChannels --payload \'{"limit":5}\' --pretty'
+    console.log '    $ syno surveillancestation|ss getInfo'
     console.log ''
 
 program.parse process.argv
@@ -69,12 +82,14 @@ program.parse process.argv
 if program.args.length is 0
     program.help()
 else if (program.args.length > 0 and
+          program.args[0] isnt 'diskstationmanager' and
           program.args[0] isnt 'filestation' and
           program.args[0] isnt 'downloadstation' and
           program.args[0] isnt 'audiostation' and
           program.args[0] isnt 'videostation' and
           program.args[0] isnt 'videostationdtv' and
           program.args[0] isnt 'surveillancestation' and
+          program.args[0] isnt 'dsm' and
           program.args[0] isnt 'fs' and
           program.args[0] isnt 'dl' and
           program.args[0] isnt 'as' and
@@ -86,11 +101,12 @@ else if (program.args.length > 0 and
     console.log ''
     console.log '  Examples:'
     console.log ''
+    console.log '    $ syno diskstationmanager|dsm [options] <method> DSM API'
     console.log '    $ syno filestation|fs [options] <method> DSM File Station API'
     console.log '    $ syno downloadstation|dl [options] <method> DSM Download Station API'
     console.log '    $ syno audiostation|as [options] <method> DSM Audio Station API'
     console.log '    $ syno videostation|vs [options] <method> DSM Video Station API'
-    console.log '    $ syno videostationdtv|dtv listDTVChannels --payload \'{"limit":5}\' --pretty'
+    console.log '    $ syno videostationdtv|dtv [options] <method> DSM Video Station DTV API'
     console.log '    $ syno surveillancestation|ss [options] <method> DSM Surveillance Station API'
     console.log ''
     process.exit 1
@@ -116,6 +132,8 @@ if program.url
             port: url_resolved.port or DEFAULT_PORT
             account: if url_resolved.auth then url_resolved.auth.split(':')[0] else DEFAULT_ACCOUNT
             passwd: if url_resolved.auth then url_resolved.auth.split(':')[1] else DEFAULT_PASSWD
+            apiVersion: main.api or DEFAULT_API_VERSION
+
 else if program.config
     console.log '[DEBUG] : Load config file : %s', program.config if program.debug
     # load a yaml file specified in config
@@ -127,6 +145,9 @@ else if program.config
                     yaml.safeDump obj, options
                 parse: (obj, options) ->
                     yaml.safeLoad obj, options
+        nconf.overrides
+            url:
+                apiVersion: main.api or DEFAULT_API_VERSION
     else
         console.log '[ERROR] : Config file : %s not found', program.config
         process.exit 1
@@ -145,6 +166,7 @@ else
                 nconf.set 'url:port', DEFAULT_PORT
                 nconf.set 'url:account', DEFAULT_ACCOUNT
                 nconf.set 'url:passwd', DEFAULT_PASSWD
+                nconf.set 'url:apiVersion', DEFAULT_API_VERSION
                 console.log '[DEBUG] : Default configuration file created : %s',
                     path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
                 nconf.save()
@@ -159,6 +181,10 @@ else
             parse: (obj, options) ->
                 yaml.safeLoad obj, options
 
+nconf.overrides
+    url:
+        apiVersion: (nconf.get 'url:apiVersion') or main.api or DEFAULT_API_VERSION
+
 nconf.defaults
     url:
         protocol: DEFAULT_PROTOCOL
@@ -166,6 +192,7 @@ nconf.defaults
         port: DEFAULT_PORT
         account: DEFAULT_ACCOUNT
         passwd: DEFAULT_PASSWD
+        apiVersion: DEFAULT_API_VERSION
 
 if program.debug
     console.log '[DEBUG] : DSM Connection URL configured : %s://%s:%s@%s:%s',
@@ -173,11 +200,39 @@ if program.debug
         nconf.get('url:port')
 
 syno = new Syno
-    protocol: nconf.get 'url:protocol'
-    host: nconf.get 'url:host'
-    port: nconf.get 'url:port'
-    account: nconf.get 'url:account'
-    passwd: nconf.get 'url:passwd'
+    protocol: process.env.SYNO_PROTOCOL or nconf.get 'url:protocol'
+    host: process.env.SYNO_HOST or nconf.get 'url:host'
+    port: process.env.SYNO_PORT or nconf.get 'url:port'
+    account: process.env.SYNO_ACCOUNT or nconf.get 'url:account'
+    passwd: process.env.SYNO_PASSWORD or nconf.get 'url:passwd'
+    apiVersion: process.env.SYNO_API_VERSION or nconf.get 'url:apiVersion'
+    debug: process.env.SYNO_DEBUG or main.debug
+    ignoreCertificateErrors: process.env.SYNO_IGNORE_CERTIFICATE_ERRORS or main.ignoreCertificateErrors
+
+program
+.command 'diskstationmanager <method>'
+.alias 'dsm'
+.description 'DSM API'
+.option '-c, --config <path>', "DSM configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}"
+.option '-u, --url <url>',
+    "DSM URL. Default to #{DEFAULT_PROTOCOL}://#{DEFAULT_ACCOUNT}:#{DEFAULT_PASSWD}@#{DEFAULT_HOST}:#{DEFAULT_PORT}"
+.option '-p, --payload <payload>', 'JSON Payload'
+.option '-P, --pretty', 'Prettyprint JSON Output'
+.option '-d, --debug', 'Enabling Debugging Output'
+.option '-a, --api <version>', "DSM API Version. Default to #{DEFAULT_API_VERSION}"
+.option '-i, --ignore-certificate-errors', 'Ignore certificate errors'
+.on '--help', ->
+    console.log '  Examples:'
+    console.log ''
+    console.log '    $ syno diskstationmanager|dsm startFindme'
+    console.log '    $ syno diskstationmanager|dsm getInfo --pretty\''
+    console.log '    $ syno diskstationmanagercore|dsm listUsers'
+    console.log '    $ syno diskstationmanagercore|dsm listPackages'
+    console.log ''
+    show_methods_available 'dsm'
+.action (cmd, options) ->
+    console.log '[DEBUG] : DSM API command selected' if program.debug
+    execute 'dsm', cmd, options
 
 program
 .command 'filestation <method>'
@@ -189,12 +244,15 @@ program
 .option '-p, --payload <payload>', 'JSON Payload'
 .option '-P, --pretty', 'Prettyprint JSON Output'
 .option '-d, --debug', 'Enabling Debugging Output'
+.option '-a, --api <version>', "DSM API Version. Default to #{DEFAULT_API_VERSION}"
+.option '-i, --ignore-certificate-errors', 'Ignore certificate errors'
 .on '--help', ->
     console.log '  Examples:'
     console.log ''
-    console.log '    $ syno filestation|fs listSharedFolders'
-    console.log '    $ syno filestation|fs listFiles --pretty --payload \'{"folder_path":"/path/to/folder"}\''
+    console.log '    $ syno filestation|fs listSharings'
+    console.log '    $ syno filestation|fs list --pretty --payload \'{"folder_path":"/path/to/folder"}\''
     console.log ''
+    show_methods_available 'fs'
 .action (cmd, options) ->
     console.log '[DEBUG] : DSM File Station API command selected' if program.debug
     execute 'fs', cmd, options
@@ -209,18 +267,21 @@ program
 .option '-p, --payload <payload>', 'JSON Payload'
 .option '-P, --pretty', 'Prettyprint JSON Output'
 .option '-d, --debug', 'Enabling Debugging Output'
+.option '-a, --api <version>', "DSM API Version. Default to #{DEFAULT_API_VERSION}"
+.option '-i, --ignore-certificate-errors', 'Ignore certificate errors'
 .on '--help', ->
     console.log '  Examples:'
     console.log ''
     console.log '    $ syno downloadstation|dl createTask --payload \'{"uri":"magnet|ed2k|ftp(s)|http(s)://link"}\''
     console.log '    $ syno downloadstation|dl listTasks'
     console.log '    $ syno downloadstation|dl listTasks --payload \'{"limit":1}\''
-    console.log '    $ syno downloadstation|dl getTasksInfo --pretty --payload \'{"id":"task_id"}\''
+    console.log '    $ syno downloadstation|dl getInfoTask --pretty --payload \'{"id":"task_id"}\''
     console.log ''
+    show_methods_available 'dl'
 .action (cmd, options) ->
     console.log '[DEBUG] : DSM Download Station API command selected' if program.debug
     execute 'dl', cmd, options
-  
+
 program
 .command('audiostation <method>')
 .alias('as')
@@ -231,6 +292,8 @@ program
 .option('-p, --payload <payload>', 'JSON Payload')
 .option('-P, --pretty', 'Prettyprint JSON Output')
 .option('-d, --debug', 'Enabling Debugging Output')
+.option '-a, --api <version>', "DSM API Version. Default to #{DEFAULT_API_VERSION}"
+.option '-i, --ignore-certificate-errors', 'Ignore certificate errors'
 .on '--help', ->
     console.log '  Examples:'
     console.log ''
@@ -238,10 +301,11 @@ program
     console.log '    $ syno audiostation|as listAlbums'
     console.log '    $ syno audiostation|as searchSong --payload \'{"title":"victoria"}\''
     console.log ''
+    show_methods_available 'as'
 .action (cmd, options) ->
     console.log '[DEBUG] : DSM Audio Station API command selected' if program.debug
     execute 'as', cmd, options
-    
+
 program
 .command('videostation <method>')
 .alias('vs')
@@ -252,16 +316,19 @@ program
 .option('-p, --payload <payload>', 'JSON Payload')
 .option('-P, --pretty', 'Prettyprint JSON Output')
 .option('-d, --debug', 'Enabling Debugging Output')
+.option '-a, --api <version>', "DSM API Version. Default to #{DEFAULT_API_VERSION}"
+.option '-i, --ignore-certificate-errors', 'Ignore certificate errors'
 .on '--help', ->
     console.log '  Examples:'
     console.log ''
     console.log '    $ syno videostation|vs listMovies --payload \'{"limit":1}\''
-    console.log '    $ syno videostation|vs getTVShowEpisodeInfo --payload \'{"id":"episode_id"}\''
+    console.log '    $ syno videostation|vs getInfoTvShow --payload \'{"id":"episode_id"}\''
     console.log ''
+    show_methods_available 'vs'
 .action (cmd, options) ->
     console.log '[DEBUG] : DSM Video Station API command selected' if program.debug
     execute 'vs', cmd, options
-    
+
 program
 .command('videostationdtv <method>')
 .alias('dtv')
@@ -272,16 +339,19 @@ program
 .option('-p, --payload <payload>', 'JSON Payload')
 .option('-P, --pretty', 'Prettyprint JSON Output')
 .option('-d, --debug', 'Enabling Debugging Output')
+.option '-a, --api <version>', "DSM API Version. Default to #{DEFAULT_API_VERSION}"
+.option '-i, --ignore-certificate-errors', 'Ignore certificate errors'
 .on '--help', ->
     console.log '  Examples:'
     console.log ''
-    console.log '    $ syno videostationdtv|dtv listDTVChannels --payload \'{"limit":1}\''
-    console.log '    $ syno videostationdtv|dtv getDTVTunerInfo --payload \'{"id":"tuner_id"}\''
+    console.log '    $ syno videostationdtv|dtv listChannels --payload \'{"limit":1}\''
+    console.log '    $ syno videostationdtv|dtv getInfoTuner --payload \'{"id":"tuner_id"}\''
     console.log ''
+    show_methods_available 'dtv'
 .action (cmd, options) ->
     console.log '[DEBUG] : DSM Video Station DTV API command selected' if program.debug
     execute 'dtv', cmd, options
-  
+
 program
 .command('surveillancestation <method>')
 .alias('ss')
@@ -292,15 +362,18 @@ program
 .option('-p, --payload <payload>', 'JSON Payload')
 .option('-P, --pretty', 'Prettyprint JSON Output')
 .option('-d, --debug', 'Enabling Debugging Output')
+.option '-a, --api <version>', "DSM API Version. Default to #{DEFAULT_API_VERSION}"
+.option '-i, --ignore-certificate-errors', 'Ignore certificate errors'
 .on '--help', ->
     console.log '  Examples:'
     console.log ''
     console.log '    $ syno surveillancestation|ss listCameras'
-    console.log '    $ syno surveillancestation|ss getCameraInfo --payload \'{"cameraIds":4}\''
-    console.log '    $ syno surveillancestation|ss zoomPTZCamera --payload \'{"cameraId":4, "control": "in"}\''
+    console.log '    $ syno surveillancestation|ss getInfoCamera --payload \'{"cameraIds":4}\''
+    console.log '    $ syno surveillancestation|ss zoomPtz --payload \'{"cameraId":4, "control": "in"}\''
     console.log ''
+    show_methods_available 'ss'
 .action (cmd, options) ->
     console.log '[DEBUG] : DSM Surveillance Station API command selected' if program.debug
     execute 'ss', cmd, options
-    
+
 program.parse process.argv

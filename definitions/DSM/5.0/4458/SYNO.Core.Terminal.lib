@@ -1,0 +1,14 @@
+{
+        "SYNO.Core.Terminal": {
+                "lib": "lib/SYNO.Core.Terminal.so",
+                "authLevel": 1,
+                "allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+                "minVersion": 1,
+                "maxVersion": 1,
+                "methods": {
+                        "1": [{"get": {"allowDemo": true}},
+                              {"set": {"allowDemo": false}}
+                             ]
+                }
+        }
+}

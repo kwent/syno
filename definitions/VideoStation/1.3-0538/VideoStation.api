@@ -1,0 +1,253 @@
+{
+	"SYNO.VideoStation.Info": {
+		"path": "VideoStation/info.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["getinfo"]
+		}
+	},
+	"SYNO.VideoStation.Video": {
+		"path": "VideoStation/video.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["download"]
+		}
+	},
+	"SYNO.VideoStation.Movie": {
+		"path": "VideoStation/movie.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list", "search", "getinfo", "edit"]
+		}
+	}, 
+	"SYNO.VideoStation.TVShow": {
+		"path": "VideoStation/tvshow.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list", "search", "getinfo", "edit"]
+		}
+	},
+	"SYNO.VideoStation.TVShowEpisode": {
+		"path": "VideoStation/tvshow_episode.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list", "search", "getinfo", "edit", "edit_adv"]
+		}
+	},
+	"SYNO.VideoStation.HomeVideo": {
+		"path": "VideoStation/homevideo.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list", "search", "getinfo", "edit"]
+		}
+	}, 
+	"SYNO.VideoStation.TVRecording": {
+		"path": "VideoStation/tvrecord.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list", "search", "getinfo", "edit"]
+		}
+	},
+	"SYNO.VideoStation.Collection": {
+		"path": "VideoStation/collection.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list", "getinfo", "video_list", "search", "video_getinfo", "create", "delete", "edit", "addvideo", "deletevideo"]
+		}
+	},
+	"SYNO.VideoStation.Metadata": {
+		"path": "VideoStation/metadata.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list"]
+		}
+	}, 
+	"SYNO.VideoStation.Poster": {
+		"path": "VideoStation/poster.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["getimage", "setimage"]
+		}
+	},
+	"SYNO.VideoStation.Rating": {
+		"path": "VideoStation/rating.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["getinfo"]
+		}
+	},
+	"SYNO.VideoStataion.Poster": {
+		"path": "VideoStation/poster.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["getimage", "setimage"]
+		}	
+	},
+	"SYNO.VideoStation.Streaming": {
+		"path": "VideoStation/vtestreaming.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["open", "stream", "close"]	
+		}
+	},
+	"SYNO.DTV.ChannelScan": {
+		"path": "VideoStation/channelscan.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["getcountry", "getregion", "getconfig", "start", "stop", "status"]
+		}
+	},
+	"SYNO.DTV.DVBSScan": {
+		"path": "VideoStation/dvbsscan.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["getconfig", "get_satellite", "create_satellite", "edit_satellite", "delete_satellite",
+				"get_lnb", "create_lnb", "edit_lnb", "delete_lnb", "get_tp", "get_tp_default",
+				"save_tp", "start", "stop", "status"]
+		}
+	},
+	"SYNO.DTV.Channel": {
+		"path": "VideoStation/channellist.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list", "getinfo", "delete_all_channels", "edit"]
+		}
+	},
+	"SYNO.DTV.Program": {
+		"path": "VideoStation/programlist.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list", "search", "update"]
+		}
+	},
+	"SYNO.DTV.Schedule": {
+		"path": "VideoStation/schedule_recording.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list", "create", "delete", "delete_passed", "create_repeat", "getinfo_repeat", "edit_repeat", "delete_repeat", "getinfo_userdefine", "create_userdefine", "edit_userdefine", "delete_userdefine"]
+		}
+	},
+	"SYNO.DTV.Status": {
+		"path": "VideoStation/dvtstatus.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["getinfo"]
+		}
+	},
+	"SYNO.DTV.Controller": {
+		"path": "VideoStation/dtvcontrol.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["getchannel", "setchannel"]
+		}
+	},
+	"SYNO.DTV.Streaming": {
+		"path": "VideoStation/dtvstreaming.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["open", "stream", "close"]
+		}
+	},
+	"SYNO.DTV.Statistic": {
+		"path": "VideoStation/dtvstatistic.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["getinfo"]
+		}
+	},
+	"SYNO.DTV.Tuner": {
+		"path": "VideoStation/tuner.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list", "getinfo"]
+		}
+	},
+	"SYNO.VideoStation.PluginSearch": {
+		"path": "VideoStation/pluginsearch.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["start", "stop", "list", "query"]
+		}
+	},
+	"SYNO.VideoStation.Subtitle": {
+		"path": "VideoStation/subtitle.cgi",
+		"minVersion": 1,
+		"maxVersion": 2,
+		"methods": {
+			"1": ["list", "get"],
+			"2": ["list", "get"]
+		}
+	},
+	"SYNO.VideoStation.Rating": {
+		"path": "VideoStation/rater.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["updateinfo"]
+		}
+	},
+	"SYNO.VideoStation.AudioTrack": {
+		"path": "VideoStation/audiotrack.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list"]
+		}
+	},
+	"SYNO.VideoStation.Info" : {
+		"path": "VideoStation/info.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["getinfo"]
+		}
+	},
+	"SYNO.VideoStation.Folder" : {
+		"path": "VideoStation/folder.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list"]
+		}
+	},
+	"SYNO.VideoStation.WatchStatus" : {
+		"path": "VideoStation/watchstatus.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["getinfo", "setinfo"]
+		}
+	},
+	"SYNO.VideoStation.Library": {
+		"path": "VideoStation/library.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["list"]
+		}
+	}
+}

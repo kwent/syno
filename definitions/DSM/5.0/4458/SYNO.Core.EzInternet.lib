@@ -1,0 +1,11 @@
+{
+	"SYNO.Core.EzInternet": {
+		"lib": "lib/SYNO.Core.EzInternet.so",
+		"authLevel": 0,
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+                "1": ["set", "get"]
+		}
+	}
+}

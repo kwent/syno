@@ -1,0 +1,88 @@
+{
+        "SYNO.Core.SyslogClient": {
+                "lib": "lib/SYNO.Core.SyslogClient.so",
+                "authLevel": 1,
+                "allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+                "minVersion": 1,
+                "maxVersion": 1,
+                "methods": {
+                        "1": [
+                                {
+                                        "get": {
+                                                "allowDemo": true
+                                        }
+                                },
+                                {
+                                        "set": {
+                                                "allowDemo": false
+                                        }
+                                },
+                                {
+                                        "test": {
+                                                "allowDemo": false
+                                        }
+                                }
+                        ]
+                }
+        },
+        "SYNO.Core.SyslogClient.CA": {
+                "lib": "lib/SYNO.Core.SyslogClient.so",
+                "authLevel": 1,
+                "allowUser":["admin.local", "admin.domain", "admin.ldap"],
+                "minVersion": 1,
+                "maxVersion": 1,
+                "methods": {
+                       "1": [
+                                {
+                                        "upload": {
+                                                "allowUpload": true,
+                                                "allowDemo": false
+                                        }
+                                }
+                        ]
+                }
+        },
+        "SYNO.Core.SyslogClient.FileTransfer": {
+                "lib": "lib/SYNO.Core.SyslogClient.FileTransfer.so",
+                "authLevel": 1,
+                "allowUser":["admin.local", "admin.domain", "admin.ldap"],
+                "minVersion": 1,
+                "maxVersion": 1,
+                "methods": {
+                        "1": [
+                                {
+                                        "get": {
+                                                "allowDemo": true
+                                        }
+                                },
+                                {
+                                        "set": {
+                                                "allowDemo": false
+                                        }
+                                }
+                        ]
+                }
+        },
+        "SYNO.Core.SyslogClient.Log": {
+                "lib": "lib/SYNO.Core.SyslogClient.Log.so",
+                "authLevel": 1,
+                "allowUser":["admin.local", "admin.domain", "admin.ldap"],
+                "minVersion": 1,
+                "maxVersion": 1,
+                "methods":{
+                       "1": [
+                                {
+                                        "list": {
+                                                "allowDemo": true
+                                        }
+                                },
+                                {
+                                        "export": {
+                                                "allowDownload": true,
+                                                "allowDemo": false
+                                        }
+                                }
+                       ]
+                }
+        }
+}

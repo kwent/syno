@@ -2,17 +2,17 @@
 
   <head>
     <title>Synology Browserify</title>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.13/angular.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/syno.min.js"></script>
+    <script src="js/syno-6.x.min.js"></script>
     <script src="js/index.js"></script>
   </head>
 
   <body>
     <h3>Note: Be sure to disable <a href="http://en.wikipedia.org/wiki/Same-origin_policy">same-origin policy</a> in your browser.</h3>
-    OSX: <pre>open -a Google\ Chrome --args --disable-web-security</pre>
-    Linux: <pre>chromium-browser --disable-web-security</pre>
-    Windows: <pre>chrome.exe --disable-web-security</pre>
+    OSX: <pre>open -a Google\ Chrome --args --disable-web-security --user-data-dir=~/ChromeUserData/ --ignore-certificate-errors </pre>
+    Linux: <pre>chromium-browser --disable-web-security --ignore-certificate-errors</pre>
+    Windows: <pre>chrome.exe --disable-web-security --ignore-certificate-errors</pre>
     
     <h2>Syno Browserify</h2>
     <div ng-controller="SynoController">
