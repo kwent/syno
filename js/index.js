@@ -20,18 +20,12 @@ app.factory("SynoRequestFactory", function() {
           // DSM User account (required)
           account: username || 'admin',
           // DSM User password (required)
-          passwd: password || 'synology'
+          passwd: password || 'synology',
+          // Ignore certificate errors
+          ignoreCertificateErrors: true,
+          // Debug flag
+          debug: true
       });
-      
-      console.log('protocol', protocol);
-      console.log('host', host);
-      console.log('port', port);
-      console.log('username', username);
-      console.log('password', password);
-      
-      console.log('api_name', api_name);
-      console.log('method_name', method_name);
-      console.log('method_params', method_params);
       
       syno[api_name][method_name](JSON.parse(method_params), function(err, data) {
         callback(err, data);
