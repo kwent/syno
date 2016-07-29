@@ -59,7 +59,7 @@ var syno = new Syno({
     account: 'my_username',
     // DSM User password (required)
     passwd: 'my_password'
-    // DSM User password (optional, default: 6.0)
+    // DSM API version (optional, default: 6.0)
     apiVersion: '6.0'
 });
 ```
