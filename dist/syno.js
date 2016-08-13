@@ -303,6 +303,49 @@
             return module.exports;
           });
         
+          setModule('DSM', function() {
+            var exports, module;
+            module = {};
+            exports = module.exports = {};
+            (function(modules, module, exports, setModule, setter) {
+              var DSM;
+              DSM = (function(superClass) {
+                extend1(DSM, superClass);
+        
+                function DSM(syno) {
+                  this.syno = syno;
+                  DSM.__super__.constructor.call(this, this.syno);
+                  this.syno.createFunctionsFor(this, ['SYNO.DSM', 'SYNO.Core']);
+                }
+        
+                DSM.prototype.getMethods = function(params, done) {
+                  var filtered, k, keys, to_exclude, v;
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
+                  keys = (function() {
+                    var results;
+                    results = [];
+                    for (k in this) {
+                      v = this[k];
+                      if (typeof v === 'function') {
+                        results.push(k);
+                      }
+                    }
+                    return results;
+                  }).call(this);
+                  filtered = keys.filter(function(method_name) {
+                    return to_exclude.indexOf(method_name) === -1;
+                  });
+                  return done(filtered);
+                };
+        
+                return DSM;
+        
+              })(AuthenticatedAPI);
+              return module.exports = DSM;
+            })(modules, module, exports, void 0, void 0);
+            return module.exports;
+          });
+        
           setModule('DownloadStation', function() {
             var exports, module;
             module = {};
@@ -384,49 +427,6 @@
         
               })(AuthenticatedAPI);
               return module.exports = DownloadStation;
-            })(modules, module, exports, void 0, void 0);
-            return module.exports;
-          });
-        
-          setModule('DSM', function() {
-            var exports, module;
-            module = {};
-            exports = module.exports = {};
-            (function(modules, module, exports, setModule, setter) {
-              var DSM;
-              DSM = (function(superClass) {
-                extend1(DSM, superClass);
-        
-                function DSM(syno) {
-                  this.syno = syno;
-                  DSM.__super__.constructor.call(this, this.syno);
-                  this.syno.createFunctionsFor(this, ['SYNO.DSM', 'SYNO.Core']);
-                }
-        
-                DSM.prototype.getMethods = function(params, done) {
-                  var filtered, k, keys, to_exclude, v;
-                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
-                  keys = (function() {
-                    var results;
-                    results = [];
-                    for (k in this) {
-                      v = this[k];
-                      if (typeof v === 'function') {
-                        results.push(k);
-                      }
-                    }
-                    return results;
-                  }).call(this);
-                  filtered = keys.filter(function(method_name) {
-                    return to_exclude.indexOf(method_name) === -1;
-                  });
-                  return done(filtered);
-                };
-        
-                return DSM;
-        
-              })(AuthenticatedAPI);
-              return module.exports = DSM;
             })(modules, module, exports, void 0, void 0);
             return module.exports;
           });
