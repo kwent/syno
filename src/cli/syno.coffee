@@ -112,7 +112,13 @@ else if (program.args.length > 0 and
     process.exit 1
 
 # Load cmd line args and environment vars
-nconf.argv.env
+nconf.argv().file
+    file: path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}"
+    format:
+        stringify: (obj, options) ->
+            yaml.safeDump obj, options
+        parse: (obj, options) ->
+            yaml.safeLoad obj, options
 
 if program.url
     console.log '[DEBUG] : Params URL detected : %s.', program.url if program.debug
@@ -125,61 +131,54 @@ if program.url
         console.log '[ERROR] : Invalid Protocol URL detected : %s.', url_resolved.protocol
         process.exit 1
 
-    nconf.overrides
-        url:
-            protocol: url_resolved.protocol
-            host: url_resolved.hostname or DEFAULT_HOST
-            port: url_resolved.port or DEFAULT_PORT
-            account: if url_resolved.auth then url_resolved.auth.split(':')[0] else DEFAULT_ACCOUNT
-            passwd: if url_resolved.auth then url_resolved.auth.split(':')[1] else DEFAULT_PASSWD
-            apiVersion: main.api or DEFAULT_API_VERSION
+    nconf.set 'url:protocol', url_resolved.protocol
+    nconf.set 'url:host', url_resolved.hostname or DEFAULT_HOST
+    nconf.set 'url:port', url_resolved.port or DEFAULT_PORT
+    nconf.set 'url:account', if url_resolved.auth then url_resolved.auth.split(':')[0] else DEFAULT_ACCOUNT
+    nconf.set 'url:passwd', if url_resolved.auth then url_resolved.auth.split(':')[1] else DEFAULT_PASSWD
+    nconf.set 'url:apiVersion', main.api or DEFAULT_API_VERSION
 
 else if program.config
     console.log '[DEBUG] : Load config file : %s', program.config if program.debug
-    # load a yaml file specified in config
-    if fs.existsSync(program.config)
-        nconf.file
-            file: program.config
-            format:
-                stringify: (obj, options) ->
-                    yaml.safeDump obj, options
-                parse: (obj, options) ->
-                    yaml.safeLoad obj, options
-        nconf.overrides
-            url:
-                apiVersion: main.api or DEFAULT_API_VERSION
-    else
+
+    try
+        fs.accessSync program.config
+    catch
         console.log '[ERROR] : Config file : %s not found', program.config
         process.exit 1
+
+      nconf.file
+          file: program.config
+          format:
+              stringify: (obj, options) ->
+                  yaml.safeDump obj, options
+              parse: (obj, options) ->
+                  yaml.safeLoad obj, options
+      nconf.overrides
+          url:
+              apiVersion: main.api or DEFAULT_API_VERSION
 else
 
     # If no directory -> create directory and save the file
-    if not fs.existsSync path.homedir() + "/#{CONFIG_DIR}"
-        console.log '[DEBUG] : Default configuration file doesn\'t exist : %s',
-            path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
-        fs.mkdir path.homedir() + "/#{CONFIG_DIR}", (err) ->
-            if err
-                console.log '[ERROR] : %s', err
-            else
-                nconf.set 'url:protocol', DEFAULT_PROTOCOL
-                nconf.set 'url:host', DEFAULT_HOST
-                nconf.set 'url:port', DEFAULT_PORT
-                nconf.set 'url:account', DEFAULT_ACCOUNT
-                nconf.set 'url:passwd', DEFAULT_PASSWD
-                nconf.set 'url:apiVersion', DEFAULT_API_VERSION
-                console.log '[DEBUG] : Default configuration file created : %s',
-                    path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
-                nconf.save()
+    try
+        fs.accessSync path.homedir() + "/#{CONFIG_DIR}"
+    catch
+        console.log '[DEBUG] : Default configuration directory does not exist : %s. Creating...',
+            path.homedir() + "/#{CONFIG_DIR}" if program.debug
+        fs.mkdirSync path.homedir() + "/#{CONFIG_DIR}"
 
-    # Load a yaml file using YAML formatter
-    console.log "[DEBUG] : Default configuration file loaded : ~/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
-    nconf.file
-        file: path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}"
-        format:
-            stringify: (obj, options) ->
-                yaml.safeDump obj, options
-            parse: (obj, options) ->
-                yaml.safeLoad obj, options
+    try
+        fs.accessSync path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}"
+    catch
+        console.log '[DEBUG] : Default configuration file does not exist : %s. Creating...',
+            path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
+        nconf.set 'url:protocol', DEFAULT_PROTOCOL
+        nconf.set 'url:host', DEFAULT_HOST
+        nconf.set 'url:port', DEFAULT_PORT
+        nconf.set 'url:account', DEFAULT_ACCOUNT
+        nconf.set 'url:passwd', DEFAULT_PASSWD
+        nconf.set 'url:apiVersion', DEFAULT_API_VERSION
+        nconf.save()
 
 nconf.overrides
     url:

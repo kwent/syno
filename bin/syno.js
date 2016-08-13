@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var CONFIG_DIR, CONFIG_FILE, DEFAULT_ACCOUNT, DEFAULT_API_VERSION, DEFAULT_HOST, DEFAULT_PASSWD, DEFAULT_PORT, DEFAULT_PROTOCOL, Syno, execute, fs, main, nconf, os, path, program, show_methods_available, syno, url, url_resolved, yaml;
+var CONFIG_DIR, CONFIG_FILE, DEFAULT_ACCOUNT, DEFAULT_API_VERSION, DEFAULT_HOST, DEFAULT_PASSWD, DEFAULT_PORT, DEFAULT_PROTOCOL, Syno, error, error1, error2, execute, fs, main, nconf, os, path, program, show_methods_available, syno, url, url_resolved, yaml;
 
 CONFIG_DIR = '.syno';
 
@@ -130,7 +130,17 @@ if (program.args.length === 0) {
   process.exit(1);
 }
 
-nconf.argv.env;
+nconf.argv().file({
+  file: path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE),
+  format: {
+    stringify: function(obj, options) {
+      return yaml.safeDump(obj, options);
+    },
+    parse: function(obj, options) {
+      return yaml.safeLoad(obj, options);
+    }
+  }
+});
 
 if (program.url) {
   if (program.debug) {
@@ -145,64 +155,24 @@ if (program.url) {
     console.log('[ERROR] : Invalid Protocol URL detected : %s.', url_resolved.protocol);
     process.exit(1);
   }
-  nconf.overrides({
-    url: {
-      protocol: url_resolved.protocol,
-      host: url_resolved.hostname || DEFAULT_HOST,
-      port: url_resolved.port || DEFAULT_PORT,
-      account: url_resolved.auth ? url_resolved.auth.split(':')[0] : DEFAULT_ACCOUNT,
-      passwd: url_resolved.auth ? url_resolved.auth.split(':')[1] : DEFAULT_PASSWD,
-      apiVersion: main.api || DEFAULT_API_VERSION
-    }
-  });
+  nconf.set('url:protocol', url_resolved.protocol);
+  nconf.set('url:host', url_resolved.hostname || DEFAULT_HOST);
+  nconf.set('url:port', url_resolved.port || DEFAULT_PORT);
+  nconf.set('url:account', url_resolved.auth ? url_resolved.auth.split(':')[0] : DEFAULT_ACCOUNT);
+  nconf.set('url:passwd', url_resolved.auth ? url_resolved.auth.split(':')[1] : DEFAULT_PASSWD);
+  nconf.set('url:apiVersion', main.api || DEFAULT_API_VERSION);
 } else if (program.config) {
   if (program.debug) {
     console.log('[DEBUG] : Load config file : %s', program.config);
   }
-  if (fs.existsSync(program.config)) {
-    nconf.file({
-      file: program.config,
-      format: {
-        stringify: function(obj, options) {
-          return yaml.safeDump(obj, options);
-        },
-        parse: function(obj, options) {
-          return yaml.safeLoad(obj, options);
-        }
-      }
-    });
-    nconf.overrides({
-      url: {
-        apiVersion: main.api || DEFAULT_API_VERSION
-      }
-    });
-  } else {
+  try {
+    fs.accessSync(program.config);
+  } catch (error) {
     console.log('[ERROR] : Config file : %s not found', program.config);
     process.exit(1);
   }
-} else {
-  if (!fs.existsSync(path.homedir() + ("/" + CONFIG_DIR))) {
-    console.log('[DEBUG] : Default configuration file doesn\'t exist : %s', program.debug ? path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE) : void 0);
-    fs.mkdir(path.homedir() + ("/" + CONFIG_DIR), function(err) {
-      if (err) {
-        return console.log('[ERROR] : %s', err);
-      } else {
-        nconf.set('url:protocol', DEFAULT_PROTOCOL);
-        nconf.set('url:host', DEFAULT_HOST);
-        nconf.set('url:port', DEFAULT_PORT);
-        nconf.set('url:account', DEFAULT_ACCOUNT);
-        nconf.set('url:passwd', DEFAULT_PASSWD);
-        nconf.set('url:apiVersion', DEFAULT_API_VERSION);
-        console.log('[DEBUG] : Default configuration file created : %s', program.debug ? path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE) : void 0);
-        return nconf.save();
-      }
-    });
-  }
-  if (program.debug) {
-    console.log("[DEBUG] : Default configuration file loaded : ~/" + CONFIG_DIR + "/" + CONFIG_FILE);
-  }
   nconf.file({
-    file: path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE),
+    file: program.config,
     format: {
       stringify: function(obj, options) {
         return yaml.safeDump(obj, options);
@@ -212,6 +182,30 @@ if (program.url) {
       }
     }
   });
+  nconf.overrides({
+    url: {
+      apiVersion: main.api || DEFAULT_API_VERSION
+    }
+  });
+} else {
+  try {
+    fs.accessSync(path.homedir() + ("/" + CONFIG_DIR));
+  } catch (error1) {
+    console.log('[DEBUG] : Default configuration directory does not exist : %s. Creating...', program.debug ? path.homedir() + ("/" + CONFIG_DIR) : void 0);
+    fs.mkdirSync(path.homedir() + ("/" + CONFIG_DIR));
+  }
+  try {
+    fs.accessSync(path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE));
+  } catch (error2) {
+    console.log('[DEBUG] : Default configuration file does not exist : %s. Creating...', program.debug ? path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE) : void 0);
+    nconf.set('url:protocol', DEFAULT_PROTOCOL);
+    nconf.set('url:host', DEFAULT_HOST);
+    nconf.set('url:port', DEFAULT_PORT);
+    nconf.set('url:account', DEFAULT_ACCOUNT);
+    nconf.set('url:passwd', DEFAULT_PASSWD);
+    nconf.set('url:apiVersion', DEFAULT_API_VERSION);
+    nconf.save();
+  }
 }
 
 nconf.overrides({
