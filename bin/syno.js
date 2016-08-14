@@ -85,7 +85,7 @@ show_methods_available = function(api) {
   return console.log('');
 };
 
-main = program.version('2.0.0').description('Synology Rest API Command Line').option('-c, --config <path>', "DSM Configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', "DSM API Version. Default to " + DEFAULT_API_VERSION).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
+main = program.version('2.0.1').description('Synology Rest API Command Line').option('-c, --config <path>', "DSM Configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', "DSM API Version. Default to " + DEFAULT_API_VERSION).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
   console.log('  Commands:');
   console.log('');
   console.log('    diskstationmanager|dsm [options] <method> DSM API');

@@ -1,3 +1,8 @@
+## 2.0.1
+
+- Update dependencies
+- CLI Fixes using no deprecated fs api
+
 ## 2.0.0
 
 - Add support for 5.x and 6.x
