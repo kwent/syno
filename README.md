@@ -34,7 +34,7 @@ $ npm install syno --global
 # Syno API
 
 This is a simple presentation of the syno API and its methods.
-To get more information (parameters, response data, ...) refer to the Synology Developer Tool [page](https://www.synology.com/en-us/support/developer#tool)).
+To get more information (parameters, response data, ...) refer to the Synology Developer Tool [page](https://www.synology.com/en-us/support/developer#tool).
 
 * **DSM API**
 * **File Station API**
