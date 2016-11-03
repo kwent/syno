@@ -76,8 +76,7 @@ class Utils
     # `str` [String]
     @listPluralize = (method, apiSubNname) ->
         if startsWith(method.toLowerCase(), 'list') and not endsWith(apiSubNname, 's')
-            lastWord = last(apiSubNname.split(/(?=[A-Z][^A-Z]+$)/))
-            apiSubNname = pluralize(lastWord) # pluralize if list
+            apiSubNname = apiSubNname.replace(/([A-Z][^A-Z]+)$/, (_, last) -> pluralize(last)) # pluralize if list
         return apiSubNname
         
     @createFunctionName = (apiName, method) ->
