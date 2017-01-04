@@ -34,7 +34,7 @@ execute = (api, cmd, options)->
         else
             data = JSON.stringify data
         console.log data if data
-        syno.auth.logout(api)
+        syno.auth.logout()
         process.exit 0
 
 show_methods_available = (api)->

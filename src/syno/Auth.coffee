@@ -33,7 +33,7 @@ class Auth extends API
 
     # Logout to syno
     # `done` [Function] Callback called when the logout process is complete
-    logout: (sessionName, done)->
+    logout: (sessionName = null, done)->
         # Don't do anything if there is no session
         if not @syno.sessions then return null
         # API method is `logout`
@@ -42,7 +42,10 @@ class Auth extends API
         params = session: @syno.session
 
         # Delete sessions
-        @syno.sessions = null
+        if sessionName
+            @syno.sessions[sessionName] = null
+        else
+            @syno.sessions = null
 
         # Request logout
         @request {api, version, path, method, params}, done

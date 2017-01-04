@@ -225,6 +225,9 @@
         
                 Auth.prototype.logout = function(sessionName, done) {
                   var method, params;
+                  if (sessionName == null) {
+                    sessionName = null;
+                  }
                   if (!this.syno.sessions) {
                     return null;
                   }
@@ -232,7 +235,11 @@
                   params = {
                     session: this.syno.session
                   };
-                  this.syno.sessions = null;
+                  if (sessionName) {
+                    this.syno.sessions[sessionName] = null;
+                  } else {
+                    this.syno.sessions = null;
+                  }
                   return this.request({
                     api: api,
                     version: version,
