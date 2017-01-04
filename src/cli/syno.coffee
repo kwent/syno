@@ -11,7 +11,7 @@ program = require 'commander'
 fs = require 'fs'
 url = require 'url'
 nconf = require 'nconf'
-path = require 'path-extra'
+ospath = require 'ospath'
 yaml = require 'js-yaml'
 Syno = require '../dist/syno'
 os = require 'os'
@@ -113,7 +113,7 @@ else if (program.args.length > 0 and
 
 # Load cmd line args and environment vars
 nconf.argv().file
-    file: path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}"
+    file: ospath.home() + "/#{CONFIG_DIR}/#{CONFIG_FILE}"
     format:
         stringify: (obj, options) ->
             yaml.safeDump obj, options
@@ -161,17 +161,17 @@ else
 
     # If no directory -> create directory and save the file
     try
-        fs.accessSync path.homedir() + "/#{CONFIG_DIR}"
+        fs.accessSync ospath.home() + "/#{CONFIG_DIR}"
     catch
         console.log '[DEBUG] : Default configuration directory does not exist : %s. Creating...',
-            path.homedir() + "/#{CONFIG_DIR}" if program.debug
-        fs.mkdirSync path.homedir() + "/#{CONFIG_DIR}"
+            ospath.home() + "/#{CONFIG_DIR}" if program.debug
+        fs.mkdirSync ospath.home() + "/#{CONFIG_DIR}"
 
     try
-        fs.accessSync path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}"
+        fs.accessSync ospath.home() + "/#{CONFIG_DIR}/#{CONFIG_FILE}"
     catch
         console.log '[DEBUG] : Default configuration file does not exist : %s. Creating...',
-            path.homedir() + "/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
+            ospath.home() + "/#{CONFIG_DIR}/#{CONFIG_FILE}" if program.debug
         nconf.set 'url:protocol', DEFAULT_PROTOCOL
         nconf.set 'url:host', DEFAULT_HOST
         nconf.set 'url:port', DEFAULT_PORT

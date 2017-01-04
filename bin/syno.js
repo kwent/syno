@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var CONFIG_DIR, CONFIG_FILE, DEFAULT_ACCOUNT, DEFAULT_API_VERSION, DEFAULT_HOST, DEFAULT_PASSWD, DEFAULT_PORT, DEFAULT_PROTOCOL, Syno, error, error1, error2, execute, fs, main, nconf, os, path, program, show_methods_available, syno, url, url_resolved, yaml;
+var CONFIG_DIR, CONFIG_FILE, DEFAULT_ACCOUNT, DEFAULT_API_VERSION, DEFAULT_HOST, DEFAULT_PASSWD, DEFAULT_PORT, DEFAULT_PROTOCOL, Syno, error, error1, error2, execute, fs, main, nconf, os, ospath, program, show_methods_available, syno, url, url_resolved, yaml;
 
 CONFIG_DIR = '.syno';
 
@@ -26,7 +26,7 @@ url = require('url');
 
 nconf = require('nconf');
 
-path = require('path-extra');
+ospath = require('ospath');
 
 yaml = require('js-yaml');
 
@@ -131,7 +131,7 @@ if (program.args.length === 0) {
 }
 
 nconf.argv().file({
-  file: path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE),
+  file: ospath.home() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE),
   format: {
     stringify: function(obj, options) {
       return yaml.safeDump(obj, options);
@@ -189,15 +189,15 @@ if (program.url) {
   });
 } else {
   try {
-    fs.accessSync(path.homedir() + ("/" + CONFIG_DIR));
+    fs.accessSync(ospath.home() + ("/" + CONFIG_DIR));
   } catch (error1) {
-    console.log('[DEBUG] : Default configuration directory does not exist : %s. Creating...', program.debug ? path.homedir() + ("/" + CONFIG_DIR) : void 0);
-    fs.mkdirSync(path.homedir() + ("/" + CONFIG_DIR));
+    console.log('[DEBUG] : Default configuration directory does not exist : %s. Creating...', program.debug ? ospath.home() + ("/" + CONFIG_DIR) : void 0);
+    fs.mkdirSync(ospath.home() + ("/" + CONFIG_DIR));
   }
   try {
-    fs.accessSync(path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE));
+    fs.accessSync(ospath.home() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE));
   } catch (error2) {
-    console.log('[DEBUG] : Default configuration file does not exist : %s. Creating...', program.debug ? path.homedir() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE) : void 0);
+    console.log('[DEBUG] : Default configuration file does not exist : %s. Creating...', program.debug ? ospath.home() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE) : void 0);
     nconf.set('url:protocol', DEFAULT_PROTOCOL);
     nconf.set('url:host', DEFAULT_HOST);
     nconf.set('url:port', DEFAULT_PORT);

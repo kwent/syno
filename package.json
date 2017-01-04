@@ -35,18 +35,18 @@
     "syno": "bin/syno.js"
   },
   "dependencies": {
-    "lodash": "^4.13.1",
-    "request": "^2.72.0",
+    "lodash": "^4.17.4",
+    "request": "^2.79.0",
     "commander": "^2.9.0",
     "nconf": "^0.8.4",
     "js-yaml": "^3.6.1",
-    "path-extra": "^3.0.0",
-    "pluralize": "^3.0.0"
+    "ospath": "^1.2.2",
+    "pluralize": "^3.1.0"
   },
   "devDependencies": {
-    "browserify": "^13.0.1",
+    "browserify": "^13.1.1",
     "brfs": "^1.4.3",
-    "coffeelint": "^1.15.7",
+    "coffeelint": "^1.16.0",
     "grunt": "0.4.5",
     "grunt-coffeelint": "0.0.16",
     "grunt-contrib-clean": "^1.0.0",
