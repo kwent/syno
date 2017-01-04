@@ -57,7 +57,7 @@ class Syno
         Available versions are: #{apiVersionsAvailable.join(', ')}"
 
         # Create request with jar
-        @request = request.defaults rejectUnauthorized: not @ignoreCertificateErrors, jar: true, json: true
+        @request = request.defaults rejectUnauthorized: not @ignoreCertificateErrors, json: true
         request.debug = true if @debug
         # Init session property
         @session = null
@@ -106,6 +106,7 @@ class Syno
                             params: params,
                             done: done,
                             apiInfos: {
+                              sessionName: ' + "'" + object.sessionName + "'" + ',
                               api: ' + "'" + api + "'" + ',
                               version:' + "'" + version + "'" + ',
                               path: ' + "'" + path + "'" + ',

@@ -145,7 +145,7 @@
                 function AudioStation(syno) {
                   this.syno = syno;
                   AudioStation.__super__.constructor.call(this, this.syno);
-                  this.syno.session = 'AudioStation';
+                  this.sessionName = 'AudioStation';
                   this.syno.createFunctionsFor(this, ['SYNO.AudioStation']);
                 }
         
@@ -198,15 +198,22 @@
         
                 path = 'auth.cgi';
         
-                Auth.prototype.login = function(done) {
+                Auth.prototype.login = function(sessionName, done) {
                   var method, params;
                   method = 'login';
                   params = {
                     account: this.syno.account,
                     passwd: this.syno.passwd,
-                    session: this.syno.session
+                    session: sessionName,
+                    format: 'sid'
                   };
-                  this.syno.logged = false;
+                  if (!this.syno.sessions) {
+                    this.syno.sessions = {};
+                  }
+                  if (!this.syno.sessions[sessionName]) {
+                    this.syno.sessions[sessionName] = {};
+                  }
+                  this.syno.sessions[sessionName]['_sid'] = null;
                   return this.request({
                     api: api,
                     version: version,
@@ -216,16 +223,16 @@
                   }, done);
                 };
         
-                Auth.prototype.logout = function(done) {
+                Auth.prototype.logout = function(sessionName, done) {
                   var method, params;
-                  if (!this.syno.session) {
+                  if (!this.syno.sessions) {
                     return null;
                   }
                   method = 'logout';
                   params = {
                     session: this.syno.session
                   };
-                  this.syno.session = null;
+                  this.syno.sessions = null;
                   return this.request({
                     api: api,
                     version: version,
@@ -280,15 +287,16 @@
                   if (done == null) {
                     done = noop;
                   }
-                  if (this.syno.logged) {
+                  if (this.syno.sessions && this.syno.sessions[options.sessionName] && this.syno.sessions[options.sessionName]['_sid']) {
                     return AuthenticatedAPI.__super__.request.call(this, options, done);
                   } else {
-                    return this.syno.auth.login((function(_this) {
-                      return function(error) {
+                    return this.syno.auth.login(options.sessionName, (function(_this) {
+                      return function(error, response) {
                         if (error) {
                           return done(error);
                         } else {
-                          _this.syno.logged = true;
+                          _this.syno.sessions[options.sessionName] = response['sid'];
+                          options.params['_sid'] = response['sid'];
                           return AuthenticatedAPI.__super__.request.call(_this, options, done);
                         }
                       };
@@ -316,7 +324,7 @@
                 function DSM(syno) {
                   this.syno = syno;
                   DSM.__super__.constructor.call(this, this.syno);
-                  this.syno.session = 'DiskStationManager';
+                  this.sessionName = 'DiskStationManager';
                   this.syno.createFunctionsFor(this, ['SYNO.DSM', 'SYNO.Core']);
                 }
         
@@ -360,7 +368,7 @@
                 function DownloadStation(syno) {
                   this.syno = syno;
                   DownloadStation.__super__.constructor.call(this, this.syno);
-                  this.syno.session = 'DownloadStation';
+                  this.sessionName = 'DownloadStation';
                   this.syno.createFunctionsFor(this, ['SYNO.DownloadStation']);
                 }
         
@@ -446,7 +454,7 @@
                 function FileStation(syno) {
                   this.syno = syno;
                   FileStation.__super__.constructor.call(this, this.syno);
-                  this.syno.session = 'FileStation';
+                  this.sessionName = 'FileStation';
                   this.syno.createFunctionsFor(this, ['SYNO.FileStation']);
                 }
         
@@ -640,7 +648,7 @@
                 function SurveillanceStation(syno) {
                   this.syno = syno;
                   SurveillanceStation.__super__.constructor.call(this, this.syno);
-                  this.syno.session = 'SurveillanceStation';
+                  this.sessionName = 'SurveillanceStation';
                   this.syno.createFunctionsFor(this, ['SYNO.SurveillanceStation']);
                 }
         
@@ -765,7 +773,6 @@
                   }
                   this.request = request.defaults({
                     rejectUnauthorized: !this.ignoreCertificateErrors,
-                    jar: true,
                     json: true
                   });
                   if (this.debug) {
@@ -825,7 +832,7 @@
                               functionName = Utils.createFunctionName(api, method);
                               path = 'path' in definitions[api] ? definitions[api].path : 'entry.cgi';
                               version = 'maxVersion' in definitions[api] ? definitions[api].maxVersion : 1;
-                              results2.push(object.__proto__[functionName] = new Function('params', 'done', 'this.requestAPI({ params: params, done: done, apiInfos: { api: ' + "'" + api + "'" + ', version:' + "'" + version + "'" + ', path: ' + "'" + path + "'" + ', method: ' + "'" + method + "'" + '} });'));
+                              results2.push(object.__proto__[functionName] = new Function('params', 'done', 'this.requestAPI({ params: params, done: done, apiInfos: { sessionName: ' + "'" + object.sessionName + "'" + ', api: ' + "'" + api + "'" + ', version:' + "'" + version + "'" + ', path: ' + "'" + path + "'" + ', method: ' + "'" + method + "'" + '} });'));
                             }
                             return results2;
                           })());
@@ -959,7 +966,7 @@
                 function VideoStation(syno) {
                   this.syno = syno;
                   VideoStation.__super__.constructor.call(this, this.syno);
-                  this.syno.session = 'VideoStation';
+                  this.sessionName = 'VideoStation';
                   this.syno.createFunctionsFor(this, ['SYNO.VideoStation']);
                 }
         
@@ -1003,7 +1010,7 @@
                 function VideoStationDTV(syno) {
                   this.syno = syno;
                   VideoStationDTV.__super__.constructor.call(this, this.syno);
-                  this.syno.session = 'VideoStation';
+                  this.sessionName = 'VideoStation';
                   this.syno.createFunctionsFor(this, ['SYNO.DTV']);
                 }
         

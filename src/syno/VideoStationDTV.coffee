@@ -2,7 +2,7 @@ class VideoStationDTV extends AuthenticatedAPI
   
     constructor: (@syno)->
         super(@syno)
-        @syno.session = 'VideoStation'
+        this.sessionName = 'VideoStation'
         @syno.createFunctionsFor(this, ['SYNO.DTV'])
 
     getMethods: (params, done)->

@@ -2,7 +2,7 @@ class DownloadStation extends AuthenticatedAPI
 
     constructor: (@syno)->
         super(@syno)
-        @syno.session = 'DownloadStation'
+        this.sessionName = 'DownloadStation'
         @syno.createFunctionsFor(this, ['SYNO.DownloadStation'])
 
     getMethods: (params, done)->

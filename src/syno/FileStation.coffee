@@ -2,7 +2,7 @@ class FileStation extends AuthenticatedAPI
 
     constructor: (@syno)->
         super(@syno)
-        @syno.session = 'FileStation'
+        this.sessionName = 'FileStation'
         @syno.createFunctionsFor(this, ['SYNO.FileStation'])
 
     getMethods: (params, done)->

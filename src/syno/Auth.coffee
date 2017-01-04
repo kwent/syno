@@ -10,32 +10,39 @@ class Auth extends API
 
     # Login to Syno
     # `done` [Function] Callback called when the login processed is complete
-    login: (done)->
+    login: (sessionName, done)->
         # API method is `login`
         method = 'login'
-        # Use a unique session
+        # Parameters
         params =
             account: @syno.account
             passwd: @syno.passwd
-            session: @syno.session
-        # Set logged to false
-        @syno.logged = false
+            session: sessionName
+            format: 'sid'
+
+        # Set sid to null
+        if not @syno.sessions
+            @syno.sessions = {}
+        if not @syno.sessions[sessionName]
+            @syno.sessions[sessionName] = {}
+
+        @syno.sessions[sessionName]['_sid'] = null
 
         # Request login
         @request {api, version, path, method, params}, done
 
     # Logout to syno
     # `done` [Function] Callback called when the logout process is complete
-    logout: (done)->
+    logout: (sessionName, done)->
         # Don't do anything if there is no session
-        if not @syno.session then return null
+        if not @syno.sessions then return null
         # API method is `logout`
         method = 'logout'
         # Init logout parameters
         params = session: @syno.session
 
-        # Remove session property of syno
-        @syno.session = null
+        # Delete sessions
+        @syno.sessions = null
 
         # Request logout
         @request {api, version, path, method, params}, done

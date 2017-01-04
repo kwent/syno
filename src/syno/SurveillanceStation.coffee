@@ -2,7 +2,7 @@ class SurveillanceStation extends AuthenticatedAPI
 
     constructor: (@syno)->
         super(@syno)
-        @syno.session = 'SurveillanceStation'
+        this.sessionName = 'SurveillanceStation'
         @syno.createFunctionsFor(this, ['SYNO.SurveillanceStation'])
 
     getMethods: (params, done)->
