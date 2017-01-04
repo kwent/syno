@@ -100,7 +100,7 @@ class Syno
                         method = first(keys(method)) if typeof(method) is 'object'
                         functionName = Utils.createFunctionName(api, method)
                         path = if 'path' of definitions[api] then definitions[api].path else 'entry.cgi'
-                        version = if 'minVersion' of definitions[api] then definitions[api].minVersion else 1
+                        version = if 'maxVersion' of definitions[api] then definitions[api].maxVersion else 1
                         object.__proto__[functionName] = new Function('params', 'done', '
                         this.requestAPI({
                             params: params,
