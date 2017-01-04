@@ -2,6 +2,7 @@ class AudioStation extends AuthenticatedAPI
 
     constructor: (@syno)->
         super(@syno)
+        @syno.session = 'AudioStation'
         @syno.createFunctionsFor(this, ['SYNO.AudioStation'])
 
     getMethods: (params, done)->

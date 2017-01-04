@@ -14,14 +14,12 @@ class Auth extends API
         # API method is `login`
         method = 'login'
         # Use a unique session
-        session = 'SYNO_SESSION_' + Date.now()
-        # Init the request parameters
         params =
             account: @syno.account
             passwd: @syno.passwd
-            session: session
-        # Set the syno session name
-        @syno.session = session
+            session: @syno.session
+        # Set logged to false
+        @syno.logged = false
 
         # Request login
         @request {api, version, path, method, params}, done

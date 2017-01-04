@@ -8,6 +8,11 @@ class AuthenticatedAPI extends API
     # Overrides request : login before calling real request
     request: (options, done = noop)->
         # If session property is set, call real request
-        if @syno.session then super options, done
+        if @syno.logged then super options, done
         # Else login then call real request
-        else @syno.auth.login (error)=> if error then done error else super options, done
+        else @syno.auth.login (error)=>
+            if error
+                done error
+            else
+                @syno.logged = true
+                super options, done

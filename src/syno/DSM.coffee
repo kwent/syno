@@ -2,6 +2,7 @@ class DSM extends AuthenticatedAPI
 
     constructor: (@syno)->
         super(@syno)
+        @syno.session = 'DiskStationManager'
         @syno.createFunctionsFor(this, ['SYNO.DSM', 'SYNO.Core'])
 
     getMethods: (params, done)->
