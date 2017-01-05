@@ -27,7 +27,7 @@ class Syno
         # Default ignore certificate errors
         ignoreCertificateErrors: process.env.SYNO_IGNORE_CERTIFICATE_ERRORS or false
 
-    apiVersionsAvailable = ['5.0', '5.1', '5.2', '6.0']
+    apiVersionsAvailable = ['5.0', '5.1', '5.2', '6.0', '6.0.1', '6.0.2']
 
     # Constructor for the Syno class
     # `params`             [Object]

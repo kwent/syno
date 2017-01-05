@@ -747,7 +747,7 @@
                   ignoreCertificateErrors: process.env.SYNO_IGNORE_CERTIFICATE_ERRORS || false
                 };
         
-                apiVersionsAvailable = ['5.0', '5.1', '5.2', '6.0'];
+                apiVersionsAvailable = ['5.0', '5.1', '5.2', '6.0', '6.0.1', '6.0.2'];
         
                 function Syno(params) {
                   defaults(this, params, defParams);

@@ -27,7 +27,7 @@ for file in $(find $spk_directory -type f | grep '[0-9]/INFO'); do
   cp -f $file $definition_directory/$dir
 done
 
-for file in $(find $spk_directory -type f | egrep '\.api|\.lib'); do
+for file in $(find $spk_directory -type f | egrep '\.api$|\.lib$'); do
   dir=$(echo $file | egrep -o '[0-9]\.[0-9](\.[0-9])?-[0-9]{4}')
   mkdir $definition_directory/$dir
   cp -f $file $definition_directory/$dir
@@ -39,12 +39,21 @@ mv ../definitions/6.x ../definitions/6.0
 for file in $(find $definition_directory -type f | grep 'INFO'); do
   dsm_version=$(grep 'firmware' $file | egrep -o '[0-9]\.[0-9]')
   dir=${file%/INFO}
-  for file in $(find $dir -type f | egrep '\.api|\.lib'); do
+  for file in $(find $dir -type f | egrep '\.api$|\.lib$'); do
     basename=$(basename $file)
     trimmed="../${file#../definitions/}"
     ln -sf $trimmed $definition_directory/../$dsm_version/$basename
   done
 done
+
+# Replace above by this FOR DSM packages ONLY
+# sh extract_spk.sh ../definitions/6.0 ../definitions/DSM/6.0.2
+
+# for file in $(find $definition_directory -type f | egrep '.lib|.api'); do
+#   echo $file
+#   file=..${file#../definitions}
+#   ln -sf $file $spk_directory
+# done
 
 mv ../definitions/5.0 ../definitions/5.x
 mv ../definitions/6.0 ../definitions/6.x
