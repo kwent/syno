@@ -59,8 +59,8 @@ var syno = new Syno({
     account: 'my_username',
     // DSM User password (required)
     passwd: 'my_password'
-    // DSM API version (optional, default: 6.0)
-    apiVersion: '6.0'
+    // DSM API version (optional, default: 6.0.2)
+    apiVersion: '6.0.2'
 });
 ```
 
@@ -129,7 +129,7 @@ Usage: syno [options]
     -c, --config <path>              DSM Configuration file. Default to ~/.syno/config.yaml
     -u, --url <url>                  DSM URL. Default to https://admin:password@localhost:5001
     -d, --debug                      Enabling Debugging Output
-    -a, --api <version>              DSM API Version. Default to 6.0
+    -a, --api <version>              DSM API Version. Default to 6.0.2
     -i, --ignore-certificate-errors  Ignore certificate errors
 
   Commands:

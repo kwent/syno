@@ -742,7 +742,7 @@
                   protocol: process.env.SYNO_PROTOCOL || 'http',
                   host: process.env.SYNO_HOST || 'localhost',
                   port: process.env.SYNO_PORT || 5000,
-                  apiVersion: process.env.SYNO_API_VERSION || '6.0',
+                  apiVersion: process.env.SYNO_API_VERSION || '6.0.2',
                   debug: process.env.SYNO_DEBUG || false,
                   ignoreCertificateErrors: process.env.SYNO_IGNORE_CERTIFICATE_ERRORS || false
                 };

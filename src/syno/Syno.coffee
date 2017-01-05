@@ -20,8 +20,8 @@ class Syno
         host: process.env.SYNO_HOST or 'localhost'
         # Default port is `5000`
         port: process.env.SYNO_PORT or 5000
-        # Default api version is `6.0`
-        apiVersion: process.env.SYNO_API_VERSION or '6.0'
+        # Default api version is `6.0.2`
+        apiVersion: process.env.SYNO_API_VERSION or '6.0.2'
         # Default debug flag is `false`
         debug: process.env.SYNO_DEBUG or false
         # Default ignore certificate errors

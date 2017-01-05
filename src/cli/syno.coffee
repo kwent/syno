@@ -5,7 +5,7 @@ DEFAULT_HOST = 'localhost'
 DEFAULT_PORT = 5001
 DEFAULT_ACCOUNT = 'admin'
 DEFAULT_PASSWD = 'password'
-DEFAULT_API_VERSION = '6.0'
+DEFAULT_API_VERSION = '6.0.2'
 
 program = require 'commander'
 fs = require 'fs'
@@ -46,7 +46,7 @@ show_methods_available = (api)->
     console.log ''
 
 main = program
-.version '2.0.1'
+.version '2.1.0'
 .description 'Synology Rest API Command Line'
 .option '-c, --config <path>', "DSM Configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}"
 .option '-u, --url <url>',

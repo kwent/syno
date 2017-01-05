@@ -1,3 +1,38 @@
+## 2.1.0
+
+- Update DSM Lib for 6.x. Now using 6.0.2-8451 package version
+- Update VideoStation Lib for 6.x. Now using 2.2.0-1361 package version
+- Update SurveillanceStation Lib for 6.x. Now using 8.0.0-5070 package version
+- Update DownloadStation Lib for 6.x. Now using 3.8.1-3420 package version
+- Update AudioStation Lib for 6.x. Now using 6.0.1-3092 package version
+- Manage multiple sessions for logins fixing https://github.com/kwent/syno/issues/28 & https://github.com/kwent/syno/issues/15
+- Take maxVersion by default instead minVersion
+- Fix pluralizing for action name. Fixing https://github.com/kwent/syno/pull/26. Thanks @shir
+
+### Packages version compiled for 5.x
+
+| API | Package version |
+|:----|:----------------|
+| DSM | 5967 |
+| File Station | 5967 |
+| Download Station | 3.5-2970 |
+| Audio Station | 5.4-2860 |
+| Video Station | 1.6-0858 |
+| Video Station DTV | 1.6-0858 |
+| Surveillance Station | 7.1-4141 |
+
+### Packages version compiled for 6.x
+
+| API | Package version |
+|:----|:----------------|
+| DSM | 8451 |
+| File Station | 8451 |
+| Download Station | 3.8.1-3420 |
+| Audio Station | 6.0.1-3092 |
+| Video Station | 2.2.0-1361 |
+| Video Station DTV | 2.2.0-1361 |
+| Surveillance Station | 8.0.0-5070 |
+
 ## 2.0.1
 
 - Update dependencies
