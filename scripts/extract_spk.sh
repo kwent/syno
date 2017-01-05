@@ -22,15 +22,15 @@ definition_directory=$2
 # done
 
 # for file in $(find $spk_directory -type f | grep '[0-9]/INFO'); do
-#   dir=$(echo $info_file | egrep -o '/[0-9]\.[0-9](\.[0-9])?-[0-9]{4}')
-#   mkdir $definition_directory$dir
-#   cp -f $file $definition_directory$dir
+#   dir=$(echo $file | egrep -o '[0-9]\.[0-9](\.[0-9])?-[0-9]{4}')
+#   mkdir $definition_directory/$dir
+#   cp -f $file $definition_directory/$dir
 # done
 
 # for file in $(find $spk_directory -type f | egrep '\.api|\.lib'); do
-#   dir=$(echo $api_file | egrep -o '/[0-9]\.[0-9](\.[0-9])?-[0-9]{4}')
-#   mkdir $definition_directory$dir
-#   cp -f $file $definition_directory$dir
+#   dir=$(echo $file | egrep -o '[0-9]\.[0-9](\.[0-9])?-[0-9]{4}')
+#   mkdir $definition_directory/$dir
+#   cp -f $file $definition_directory/$dir
 # done
 
 # for file in $(find $definition_directory -type f | grep 'INFO'); do

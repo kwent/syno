@@ -21484,6 +21484,88 @@
     "minVersion": 1,
     "priority": 0
   },
+  "SYNO.AudioStation.Pin": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/AudioStation/target/webapi5/pin/SYNO.AudioStation.Pin.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "reorder": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unpin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "rename": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "pin": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0
+  },
+  "SYNO.AudioStation.Tag": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/AudioStation/target/webapi5/tag/SYNO.AudioStation.Tag.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "getinfo": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0
+  },
   "SYNO.AudioPlayer": {
     "allowUser": [
       "admin.local",
@@ -21779,12 +21861,15 @@
   "SYNO.AudioStation.Album": {
     "path": "AudioStation/album.cgi",
     "minVersion": 1,
-    "maxVersion": 2,
+    "maxVersion": 3,
     "methods": {
       "1": [
         "list"
       ],
       "2": [
+        "list"
+      ],
+      "3": [
         "list"
       ]
     }
@@ -21805,19 +21890,6 @@
   "SYNO.AudioStation.Genre": {
     "path": "AudioStation/genre.cgi",
     "minVersion": 1,
-    "maxVersion": 2,
-    "methods": {
-      "1": [
-        "list"
-      ],
-      "2": [
-        "list"
-      ]
-    }
-  },
-  "SYNO.AudioStation.Artist": {
-    "path": "AudioStation/artist.cgi",
-    "minVersion": 1,
     "maxVersion": 3,
     "methods": {
       "1": [
@@ -21827,6 +21899,26 @@
         "list"
       ],
       "3": [
+        "list",
+        "list_default_genre"
+      ]
+    }
+  },
+  "SYNO.AudioStation.Artist": {
+    "path": "AudioStation/artist.cgi",
+    "minVersion": 1,
+    "maxVersion": 4,
+    "methods": {
+      "1": [
+        "list"
+      ],
+      "2": [
+        "list"
+      ],
+      "3": [
+        "list"
+      ],
+      "4": [
         "list"
       ]
     }
@@ -21853,7 +21945,7 @@
   "SYNO.AudioStation.Song": {
     "path": "AudioStation/song.cgi",
     "minVersion": 1,
-    "maxVersion": 2,
+    "maxVersion": 3,
     "methods": {
       "1": [
         "list",
@@ -21861,6 +21953,14 @@
         "getinfo"
       ],
       "2": [
+        "list",
+        "search",
+        "getinfo",
+        "setrating",
+        "setsharing",
+        "getsharing"
+      ],
+      "3": [
         "list",
         "search",
         "getinfo",
@@ -21906,7 +22006,7 @@
   "SYNO.AudioStation.Playlist": {
     "path": "AudioStation/playlist.cgi",
     "minVersion": 1,
-    "maxVersion": 2,
+    "maxVersion": 3,
     "methods": {
       "1": [
         "list",
@@ -21920,6 +22020,21 @@
         "updatesmart"
       ],
       "2": [
+        "list",
+        "getinfo",
+        "create",
+        "delete",
+        "rename",
+        "copytolibrary",
+        "updatesongs",
+        "createsmart",
+        "updatesmart",
+        "editsharing",
+        "saveplaying",
+        "savesearch",
+        "removemissing"
+      ],
+      "3": [
         "list",
         "getinfo",
         "create",
@@ -22038,7 +22153,7 @@
   "SYNO.AudioStation.Cover": {
     "path": "AudioStation/cover.cgi",
     "minVersion": 1,
-    "maxVersion": 2,
+    "maxVersion": 3,
     "methods": {
       "1": [
         "getsongcover",
@@ -22046,6 +22161,11 @@
         "getcover"
       ],
       "2": [
+        "getsongcover",
+        "getfoldercover",
+        "getcover"
+      ],
+      "3": [
         "getsongcover",
         "getfoldercover",
         "getcover"
