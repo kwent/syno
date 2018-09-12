@@ -7,7 +7,7 @@ Simple Node.js wrapper (browser included) and CLI for Synology DSM REST API 5.x 
 [![npm version](https://img.shields.io/npm/v/syno.svg?style=flat)](https://www.npmjs.com/package/syno)
 [![Dependency Status](https://david-dm.org/kwent/syno.svg?theme=shields.io)](https://www.npmjs.com/package/syno)
 [![devDependency Status](https://david-dm.org/kwent/syno/dev-status.svg?theme=shields.io)](https://www.npmjs.com/package/syno)
-![Synology Development Tool](https://www.synology.com/img/support/developer/build_bg_2x.png)
+![Synology Development Tool](https://www.synology.com/img/support/developer/build_bg.png)
 
 See [Synology Development Tool](https://www.synology.com/en-us/support/developer#tool).
 
