@@ -26,6 +26,8 @@ class Syno
         debug: process.env.SYNO_DEBUG or false
         # Default ignore certificate errors
         ignoreCertificateErrors: process.env.SYNO_IGNORE_CERTIFICATE_ERRORS or false
+        # Otp key for generation auth code
+        otp: process.env.SYNO_OTP
 
     apiVersionsAvailable = ['5.0', '5.1', '5.2', '6.0', '6.0.1', '6.0.2']
 
@@ -37,6 +39,7 @@ class Syno
     # `params.host`        [String] Host of the syno.
     # `params.port`        [String] Port for the syno requests.
     # `params.apiVersion`  [String] DSM api version.
+    # `params.aot`         [String] Otp key for generation auth code.
     constructor: (params)->
         # Use defaults options
         defaults this, params, defParams
@@ -48,7 +51,7 @@ class Syno
         console.log "[DEBUG] : Port: #{@port}" if @debug
         console.log "[DEBUG] : API: #{@apiVersion}" if @debug
         console.log "[DEBUG] : Ignore certificate errors: #{@ignoreCertificateErrors}" if @debug
-        
+
         # Throw errors if required params are not passed
         if not @account then throw new Error 'Did not specified `account` for syno'
         if not @passwd then throw new Error 'Did not specified `passwd` for syno'

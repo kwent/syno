@@ -10,7 +10,7 @@ class Auth extends API
 
     # Login to Syno
     # `done` [Function] Callback called when the login processed is complete
-    login: (sessionName, done)->
+    login: ({sessionName, otp_code}, done)->
         # API method is `login`
         method = 'login'
         # Parameters
@@ -19,6 +19,7 @@ class Auth extends API
             passwd: @syno.passwd
             session: sessionName
             format: 'sid'
+            otp_code: otp_code
 
         # Set sid to null
         if not @syno.sessions

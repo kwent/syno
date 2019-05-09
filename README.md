@@ -58,9 +58,11 @@ var syno = new Syno({
     // DSM User account (required)
     account: 'my_username',
     // DSM User password (required)
-    passwd: 'my_password'
+    passwd: 'my_password',
     // DSM API version (optional, default: 6.0.2)
-    apiVersion: '6.0.2'
+    apiVersion: '6.0.2',
+    // Otp key for generation auth code (optional)
+    otp: 'ASE32YJSBKUOIDPB',
 });
 ```
 
