@@ -162,7 +162,7 @@ $ syno fs getInfo --pretty
 # File Station API - Enumerate files in a given folder
 $ syno fs listFiles --payload '{"folder_path":"/path/to/folder"}' --pretty
 # Download Station API - List download tasks
-$ syno dl listFiles --payload '{"limit":5, "offset":10}' --pretty
+$ syno dl listTasks --payload '{"limit":5, "offset":10}' --pretty
 # Download Station API - Create a download task
 $ syno dl createTask --payload '{"uri":"https://link"}'
 # Audio Station API - Search a song
