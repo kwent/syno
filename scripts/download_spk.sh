@@ -12,4 +12,4 @@ for pkg in ${PACKAGES[@]}; do
   done
 done
 
-wget --execute="robots = off" --mirror --convert-links --no-parent --accept $str https://usdl.synology.com/download/spk/
+wget --execute="robots = off" --mirror --convert-links --no-parent --accept $str https://archive.synology.com/download/Package/spk
