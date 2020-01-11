@@ -1,0 +1,19 @@
+{
+	"SYNO.DSM.PortEnable": {
+		"authLevel": 1,
+		"allowUser": ["admin.local", "admin.domain", "admin.ldap"],
+		"lib": "lib/SYNO.DSM.PortEnable.so",
+		"appPriv": "",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": [{
+				"is_pkg_enable": {"allowDemo": true, "grantByDefault": true}
+			}, {
+				"is_port_block": {"allowDemo": true, "grantByDefault": true}
+			}, {
+				"open_block_port": {"allowDemo": false, "grantByDefault": true}
+			}]
+		}
+	}
+}

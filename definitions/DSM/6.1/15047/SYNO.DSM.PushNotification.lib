@@ -1,0 +1,1 @@
+{"SYNO.DSM.PushNotification": {"allowUser": ["admin.local", "admin.domain", "admin.ldap"], "appPriv": "", "authLevel": 1, "lib": "/usr/syno/synoman/webapi/lib/SYNO.DSM.PushNotification.so", "maxVersion": 2, "methods": {"2": [{"requesttoken": {"grantByDefault": false, "grantable": true}}]}, "minVersion": 2, "priority": 0}}

@@ -1,0 +1,1 @@
+{"SYNO.Core.EzInternet": {"allowUser": ["admin.local", "admin.domain", "admin.ldap"], "appPriv": "", "authLevel": 1, "lib": "lib/SYNO.Core.EzInternet.so", "maxVersion": 1, "methods": {"1": [{"set": {"grantByDefault": true}}, {"get": {"grantByDefault": true}}]}, "minVersion": 1, "priority": -10}}

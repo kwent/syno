@@ -1,0 +1,1 @@
+{"SYNO.Core.TFTP": {"allowUser": ["admin.local", "admin.domain", "admin.ldap"], "appPriv": "", "authLevel": 1, "lib": "lib/libCoreTFTP.so", "maxVersion": 1, "methods": {"1": [{"get": {"allowDemo": true, "grantable": true}}, {"set": {"grantable": true}}]}, "minVersion": 1, "priority": -10}}

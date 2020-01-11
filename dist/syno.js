@@ -153,10 +153,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }
@@ -339,10 +340,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }
@@ -383,10 +385,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }
@@ -469,10 +472,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }
@@ -663,10 +667,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }
@@ -742,12 +747,12 @@
                   protocol: process.env.SYNO_PROTOCOL || 'http',
                   host: process.env.SYNO_HOST || 'localhost',
                   port: process.env.SYNO_PORT || 5000,
-                  apiVersion: process.env.SYNO_API_VERSION || '6.0.2',
+                  apiVersion: process.env.SYNO_API_VERSION || '6.2.2',
                   debug: process.env.SYNO_DEBUG || false,
                   ignoreCertificateErrors: process.env.SYNO_IGNORE_CERTIFICATE_ERRORS || false
                 };
         
-                apiVersionsAvailable = ['5.0', '5.1', '5.2', '6.0', '6.0.1', '6.0.2'];
+                apiVersionsAvailable = ['5.0', '5.1', '5.2', '6.0', '6.0.1', '6.0.2', '6.0.3', '6.1', '6.1.1', '6.1.2', '6.1.3', '6.1.4', '6.1.5', '6.1.6', '6.1.7', '6.2', '6.2.1', '6.2.2'];
         
                 function Syno(params) {
                   defaults(this, params, defParams);
@@ -981,10 +986,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }
@@ -1025,10 +1031,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }

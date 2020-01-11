@@ -16,7 +16,7 @@ DEFAULT_ACCOUNT = 'admin';
 
 DEFAULT_PASSWD = 'password';
 
-DEFAULT_API_VERSION = '6.0.2';
+DEFAULT_API_VERSION = '6.2.2';
 
 program = require('commander');
 
