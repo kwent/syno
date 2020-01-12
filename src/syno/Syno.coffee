@@ -20,14 +20,17 @@ class Syno
         host: process.env.SYNO_HOST or 'localhost'
         # Default port is `5000`
         port: process.env.SYNO_PORT or 5000
-        # Default api version is `6.0.2`
-        apiVersion: process.env.SYNO_API_VERSION or '6.0.2'
+        # Default api version is `6.2.2`
+        apiVersion: process.env.SYNO_API_VERSION or '6.2.2'
         # Default debug flag is `false`
         debug: process.env.SYNO_DEBUG or false
         # Default ignore certificate errors
         ignoreCertificateErrors: process.env.SYNO_IGNORE_CERTIFICATE_ERRORS or false
 
-    apiVersionsAvailable = ['5.0', '5.1', '5.2', '6.0', '6.0.1', '6.0.2']
+    apiVersionsAvailable = ['5.0', '5.1', '5.2',
+                            '6.0', '6.0.1', '6.0.2', '6.0.3',
+                            '6.1', '6.1.1', '6.1.2', '6.1.3', '6.1.4', '6.1.5', '6.1.6', '6.1.7',
+                            '6.2', '6.2.1', '6.2.2']
 
     # Constructor for the Syno class
     # `params`             [Object]
@@ -48,7 +51,7 @@ class Syno
         console.log "[DEBUG] : Port: #{@port}" if @debug
         console.log "[DEBUG] : API: #{@apiVersion}" if @debug
         console.log "[DEBUG] : Ignore certificate errors: #{@ignoreCertificateErrors}" if @debug
-        
+
         # Throw errors if required params are not passed
         if not @account then throw new Error 'Did not specified `account` for syno'
         if not @passwd then throw new Error 'Did not specified `passwd` for syno'

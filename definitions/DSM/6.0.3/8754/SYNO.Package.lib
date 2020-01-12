@@ -1,0 +1,1 @@
+{"SYNO.Package": {"allowUser": ["admin.local", "admin.domain", "admin.ldap", "normal.local", "normal.domain", "normal.ldap"], "appPriv": "", "authLevel": 1, "lib": "/usr/syno/synoman/webman/modules/PkgManApp/SYNO.Package.so", "maxVersion": 1, "methods": {"1": [{"list": {"allowDemo": true, "grantable": true}}]}, "minVersion": 1, "priority": 0}}

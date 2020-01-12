@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var CONFIG_DIR, CONFIG_FILE, DEFAULT_ACCOUNT, DEFAULT_API_VERSION, DEFAULT_HOST, DEFAULT_PASSWD, DEFAULT_PORT, DEFAULT_PROTOCOL, Syno, error, error1, error2, execute, fs, main, nconf, os, ospath, program, show_methods_available, syno, url, url_resolved, yaml;
+var CONFIG_DIR, CONFIG_FILE, DEFAULT_ACCOUNT, DEFAULT_API_VERSION, DEFAULT_HOST, DEFAULT_PASSWD, DEFAULT_PORT, DEFAULT_PROTOCOL, Syno, execute, fs, main, nconf, os, ospath, program, show_methods_available, syno, url, url_resolved, yaml;
 
 CONFIG_DIR = '.syno';
 
@@ -16,7 +16,7 @@ DEFAULT_ACCOUNT = 'admin';
 
 DEFAULT_PASSWD = 'password';
 
-DEFAULT_API_VERSION = '6.0.2';
+DEFAULT_API_VERSION = '6.2.2';
 
 program = require('commander');
 
@@ -35,7 +35,7 @@ Syno = require('../dist/syno');
 os = require('os');
 
 execute = function(api, cmd, options) {
-  var error, exception, payload;
+  var exception, payload;
   if (program.debug) {
     console.log('[DEBUG] : Method name configured : %s', cmd);
   }
@@ -52,21 +52,25 @@ execute = function(api, cmd, options) {
     console.log('[ERROR] : JSON Exception : %s', exception);
     process.exit(1);
   }
-  return syno[api][cmd](payload, function(err, data) {
-    if (err) {
-      console.log('[ERROR] : %s', err);
-    }
-    if (options.pretty) {
-      data = JSON.stringify(data, void 0, 2);
-    } else {
-      data = JSON.stringify(data);
-    }
-    if (data) {
-      console.log(data);
-    }
-    syno.auth.logout();
-    return process.exit(0);
-  });
+  if (cmd in syno[api]) {
+    return syno[api][cmd](payload, function(err, data) {
+      if (err) {
+        console.log('[ERROR] : %s', err);
+      }
+      if (options.pretty) {
+        data = JSON.stringify(data, void 0, 2);
+      } else {
+        data = JSON.stringify(data);
+      }
+      if (data) {
+        console.log(data);
+      }
+      syno.auth.logout();
+      return process.exit(0);
+    });
+  } else {
+    return console.log('[ERROR] : %s not found for api: %s', cmd, api);
+  }
 };
 
 show_methods_available = function(api) {
@@ -76,7 +80,7 @@ show_methods_available = function(api) {
     var i, len, method;
     for (i = 0, len = data.length; i < len; i++) {
       method = data[i];
-      console.log("    $ syno " + api + " " + method);
+      console.log(`    $ syno ${api} ${method}`);
     }
     if (data.length === 0) {
       return console.log('    None');
@@ -85,7 +89,7 @@ show_methods_available = function(api) {
   return console.log('');
 };
 
-main = program.version('2.1.0').description('Synology Rest API Command Line').option('-c, --config <path>', "DSM Configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', "DSM API Version. Default to " + DEFAULT_API_VERSION).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
+main = program.version('2.2.0').description('Synology Rest API Command Line').option('-c, --config <path>', `DSM Configuration file. Default to ~/${CONFIG_DIR}/${CONFIG_FILE}`).option('-u, --url <url>', `DSM URL. Default to ${DEFAULT_PROTOCOL}://${DEFAULT_ACCOUNT}:${DEFAULT_PASSWD}@${DEFAULT_HOST}:${DEFAULT_PORT}`).option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', `DSM API Version. Default to ${DEFAULT_API_VERSION}`).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
   console.log('  Commands:');
   console.log('');
   console.log('    diskstationmanager|dsm [options] <method> DSM API');
@@ -115,7 +119,7 @@ if (program.args.length === 0) {
   program.help();
 } else if (program.args.length > 0 && program.args[0] !== 'diskstationmanager' && program.args[0] !== 'filestation' && program.args[0] !== 'downloadstation' && program.args[0] !== 'audiostation' && program.args[0] !== 'videostation' && program.args[0] !== 'videostationdtv' && program.args[0] !== 'surveillancestation' && program.args[0] !== 'dsm' && program.args[0] !== 'fs' && program.args[0] !== 'dl' && program.args[0] !== 'as' && program.args[0] !== 'vs' && program.args[0] !== 'dtv' && program.args[0] !== 'ss') {
   console.log('');
-  console.log("  [ERROR] : " + program.args[0] + " is not a valid command !");
+  console.log(`  [ERROR] : ${program.args[0]} is not a valid command !`);
   console.log('');
   console.log('  Examples:');
   console.log('');
@@ -130,8 +134,9 @@ if (program.args.length === 0) {
   process.exit(1);
 }
 
+// Load cmd line args and environment vars
 nconf.argv().file({
-  file: ospath.home() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE),
+  file: ospath.home() + `/${CONFIG_DIR}/${CONFIG_FILE}`,
   format: {
     stringify: function(obj, options) {
       return yaml.safeDump(obj, options);
@@ -189,15 +194,16 @@ if (program.url) {
   });
 } else {
   try {
-    fs.accessSync(ospath.home() + ("/" + CONFIG_DIR));
-  } catch (error1) {
-    console.log('[DEBUG] : Default configuration directory does not exist : %s. Creating...', program.debug ? ospath.home() + ("/" + CONFIG_DIR) : void 0);
-    fs.mkdirSync(ospath.home() + ("/" + CONFIG_DIR));
+    // If no directory -> create directory and save the file
+    fs.accessSync(ospath.home() + `/${CONFIG_DIR}`);
+  } catch (error) {
+    console.log('[DEBUG] : Default configuration directory does not exist : %s. Creating...', program.debug ? ospath.home() + `/${CONFIG_DIR}` : void 0);
+    fs.mkdirSync(ospath.home() + `/${CONFIG_DIR}`);
   }
   try {
-    fs.accessSync(ospath.home() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE));
-  } catch (error2) {
-    console.log('[DEBUG] : Default configuration file does not exist : %s. Creating...', program.debug ? ospath.home() + ("/" + CONFIG_DIR + "/" + CONFIG_FILE) : void 0);
+    fs.accessSync(ospath.home() + `/${CONFIG_DIR}/${CONFIG_FILE}`);
+  } catch (error) {
+    console.log('[DEBUG] : Default configuration file does not exist : %s. Creating...', program.debug ? ospath.home() + `/${CONFIG_DIR}/${CONFIG_FILE}` : void 0);
     nconf.set('url:protocol', DEFAULT_PROTOCOL);
     nconf.set('url:host', DEFAULT_HOST);
     nconf.set('url:port', DEFAULT_PORT);
@@ -240,7 +246,7 @@ syno = new Syno({
   ignoreCertificateErrors: process.env.SYNO_IGNORE_CERTIFICATE_ERRORS || main.ignoreCertificateErrors
 });
 
-program.command('diskstationmanager <method>').alias('dsm').description('DSM API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', "DSM API Version. Default to " + DEFAULT_API_VERSION).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
+program.command('diskstationmanager <method>').alias('dsm').description('DSM API').option('-c, --config <path>', `DSM configuration file. Default to ~/${CONFIG_DIR}/${CONFIG_FILE}`).option('-u, --url <url>', `DSM URL. Default to ${DEFAULT_PROTOCOL}://${DEFAULT_ACCOUNT}:${DEFAULT_PASSWD}@${DEFAULT_HOST}:${DEFAULT_PORT}`).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', `DSM API Version. Default to ${DEFAULT_API_VERSION}`).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno diskstationmanager|dsm startFindme');
@@ -256,7 +262,7 @@ program.command('diskstationmanager <method>').alias('dsm').description('DSM API
   return execute('dsm', cmd, options);
 });
 
-program.command('filestation <method>').alias('fs').description('DSM File Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', "DSM API Version. Default to " + DEFAULT_API_VERSION).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
+program.command('filestation <method>').alias('fs').description('DSM File Station API').option('-c, --config <path>', `DSM configuration file. Default to ~/${CONFIG_DIR}/${CONFIG_FILE}`).option('-u, --url <url>', `DSM URL. Default to ${DEFAULT_PROTOCOL}://${DEFAULT_ACCOUNT}:${DEFAULT_PASSWD}@${DEFAULT_HOST}:${DEFAULT_PORT}`).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', `DSM API Version. Default to ${DEFAULT_API_VERSION}`).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno filestation|fs listSharings');
@@ -270,7 +276,7 @@ program.command('filestation <method>').alias('fs').description('DSM File Statio
   return execute('fs', cmd, options);
 });
 
-program.command('downloadstation <method>').alias('dl').description('DSM Download Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', "DSM API Version. Default to " + DEFAULT_API_VERSION).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
+program.command('downloadstation <method>').alias('dl').description('DSM Download Station API').option('-c, --config <path>', `DSM configuration file. Default to ~/${CONFIG_DIR}/${CONFIG_FILE}`).option('-u, --url <url>', `DSM URL. Default to ${DEFAULT_PROTOCOL}://${DEFAULT_ACCOUNT}:${DEFAULT_PASSWD}@${DEFAULT_HOST}:${DEFAULT_PORT}`).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', `DSM API Version. Default to ${DEFAULT_API_VERSION}`).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno downloadstation|dl createTask --payload \'{"uri":"magnet|ed2k|ftp(s)|http(s)://link"}\'');
@@ -286,7 +292,7 @@ program.command('downloadstation <method>').alias('dl').description('DSM Downloa
   return execute('dl', cmd, options);
 });
 
-program.command('audiostation <method>').alias('as').description('DSM Audio Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', "DSM API Version. Default to " + DEFAULT_API_VERSION).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
+program.command('audiostation <method>').alias('as').description('DSM Audio Station API').option('-c, --config <path>', `DSM configuration file. Default to ~/${CONFIG_DIR}/${CONFIG_FILE}`).option('-u, --url <url>', `DSM URL. Default to ${DEFAULT_PROTOCOL}://${DEFAULT_ACCOUNT}:${DEFAULT_PASSWD}@${DEFAULT_HOST}:${DEFAULT_PORT}`).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', `DSM API Version. Default to ${DEFAULT_API_VERSION}`).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno audiostation|as listSongs --payload \'{"limit":1}\'');
@@ -301,7 +307,7 @@ program.command('audiostation <method>').alias('as').description('DSM Audio Stat
   return execute('as', cmd, options);
 });
 
-program.command('videostation <method>').alias('vs').description('DSM Video Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', "DSM API Version. Default to " + DEFAULT_API_VERSION).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
+program.command('videostation <method>').alias('vs').description('DSM Video Station API').option('-c, --config <path>', `DSM configuration file. Default to ~/${CONFIG_DIR}/${CONFIG_FILE}`).option('-u, --url <url>', `DSM URL. Default to ${DEFAULT_PROTOCOL}://${DEFAULT_ACCOUNT}:${DEFAULT_PASSWD}@${DEFAULT_HOST}:${DEFAULT_PORT}`).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', `DSM API Version. Default to ${DEFAULT_API_VERSION}`).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno videostation|vs listMovies --payload \'{"limit":1}\'');
@@ -315,7 +321,7 @@ program.command('videostation <method>').alias('vs').description('DSM Video Stat
   return execute('vs', cmd, options);
 });
 
-program.command('videostationdtv <method>').alias('dtv').description('DSM Video Station DTV API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', "DSM API Version. Default to " + DEFAULT_API_VERSION).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
+program.command('videostationdtv <method>').alias('dtv').description('DSM Video Station DTV API').option('-c, --config <path>', `DSM configuration file. Default to ~/${CONFIG_DIR}/${CONFIG_FILE}`).option('-u, --url <url>', `DSM URL. Default to ${DEFAULT_PROTOCOL}://${DEFAULT_ACCOUNT}:${DEFAULT_PASSWD}@${DEFAULT_HOST}:${DEFAULT_PORT}`).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', `DSM API Version. Default to ${DEFAULT_API_VERSION}`).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno videostationdtv|dtv listChannels --payload \'{"limit":1}\'');
@@ -329,7 +335,7 @@ program.command('videostationdtv <method>').alias('dtv').description('DSM Video 
   return execute('dtv', cmd, options);
 });
 
-program.command('surveillancestation <method>').alias('ss').description('DSM Surveillance Station API').option('-c, --config <path>', "DSM configuration file. Default to ~/" + CONFIG_DIR + "/" + CONFIG_FILE).option('-u, --url <url>', "DSM URL. Default to " + DEFAULT_PROTOCOL + "://" + DEFAULT_ACCOUNT + ":" + DEFAULT_PASSWD + "@" + DEFAULT_HOST + ":" + DEFAULT_PORT).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', "DSM API Version. Default to " + DEFAULT_API_VERSION).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
+program.command('surveillancestation <method>').alias('ss').description('DSM Surveillance Station API').option('-c, --config <path>', `DSM configuration file. Default to ~/${CONFIG_DIR}/${CONFIG_FILE}`).option('-u, --url <url>', `DSM URL. Default to ${DEFAULT_PROTOCOL}://${DEFAULT_ACCOUNT}:${DEFAULT_PASSWD}@${DEFAULT_HOST}:${DEFAULT_PORT}`).option('-p, --payload <payload>', 'JSON Payload').option('-P, --pretty', 'Prettyprint JSON Output').option('-d, --debug', 'Enabling Debugging Output').option('-a, --api <version>', `DSM API Version. Default to ${DEFAULT_API_VERSION}`).option('-i, --ignore-certificate-errors', 'Ignore certificate errors').on('--help', function() {
   console.log('  Examples:');
   console.log('');
   console.log('    $ syno surveillancestation|ss listCameras');

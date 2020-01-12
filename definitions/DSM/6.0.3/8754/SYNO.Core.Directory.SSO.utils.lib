@@ -1,0 +1,1 @@
+{"SYNO.Core.Directory.SSO.utils": {"allowUser": [], "appPriv": "", "authLevel": 0, "lib": "lib/SYNO.Core.Directory.SSO.so", "maxVersion": 1, "methods": {"1": [{"exchange": {"grantByDefault": true}}]}, "minVersion": 1, "priority": -10}}

@@ -5,7 +5,7 @@ DEFAULT_HOST = 'localhost'
 DEFAULT_PORT = 5001
 DEFAULT_ACCOUNT = 'admin'
 DEFAULT_PASSWD = 'password'
-DEFAULT_API_VERSION = '6.0.2'
+DEFAULT_API_VERSION = '6.2.2'
 
 program = require 'commander'
 fs = require 'fs'
@@ -27,15 +27,18 @@ execute = (api, cmd, options)->
         console.log '[ERROR] : JSON Exception : %s', exception
         process.exit 1
 
-    syno[api][cmd] payload, (err, data) ->
-        console.log '[ERROR] : %s', err if err
-        if options.pretty
-            data = JSON.stringify data, undefined, 2
-        else
-            data = JSON.stringify data
-        console.log data if data
-        syno.auth.logout()
-        process.exit 0
+    if cmd of syno[api]
+        syno[api][cmd] payload, (err, data) ->
+            console.log '[ERROR] : %s', err if err
+            if options.pretty
+                data = JSON.stringify data, undefined, 2
+            else
+                data = JSON.stringify data
+            console.log data if data
+            syno.auth.logout()
+            process.exit 0
+    else
+        console.log '[ERROR] : %s not found for api: %s', cmd, api
 
 show_methods_available = (api)->
     console.log '  Available methods:'
@@ -46,7 +49,7 @@ show_methods_available = (api)->
     console.log ''
 
 main = program
-.version '2.1.0'
+.version '2.2.0'
 .description 'Synology Rest API Command Line'
 .option '-c, --config <path>', "DSM Configuration file. Default to ~/#{CONFIG_DIR}/#{CONFIG_FILE}"
 .option '-u, --url <url>',

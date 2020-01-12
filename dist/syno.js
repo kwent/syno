@@ -153,10 +153,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }
@@ -319,50 +320,6 @@
             return module.exports;
           });
         
-          setModule('DSM', function() {
-            var exports, module;
-            module = {};
-            exports = module.exports = {};
-            (function(modules, module, exports, setModule, setter) {
-              var DSM;
-              DSM = (function(superClass) {
-                extend1(DSM, superClass);
-        
-                function DSM(syno) {
-                  this.syno = syno;
-                  DSM.__super__.constructor.call(this, this.syno);
-                  this.sessionName = 'DiskStationManager';
-                  this.syno.createFunctionsFor(this, ['SYNO.DSM', 'SYNO.Core']);
-                }
-        
-                DSM.prototype.getMethods = function(params, done) {
-                  var filtered, k, keys, to_exclude, v;
-                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
-                  keys = (function() {
-                    var results;
-                    results = [];
-                    for (k in this) {
-                      v = this[k];
-                      if (typeof v === 'function') {
-                        results.push(k);
-                      }
-                    }
-                    return results;
-                  }).call(this);
-                  filtered = keys.filter(function(method_name) {
-                    return to_exclude.indexOf(method_name) === -1;
-                  });
-                  return done(filtered);
-                };
-        
-                return DSM;
-        
-              })(AuthenticatedAPI);
-              return module.exports = DSM;
-            })(modules, module, exports, void 0, void 0);
-            return module.exports;
-          });
-        
           setModule('DownloadStation', function() {
             var exports, module;
             module = {};
@@ -383,10 +340,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }
@@ -449,6 +407,51 @@
             return module.exports;
           });
         
+          setModule('DSM', function() {
+            var exports, module;
+            module = {};
+            exports = module.exports = {};
+            (function(modules, module, exports, setModule, setter) {
+              var DSM;
+              DSM = (function(superClass) {
+                extend1(DSM, superClass);
+        
+                function DSM(syno) {
+                  this.syno = syno;
+                  DSM.__super__.constructor.call(this, this.syno);
+                  this.sessionName = 'DiskStationManager';
+                  this.syno.createFunctionsFor(this, ['SYNO.DSM', 'SYNO.Core']);
+                }
+        
+                DSM.prototype.getMethods = function(params, done) {
+                  var filtered, k, keys, to_exclude, v;
+                  to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
+                  keys = (function() {
+                    var ref, results;
+                    ref = this;
+                    results = [];
+                    for (k in ref) {
+                      v = ref[k];
+                      if (typeof v === 'function') {
+                        results.push(k);
+                      }
+                    }
+                    return results;
+                  }).call(this);
+                  filtered = keys.filter(function(method_name) {
+                    return to_exclude.indexOf(method_name) === -1;
+                  });
+                  return done(filtered);
+                };
+        
+                return DSM;
+        
+              })(AuthenticatedAPI);
+              return module.exports = DSM;
+            })(modules, module, exports, void 0, void 0);
+            return module.exports;
+          });
+        
           setModule('FileStation', function() {
             var exports, module;
             module = {};
@@ -469,10 +472,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }
@@ -663,10 +667,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }
@@ -742,12 +747,12 @@
                   protocol: process.env.SYNO_PROTOCOL || 'http',
                   host: process.env.SYNO_HOST || 'localhost',
                   port: process.env.SYNO_PORT || 5000,
-                  apiVersion: process.env.SYNO_API_VERSION || '6.0.2',
+                  apiVersion: process.env.SYNO_API_VERSION || '6.2.2',
                   debug: process.env.SYNO_DEBUG || false,
                   ignoreCertificateErrors: process.env.SYNO_IGNORE_CERTIFICATE_ERRORS || false
                 };
         
-                apiVersionsAvailable = ['5.0', '5.1', '5.2', '6.0', '6.0.1', '6.0.2'];
+                apiVersionsAvailable = ['5.0', '5.1', '5.2', '6.0', '6.0.1', '6.0.2', '6.0.3', '6.1', '6.1.1', '6.1.2', '6.1.3', '6.1.4', '6.1.5', '6.1.6', '6.1.7', '6.2', '6.2.1', '6.2.2'];
         
                 function Syno(params) {
                   defaults(this, params, defParams);
@@ -981,10 +986,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }
@@ -1025,10 +1031,11 @@
                   var filtered, k, keys, to_exclude, v;
                   to_exclude = ['constructor', 'request', 'requestAPI', 'getMethods', 'loadDefinitions', 'error'];
                   keys = (function() {
-                    var results;
+                    var ref, results;
+                    ref = this;
                     results = [];
-                    for (k in this) {
-                      v = this[k];
+                    for (k in ref) {
+                      v = ref[k];
                       if (typeof v === 'function') {
                         results.push(k);
                       }

@@ -1,0 +1,1 @@
+{"SYNO.Core.DSMNotify": {"allowUser": ["admin.local", "admin.domain", "admin.ldap", "normal.domain", "normal.local", "normal.ldap"], "appPriv": "", "authLevel": 1, "lib": "/usr/syno/synoman/webapi/lib/SYNO.Core.DSMNotify.so", "maxVersion": 1, "methods": {"1": [{"notify": {"allowTimeout": true, "grantByUser": true, "grantable": true}}]}, "minVersion": 1, "priority": 0}}

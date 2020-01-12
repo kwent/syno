@@ -1,5 +1,5 @@
 #/bin/bash
-PACKAGES=(AudioStation CloudStation CloudSync DownloadStation GlacierBackup MediaServer SurveillanceStation VideoStation)
+PACKAGES=(PhotoStation)
 ARCH=(bromolow monaco)
 
 for pkg in ${PACKAGES[@]}; do

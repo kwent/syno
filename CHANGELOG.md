@@ -1,3 +1,33 @@
+## 2.2.0
+
+- Update libs
+- Update dependencies
+- Handling exception when a command is not found
+
+### Packages version compiled for 5.x
+
+| API | Package version |
+|:----|:----------------|
+| DSM | 5967 |
+| File Station | 5967 |
+| Download Station | 3.5-2988 |
+| Audio Station | 5.4-2860 |
+| Video Station | 1.6-0859 |
+| Video Station DTV | 1.6-0859 |
+| Surveillance Station | 7.1-4155 |
+
+### Packages version compiled for 6.x
+
+| API | Package version |
+|:----|:----------------|
+| DSM | 24922 |
+| File Station | 24922 |
+| Download Station | 3.8.12-3518 |
+| Audio Station | 6.5.3-3363 |
+| Video Station | 2.4.6-1594 |
+| Video Station DTV | 2.4.6-1594 |
+| Surveillance Station | 8.2.6-6009 |
+
 ## 2.1.0
 
 - Update DSM Lib for 6.x. Now using 6.0.2-8451 package version

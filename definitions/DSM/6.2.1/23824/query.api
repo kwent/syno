@@ -1,0 +1,43 @@
+{
+	"SYNO.API.Info": {
+		"path": "query.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["query"]
+		}
+	},
+	"SYNO.API.Auth": {
+		"path": "auth.cgi",
+		"minVersion": 1,
+		"maxVersion": 6,
+		"methods": {
+			"1": ["login", "logout"],
+			"2": ["login", "logout"],
+			"3": ["login", "logout"],
+			"4": ["login", "logout"],
+			"5": ["login", "logout", "synotoken", "session"],
+			"6": ["login", "logout", "synotoken", "session"]
+		},
+		"allowDownload": {
+			"5": ["synotoken", "session"],
+			"6": ["synotoken", "session"]
+		}
+	},
+	"SYNO.API.OTP": {
+		"path": "otp.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["setup"]
+		}
+	},
+	"SYNO.API.Encryption": {
+		"path": "encryption.cgi",
+		"minVersion": 1,
+		"maxVersion": 1,
+		"methods": {
+			"1": ["getinfo"]
+		}
+	}
+}
