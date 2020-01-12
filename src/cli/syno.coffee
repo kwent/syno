@@ -27,15 +27,18 @@ execute = (api, cmd, options)->
         console.log '[ERROR] : JSON Exception : %s', exception
         process.exit 1
 
-    syno[api][cmd] payload, (err, data) ->
-        console.log '[ERROR] : %s', err if err
-        if options.pretty
-            data = JSON.stringify data, undefined, 2
-        else
-            data = JSON.stringify data
-        console.log data if data
-        syno.auth.logout()
-        process.exit 0
+    if cmd of syno[api]
+        syno[api][cmd] payload, (err, data) ->
+            console.log '[ERROR] : %s', err if err
+            if options.pretty
+                data = JSON.stringify data, undefined, 2
+            else
+                data = JSON.stringify data
+            console.log data if data
+            syno.auth.logout()
+            process.exit 0
+    else
+        console.log '[ERROR] : %s not found for api: %s', cmd, api
 
 show_methods_available = (api)->
     console.log '  Available methods:'

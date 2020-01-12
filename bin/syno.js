@@ -52,21 +52,25 @@ execute = function(api, cmd, options) {
     console.log('[ERROR] : JSON Exception : %s', exception);
     process.exit(1);
   }
-  return syno[api][cmd](payload, function(err, data) {
-    if (err) {
-      console.log('[ERROR] : %s', err);
-    }
-    if (options.pretty) {
-      data = JSON.stringify(data, void 0, 2);
-    } else {
-      data = JSON.stringify(data);
-    }
-    if (data) {
-      console.log(data);
-    }
-    syno.auth.logout();
-    return process.exit(0);
-  });
+  if (cmd in syno[api]) {
+    return syno[api][cmd](payload, function(err, data) {
+      if (err) {
+        console.log('[ERROR] : %s', err);
+      }
+      if (options.pretty) {
+        data = JSON.stringify(data, void 0, 2);
+      } else {
+        data = JSON.stringify(data);
+      }
+      if (data) {
+        console.log(data);
+      }
+      syno.auth.logout();
+      return process.exit(0);
+    });
+  } else {
+    return console.log('[ERROR] : %s not found for api: %s', cmd, api);
+  }
 };
 
 show_methods_available = function(api) {

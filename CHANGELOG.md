@@ -2,6 +2,7 @@
 
 - Update libs
 - Update dependencies
+- Handling exception when a command is not found
 
 ### Packages version compiled for 5.x
 
