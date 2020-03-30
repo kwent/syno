@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 # Usage: ./extract_spk.sh spk_directory definition_directory
 # sh extract_spk.sh usdl.synology.com/download/spk/AudioStation ../definitions/AudioStation
 # sh extract_spk.sh usdl.synology.com/download/spk/DownloadStation ../definitions/DownloadStation
@@ -9,16 +9,36 @@
 spk_directory=$1
 definition_directory=$2
 
-for spk in $(find $spk_directory | grep -i monaco); do
+unpack() {
+  SRC=$1
+  DEST=$2
+
+  stats=$(file $SRC)
+
+  if   [[ $(echo $stats | grep -c "POSIX tar archive")  == 1 ]];
+  then
+    tar xf  $SRC -C $DEST;
+  elif [[ $(echo $stats | grep -c "XZ compressed data") == 1 ]];
+  then
+    tar xJf $SRC -C $DEST;
+  else
+    echo "No rules defined to untar the file: $stats"
+    echo "Fallback to untar with the default command, should work with latest tar"
+    tar xf  $SRC -C $DEST;
+  fi
+}
+
+# extract all spk files
+for spk in $(find $spk_directory -name *.spk -type f | grep -i monaco); do
   destination="${spk%.*}"
   mkdir $destination
-  tar xzf $spk -C $destination
+  unpack $spk $destination
 done
 
-for package in $(find $spk_directory | grep -i package.tgz); do
+for package in $(find $spk_directory -type f | grep -i package.tgz); do
   destination="${package%.*}"
   mkdir $destination
-  tar xzf $package -C $destination
+  unpack $package $destination
 done
 
 for file in $(find $spk_directory -type f | grep '[0-9]/INFO'); do
