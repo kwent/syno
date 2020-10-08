@@ -38,6 +38,7 @@
     "commander": "^4.1.0",
     "js-yaml": "^3.6.1",
     "lodash": "^4.17.4",
+    "minimist": "^0.2.1",
     "nconf": "^0.10.0",
     "ospath": "^1.2.2",
     "pluralize": "^8.0.0",
