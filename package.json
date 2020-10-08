@@ -52,7 +52,7 @@
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-coffee": "^2.1.0",
     "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-uglify-es": "gruntjs/grunt-contrib-uglify#harmony",
     "grunt-mokuai-coffee": "^1.0.1",
     "grunt-shell": "^3.0.1",
     "load-grunt-config": "^3.0.1"
