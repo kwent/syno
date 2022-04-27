@@ -48,7 +48,7 @@
     "brfs": "^2.0.2",
     "browserify": "^16.5.0",
     "coffeelint": "^2.1.0",
-    "grunt": "1.0.4",
+    "grunt": "1.5.2",
     "grunt-coffeelint": "0.0.16",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-coffee": "^2.1.0",
