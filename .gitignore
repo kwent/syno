@@ -3,6 +3,7 @@ node_modules
 *.secret.*
 gen
 .env
-scripts/archive.synology.com/
+archive.synology.com
+global.download.synology.com
 npm-debug.log
 tmp

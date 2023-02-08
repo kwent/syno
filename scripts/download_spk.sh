@@ -12,4 +12,10 @@ for pkg in ${PACKAGES[@]}; do
   done
 done
 
-wget --execute="robots = off" --mirror --convert-links --no-parent --accept $str https://archive.synology.com/download/Package/spk
+wget --execute="robots = off" --mirror --convert-links --no-parent --accept $str https://archive.synology.com/download/Package
+
+for f in $(find archive.synology.com/download/Package)
+do
+  url=`sed -n 's/.*href="\([^"]*.spk\).*/\1/p' $f`
+  wget --execute="robots = off" --mirror "$url"
+done
