@@ -11,6 +11,10 @@ Simple Node.js wrapper (browser included) and CLI for Synology DSM REST API 5.x 
 
 See [Synology Development Tool](https://www.synology.com/en-us/support/developer#tool).
 
+# Maintainers wanted
+
+- [2024-08-11] Some priorities shifted in my life and i'm now looking for new maintainers.
+
 # Installation
 
 Just install the module using npm.
