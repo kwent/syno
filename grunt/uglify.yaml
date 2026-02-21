@@ -1,7 +1,0 @@
-syno-5.x.min.js:
-    src: dist/syno-5.x.min.js
-    dest: dist/syno-5.x.min.js
-
-syno-6.x.min.js:
-    src: dist/syno-6.x.min.js
-    dest: dist/syno-6.x.min.js

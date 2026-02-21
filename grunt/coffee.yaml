@@ -1,6 +1,0 @@
-options:
-    bare: true
-    
-syno-cli:
-    src: src/cli/syno.coffee
-    dest: tmp/coffee/syno-cli.js

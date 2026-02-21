@@ -1,1 +1,0 @@
-{"SYNO.DownloadStation2.Package.Info": {"allowUser": ["admin.local", "normal.local"], "appPriv": "SYNO.SDS.DownloadStation.Application", "authLevel": 1, "lib": "DownloadStation/SYNO.DownloadStation2.Package.so", "maxVersion": 1, "methods": {"1": [{"get": {"grantByDefault": false, "grantable": false}}]}, "minVersion": 1, "priority": 0}}

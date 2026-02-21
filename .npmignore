@@ -1,12 +1,10 @@
 .DS_Store
 node_modules
 *.secret.*
-gen
 .env
-grunt
-src
-Gruntfile.coffee
-libs
+src/
+scripts/
+grunt/
 tmp
 *.api
 *.lib
@@ -15,4 +13,9 @@ definitions/DSM/
 definitions/DownloadStation/
 definitions/SurveillanceStation/
 definitions/VideoStation/
-scripts/usdl.synology.com/
+tsconfig.json
+tsdown.config.ts
+vitest.config.ts
+eslint.config.js
+.coffeelint
+Gruntfile.coffee
