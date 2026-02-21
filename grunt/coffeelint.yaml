@@ -1,6 +1,0 @@
-syno:
-    src:
-      - src/**/*.coffee
-      - test/**/*.coffee
-    options:
-        configFile: .coffeelint

@@ -4,61 +4,81 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**syno** is a Node.js wrapper and CLI for the Synology DSM REST API (supports DSM 5.x and 6.x). All source code is written in CoffeeScript and compiled to JavaScript for distribution. It also ships browser-compatible bundles.
+**syno** is a Node.js wrapper and CLI for the Synology DSM REST API (supports DSM 5.x, 6.x, and 7.x). Written in TypeScript with ESM + CJS dual output. Ships a CLI executable.
 
 ## Build & Development Commands
 
 ```bash
-# Full build (lint → compile → bundle → browserify → minify)
-grunt
+# Build (tsdown: ESM + CJS + DTS)
+npm run build
 
-# Run tests (full build + CLI integration tests)
-npm test        # or: grunt test
+# Run tests (vitest)
+npm test
 
-# Lint CoffeeScript only
-grunt coffeelint
+# Run tests in watch mode
+npm run test:watch
 
-# Run CLI tests in isolation (requires env vars, see below)
-sh test/cli/syno.sh
+# Lint TypeScript
+npm run lint
+
+# Type check
+npm run typecheck
+
+# Clean dist/
+npm run clean
+
+# Fetch/compile API definitions
+npm run fetch-defs          # Full pipeline (download + extract + compile)
+npm run compile-defs        # Just merge existing .api/.lib files
 ```
 
-Build requires `grunt-cli` installed globally (`npm install -g grunt-cli`) and `jq` for compiling API definitions.
+### Environment Variables (for CLI integration tests)
 
-### Test Environment Variables
-
-CLI integration tests use: `SYNO_TESTS_PROTOCOL`, `SYNO_TESTS_HOST`, `SYNO_TESTS_PORT`, `SYNO_TESTS_ACCOUNT`, `SYNO_TESTS_PASSWD`.
+`SYNO_PROTOCOL`, `SYNO_HOST`, `SYNO_PORT`, `SYNO_ACCOUNT`, `SYNO_PASSWORD`
 
 ## Architecture
 
-### Class Hierarchy (all in `src/syno/`)
+### Class Hierarchy (all in `src/lib/`)
 
-- **API** (`API.coffee`) — base class; makes HTTP requests to `{protocol}://{host}:{port}/webapi/{path}`
-- **Auth** (`Auth.coffee`) — extends API; handles login/logout via `SYNO.API.Auth`
-- **AuthenticatedAPI** (`AuthenticatedAPI.coffee`) — extends API; auto-calls `auth.login()` if no session SID before each request
-  - **DSM**, **FileStation**, **DownloadStation**, **AudioStation**, **VideoStation**, **VideoStationDTV**, **SurveillanceStation** — each extends AuthenticatedAPI
-- **Syno** (`Syno.coffee`) — top-level entry point; instantiates Auth + all station APIs
-- **Utils** (`Utils.coffee`) — static helpers for generating camelCase method names from API definitions
+- **API** (`API.ts`) — base class; makes HTTP requests via native `fetch` to `{protocol}://{host}:{port}/webapi/{path}`
+- **Auth** (`Auth.ts`) — extends API; handles login/logout via `SYNO.API.Auth`, supports OTP
+- **AuthenticatedAPI** (`AuthenticatedAPI.ts`) — extends API; auto-calls `auth.login()` if no session SID before each request
+- **Syno** (`Syno.ts`) — top-level entry point; instantiates Auth + all station APIs
 
-### Dynamic Method Generation
+### Station Classes (in `src/stations/`)
 
-Each API class calls `syno.createFunctionsFor(this, ['SYNO.XxxStation'])` at construction. This reads compiled `definitions/{version}/_full.json`, matches API keys, and dynamically creates methods using `new Function(...)`. Method names come from `Utils.createFunctionName()` (camelCase + deduplication + pluralization).
+Each extends AuthenticatedAPI and uses Proxy-based dynamic method generation:
+- **DSM**, **FileStation**, **DownloadStation**, **AudioStation**, **VideoStation**, **VideoStationDTV**, **SurveillanceStation**, **SynologyPhotos**
 
-### CLI (`src/cli/syno.coffee`)
+### Dynamic Method Generation (`src/lib/DynamicStation.ts`)
 
-Built with `commander`. Auth resolution order: `--url` flag → `--config <path>` → `~/.syno/config.yaml` → environment variables (`SYNO_ACCOUNT`, `SYNO_PASSWORD`, `SYNO_PROTOCOL`, `SYNO_HOST`, `SYNO_PORT`).
+Uses `buildMethodMap()` to read `definitions/{version}/_full.json` and create a `Map<string, MethodInfo>`. `createProxiedStation()` wraps the station in a `Proxy` that intercepts property access to dispatch dynamic API methods.
+
+### Utilities
+
+- **`src/lib/utils.ts`** — `createFunctionName()` pipeline: trimSyno -> deletePattern -> fixCamelCase -> listPluralize -> camelCase
+- **`src/lib/errors.ts`** — Error resolvers for base, auth, FileStation, DownloadStation, SurveillanceStation
+- **`src/lib/DefinitionLoader.ts`** — Loads and caches API definitions from JSON files
+
+### CLI (`src/cli/`)
+
+- **`config.ts`** — URL parsing, YAML config loading, env var resolution
+- **`index.ts`** — Commander v12 with `parseAsync()`, 8 station subcommands
 
 ### Build Pipeline
 
-Grunt tasks configured via YAML in `grunt/`. Pipeline: coffeelint → clean → compile CoffeeScript → concat CLI with shebang → bundle library via mokuai-coffee to `dist/syno.js` → compile definition JSON files via `jq` → browserify → uglify → copy to test folder.
+tsdown (powered by rolldown): TypeScript -> ESM (`dist/index.js`) + CJS (`dist/index.cjs`) + DTS (`dist/index.d.ts`) + CLI (`dist/cli.cjs` with shebang)
 
 ### Key Directories
 
-- `src/` — CoffeeScript source (library + CLI)
-- `dist/` — compiled/bundled output (`syno.js`, browser bundles)
-- `bin/` — generated CLI executable
-- `definitions/` — Synology API definition JSON files; `_full.json` files are compiled from `.lib`/`.api` files via `scripts/compile_libs.sh`
-- `scripts/` — shell utilities for compiling definitions, browserifying, downloading/extracting Synology packages
+- `src/` — TypeScript source (library + CLI + tests)
+- `dist/` — compiled/bundled output (gitignored)
+- `definitions/` — Synology API definition JSON files; `_full.json` files per version
+- `scripts/` — `fetch-definitions.ts` for downloading/compiling API definitions
 
-## CoffeeScript Style
+## TypeScript Style
 
-Enforced by CoffeeLint (`.coffeelint`): 4-space indentation, 120-char max line length, no double quotes (use single quotes), English operators (`and`/`or`/`not` instead of `&&`/`||`/`!`), no fat arrows unless needed.
+- Strict mode enabled
+- ESM with `.js` extensions in imports (NodeNext resolution)
+- Async/await only — no callbacks
+- Native `fetch` — no HTTP client dependencies

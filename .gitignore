@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
+dist/
 *.secret.*
-gen
 .env
 archive.synology.com
 global.download.synology.com
