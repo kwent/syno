@@ -72,7 +72,7 @@
     "@types/libsodium-wrappers-sumo": "^0.8.2",
     "@types/node": "^22.0.0",
     "@types/pluralize": "^0.0.33",
-    "eslint": "^9.0.0",
+    "eslint": "^10.0.1",
     "libsodium-wrappers-sumo": "^0.8.2",
     "tsdown": "^0.20.3",
     "tsx": "^4.0.0",
