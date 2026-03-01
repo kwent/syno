@@ -61,7 +61,7 @@
   },
   "homepage": "https://github.com/kwent/syno",
   "dependencies": {
-    "commander": "^12.0.0",
+    "commander": "^14.0.3",
     "js-yaml": "^4.1.0",
     "pluralize": "^8.0.0"
   },
