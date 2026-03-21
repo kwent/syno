@@ -1,3 +1,15 @@
+## 3.0.3
+
+### Bug Fixes
+
+- Fix CI build smoke test by aligning ESM output extensions (`.mjs`/`.d.mts`)
+
+### Dependencies
+
+- Bump commander from 12.1.0 to 14.0.3
+- Bump flatted from 3.3.3 to 3.4.2
+- Bump the minor-and-patch group (5 updates)
+
 ## 3.0.0
 
 ### Breaking Changes
