@@ -41,5 +41,5 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: node -e "const { Syno } = require('./dist/index.cjs'); console.log('CJS OK')"
-      - run: node -e "import('./dist/index.js').then(m => console.log('ESM OK'))"
+      - run: node -e "import('./dist/index.mjs').then(m => console.log('ESM OK'))"
       - run: node dist/cli.cjs --version
