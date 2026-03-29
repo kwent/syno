@@ -76,7 +76,7 @@
     "libsodium-wrappers-sumo": "^0.8.2",
     "tsdown": "^0.21.4",
     "tsx": "^4.0.0",
-    "typescript": "^5.7.0",
+    "typescript": "^6.0.2",
     "typescript-eslint": "^8.0.0",
     "vitest": "^4.0.18"
   }
