@@ -19,7 +19,7 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
 
-  test:
+  test-node:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -32,6 +32,14 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+
+  # Branch protection requires a check named "test"; matrix jobs report as "test-node (N)"
+  test:
+    needs: test-node
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - run: test "${{ needs.test-node.result }}" = "success"
 
   build:
     runs-on: ubuntu-latest
