@@ -21,6 +21,13 @@
   "bin": {
     "syno": "./dist/cli.cjs"
   },
+  "files": [
+    "dist",
+    "definitions/6.x/_full.json",
+    "definitions/7.x/_full.json",
+    "CHANGELOG.md",
+    "LICENSE-MIT"
+  ],
   "engines": {
     "node": ">=24.0.0"
   },
@@ -29,7 +36,7 @@
     "dev": "tsdown --watch",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint src/",
+    "lint": "eslint src/ scripts/",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
     "fetch-defs": "tsx scripts/fetch-definitions.ts",
@@ -37,7 +44,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kwent/syno.git"
+    "url": "git+https://github.com/kwent/syno.git"
   },
   "keywords": [
     "syno",
@@ -74,6 +81,7 @@
     "@types/pluralize": "^0.0.33",
     "eslint": "^10.0.1",
     "libsodium-wrappers-sumo": "^0.8.2",
+    "publint": "^0.3.25",
     "tsdown": "^0.23.0",
     "tsx": "^4.0.0",
     "typescript": "^6.0.2",
