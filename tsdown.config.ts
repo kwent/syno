@@ -4,14 +4,16 @@ export default defineConfig([
   {
     entry: ['src/index.ts'],
     format: ['esm', 'cjs'],
-    dts: true,
+    dts: { sourcemap: false },
     clean: true,
     outDir: 'dist',
+    publint: true,
     checks: { legacyCjs: false },
   },
   {
     entry: { cli: 'src/cli/index.ts' },
     format: ['cjs'],
+    dts: false,
     outDir: 'dist',
     banner: { js: '#!/usr/bin/env node' },
     checks: { legacyCjs: false },

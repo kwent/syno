@@ -1,3 +1,19 @@
+## Unreleased
+
+### Packaging
+
+- Replace `.npmignore` with a `files` allowlist — tarball drops `doc/` PDFs, `.github/`, `CLAUDE.md`, `mise.toml` (4.45 MB → 89 kB packed, 7.48 MB → 1.7 MB unpacked); `LICENSE-MIT` now included
+- Stop emitting unused `dist/cli.d.cts`, declaration maps (pointed at unpublished `src/`) and the ESM-only source map
+- Run `publint` on every build
+
+### Tooling
+
+- CI: `actions/checkout` and `actions/setup-node` v4 → v7; test on Node 24 and 26; `npm pack --dry-run` check
+- Dependabot now also updates GitHub Actions
+- `mise.toml`: Node 25 → 24 (matches `engines` and CI)
+- Lint `scripts/` too
+- Refresh lockfile within existing ranges
+
 ## 3.0.3
 
 ### Bug Fixes
