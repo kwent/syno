@@ -2,8 +2,8 @@
 
 ### Packaging
 
-- Replace `.npmignore` with a `files` allowlist — tarball drops `doc/` PDFs, `.github/`, `CLAUDE.md`, `mise.toml` (~5 MB → 100 kB packed); `LICENSE-MIT` now included
-- Stop emitting unused `dist/cli.d.cts`
+- Replace `.npmignore` with a `files` allowlist — tarball drops `doc/` PDFs, `.github/`, `CLAUDE.md`, `mise.toml` (4.45 MB → 89 kB packed, 7.48 MB → 1.7 MB unpacked); `LICENSE-MIT` now included
+- Stop emitting unused `dist/cli.d.cts`, declaration maps (pointed at unpublished `src/`) and the ESM-only source map
 - Run `publint` on every build
 
 ### Tooling
