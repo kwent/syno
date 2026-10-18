@@ -1,4 +1,4 @@
-## Unreleased
+## 3.1.0
 
 ### Packaging
 
@@ -13,6 +13,12 @@
 - `mise.toml`: Node 25 → 24 (matches `engines` and CI)
 - Lint `scripts/` too
 - Refresh lockfile within existing ranges
+
+### Dependencies
+
+- Bump commander from 14.0.3 to 15.0.0
+- Bump js-yaml from 4.x to 5.x (parses CLI YAML config)
+- Bump typescript from 5.9 to 6.0, vitest from 4 to 5, tsdown to 0.23, @types/node to 26
 
 ## 3.0.3
 
