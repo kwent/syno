@@ -112,9 +112,19 @@ const albums = await syno.photo.listAlbums();
 | `apiVersion` | `string` | `'7.2'` | DSM API version |
 | `debug` | `boolean` | `false` | Enable debug logging |
 | `ignoreCertificateErrors` | `boolean` | `false` | Ignore TLS certificate errors |
-| `otpCode` | `string` | - | Two-factor auth OTP code |
+| `otpCode` | `string` or callback | - | Two-factor auth OTP code; a callback is evaluated for each login |
 | `sid` | `string` | - | Reuse an existing session ID |
 | `followRedirects` | `boolean` | `true` | Follow HTTP redirects (QuickConnect) |
+
+For a code that changes between logins, provide a callback with the signature `(sessionName: string) => string | Promise<string>`. It receives the login session name and is evaluated for each login; it may return the code synchronously or asynchronously:
+
+```ts
+const syno = new Syno({
+    account: 'my_username',
+    passwd: 'my_password',
+    otpCode: async (sessionName) => getOtpCode(sessionName),
+});
+```
 
 ## Station Aliases
 
