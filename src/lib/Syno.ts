@@ -1,5 +1,5 @@
 import { createRequire } from 'node:module';
-import type { SynoConfig, SessionMap, DefinitionsMap } from '../types.js';
+import type { SynoConfig, SessionMap, DefinitionsMap, OtpCodeProvider } from '../types.js';
 import { loadDefinitions, validateApiVersion } from './DefinitionLoader.js';
 import { Auth } from './Auth.js';
 import { DSM } from '../stations/DSM.js';
@@ -21,7 +21,7 @@ export class Syno {
   readonly apiVersion: string;
   readonly debug: boolean;
   readonly ignoreCertificateErrors: boolean;
-  readonly otpCode?: string;
+  readonly otpCode?: string | OtpCodeProvider;
   readonly followRedirects: boolean;
 
   // Internal state
