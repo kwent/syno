@@ -36,7 +36,12 @@ const STATIONS = [
   { name: 'audiostation', alias: 'as', prop: 'as', description: 'DSM Audio Station API' },
   { name: 'videostation', alias: 'vs', prop: 'vs', description: 'DSM Video Station API' },
   { name: 'videostationdtv', alias: 'dtv', prop: 'dtv', description: 'DSM Video Station DTV API' },
-  { name: 'surveillancestation', alias: 'ss', prop: 'ss', description: 'DSM Surveillance Station API' },
+  {
+    name: 'surveillancestation',
+    alias: 'ss',
+    prop: 'ss',
+    description: 'DSM Surveillance Station API',
+  },
   { name: 'synologyphotos', alias: 'photo', prop: 'photo', description: 'DSM Synology Photos API' },
 ];
 
@@ -49,7 +54,8 @@ async function execute(
   const debug = syno.debug;
 
   if (debug) console.log('[DEBUG] : Method name configured : %s', methodName);
-  if (options.payload && debug) console.log('[DEBUG] : JSON payload configured : %s', options.payload);
+  if (options.payload && debug)
+    console.log('[DEBUG] : JSON payload configured : %s', options.payload);
   if (options.pretty && debug) console.log('[DEBUG] : Prettify output detected');
 
   let payload: Record<string, unknown> = {};
@@ -68,11 +74,11 @@ async function execute(
   }
 
   try {
-    const data = await (station[methodName] as (params: Record<string, unknown>) => Promise<unknown>)(payload);
+    const data = await (
+      station[methodName] as (params: Record<string, unknown>) => Promise<unknown>
+    )(payload);
     if (data != null) {
-      const output = options.pretty
-        ? JSON.stringify(data, undefined, 2)
-        : JSON.stringify(data);
+      const output = options.pretty ? JSON.stringify(data, undefined, 2) : JSON.stringify(data);
       console.log(output);
     }
   } catch (err) {
@@ -121,7 +127,11 @@ for (const station of STATIONS) {
       if (config.debug) {
         console.log(
           '[DEBUG] : DSM Connection URL configured : %s://%s:%s@%s:%s',
-          config.protocol, config.account, config.passwd, config.host, config.port,
+          config.protocol,
+          config.account,
+          config.passwd,
+          config.host,
+          config.port,
         );
       }
 

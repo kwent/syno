@@ -45,13 +45,13 @@ export class Auth extends API {
         : this.syno.otpCode;
     }
 
-    const data = await this.request({
+    const data = (await this.request({
       api: AUTH_API,
       version: AUTH_VERSION,
       path: AUTH_PATH,
       method: 'login',
       params,
-    }) as { sid: string };
+    })) as { sid: string };
 
     // Store SID so direct auth.login() callers don't need to do it manually
     this.syno.sessions[sessionName] = { _sid: data.sid };

@@ -26,10 +26,24 @@ function findDefinitionsDir(): string {
 const definitionsDir = findDefinitionsDir();
 
 const knownVersions = [
-  '6.0', '6.0.1', '6.0.2', '6.0.3',
-  '6.1', '6.1.1', '6.1.2', '6.1.3', '6.1.4', '6.1.5', '6.1.6', '6.1.7',
-  '6.2', '6.2.1', '6.2.2',
-  '7.0', '7.1', '7.2',
+  '6.0',
+  '6.0.1',
+  '6.0.2',
+  '6.0.3',
+  '6.1',
+  '6.1.1',
+  '6.1.2',
+  '6.1.3',
+  '6.1.4',
+  '6.1.5',
+  '6.1.6',
+  '6.1.7',
+  '6.2',
+  '6.2.1',
+  '6.2.2',
+  '7.0',
+  '7.1',
+  '7.2',
 ];
 
 const cache = new Map<string, DefinitionsMap>();
@@ -37,7 +51,7 @@ const cache = new Map<string, DefinitionsMap>();
 export function validateApiVersion(version: string): void {
   if (!knownVersions.includes(version)) {
     throw new Error(
-      `Api version: ${version} is not available. Available versions are: ${knownVersions.join(', ')}`
+      `Api version: ${version} is not available. Available versions are: ${knownVersions.join(', ')}`,
     );
   }
 }
@@ -60,9 +74,7 @@ export function clearDefinitionsCache(): void {
   cache.clear();
 }
 
-export function getMethodsForApi(
-  definition: ApiDefinition,
-): string[] {
+export function getMethodsForApi(definition: ApiDefinition): string[] {
   const methodVersions = Object.keys(definition.methods);
   const lastVersion = methodVersions[methodVersions.length - 1];
   const lastMethods: MethodEntry[] = definition.methods[lastVersion] || [];

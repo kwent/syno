@@ -139,6 +139,7 @@ export function resolveConfig(opts: CLIOptions): SynoConfig {
     passwd,
     apiVersion,
     debug: opts.debug || !!process.env.SYNO_DEBUG,
-    ignoreCertificateErrors: opts.ignoreCertificateErrors || !!process.env.SYNO_IGNORE_CERTIFICATE_ERRORS,
+    ignoreCertificateErrors:
+      opts.ignoreCertificateErrors || !!process.env.SYNO_IGNORE_CERTIFICATE_ERRORS,
   };
 }
