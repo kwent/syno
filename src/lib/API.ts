@@ -46,11 +46,13 @@ export class API {
       return response.arrayBuffer();
     }
 
-    const body = await response.json() as SynoResponse;
+    const body = (await response.json()) as SynoResponse;
 
     if (
       !body.success ||
-      (body.success && Array.isArray(body.data) && (body.data as Record<string, unknown>[])[0]?.error)
+      (body.success &&
+        Array.isArray(body.data) &&
+        (body.data as Record<string, unknown>[])[0]?.error)
     ) {
       let code: number;
       if (body.error) {
