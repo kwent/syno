@@ -40,9 +40,10 @@ export class Auth extends API {
 
     // #42: Two-factor authentication OTP support
     if (this.syno.otpCode) {
-      params.otp_code = typeof this.syno.otpCode === 'function'
-        ? await this.syno.otpCode(sessionName)
-        : this.syno.otpCode;
+      params.otp_code =
+        typeof this.syno.otpCode === 'function'
+          ? await this.syno.otpCode(sessionName)
+          : this.syno.otpCode;
     }
 
     const data = (await this.request({
