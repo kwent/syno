@@ -59,7 +59,8 @@ export class Syno {
     this.port = config.port ?? (process.env.SYNO_PORT ? Number(process.env.SYNO_PORT) : 5000);
     this.apiVersion = config.apiVersion || process.env.SYNO_API_VERSION || '7.2';
     this.debug = config.debug ?? !!process.env.SYNO_DEBUG;
-    this.ignoreCertificateErrors = config.ignoreCertificateErrors ?? !!process.env.SYNO_IGNORE_CERTIFICATE_ERRORS;
+    this.ignoreCertificateErrors =
+      config.ignoreCertificateErrors ?? !!process.env.SYNO_IGNORE_CERTIFICATE_ERRORS;
     this.otpCode = config.otpCode;
     this.followRedirects = config.followRedirects !== false;
 
@@ -92,22 +93,51 @@ export class Syno {
     // #39: If sid provided, pre-populate sessions for all station session names
     if (config.sid) {
       const sessionNames = [
-        'DiskStationManager', 'FileStation', 'DownloadStation',
-        'AudioStation', 'VideoStation', 'SurveillanceStation', 'SynologyPhotos',
+        'DiskStationManager',
+        'FileStation',
+        'DownloadStation',
+        'AudioStation',
+        'VideoStation',
+        'SurveillanceStation',
+        'SynologyPhotos',
       ];
       for (const name of sessionNames) {
         this.sessions[name] = { _sid: config.sid };
       }
     }
 
-    this.dsm = this.diskStationManager = new DSM(host as ConstructorParameters<typeof DSM>[0], defs);
-    this.fs = this.fileStation = new FileStation(host as ConstructorParameters<typeof FileStation>[0], defs);
-    this.dl = this.downloadStation = new DownloadStation(host as ConstructorParameters<typeof DownloadStation>[0], defs);
-    this.as = this.audioStation = new AudioStation(host as ConstructorParameters<typeof AudioStation>[0], defs);
-    this.vs = this.videoStation = new VideoStation(host as ConstructorParameters<typeof VideoStation>[0], defs);
-    this.dtv = this.videoStationDTV = new VideoStationDTV(host as ConstructorParameters<typeof VideoStationDTV>[0], defs);
-    this.ss = this.surveillanceStation = new SurveillanceStation(host as ConstructorParameters<typeof SurveillanceStation>[0], defs);
-    this.photo = this.synologyPhotos = new SynologyPhotos(host as ConstructorParameters<typeof SynologyPhotos>[0], defs);
+    this.dsm = this.diskStationManager = new DSM(
+      host as ConstructorParameters<typeof DSM>[0],
+      defs,
+    );
+    this.fs = this.fileStation = new FileStation(
+      host as ConstructorParameters<typeof FileStation>[0],
+      defs,
+    );
+    this.dl = this.downloadStation = new DownloadStation(
+      host as ConstructorParameters<typeof DownloadStation>[0],
+      defs,
+    );
+    this.as = this.audioStation = new AudioStation(
+      host as ConstructorParameters<typeof AudioStation>[0],
+      defs,
+    );
+    this.vs = this.videoStation = new VideoStation(
+      host as ConstructorParameters<typeof VideoStation>[0],
+      defs,
+    );
+    this.dtv = this.videoStationDTV = new VideoStationDTV(
+      host as ConstructorParameters<typeof VideoStationDTV>[0],
+      defs,
+    );
+    this.ss = this.surveillanceStation = new SurveillanceStation(
+      host as ConstructorParameters<typeof SurveillanceStation>[0],
+      defs,
+    );
+    this.photo = this.synologyPhotos = new SynologyPhotos(
+      host as ConstructorParameters<typeof SynologyPhotos>[0],
+      defs,
+    );
   }
 
   loadDefinitions(): DefinitionsMap {

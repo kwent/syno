@@ -63,54 +63,82 @@ describe('resolveFileStationError', () => {
   });
 
   it('resolves generic FileStation errors', () => {
-    expect(resolveFileStationError(400, 'SYNO.FileStation.Other')).toBe('Invalid parameter of file operation');
-    expect(resolveFileStationError(408, 'SYNO.FileStation.Other')).toBe('No such file or directory');
+    expect(resolveFileStationError(400, 'SYNO.FileStation.Other')).toBe(
+      'Invalid parameter of file operation',
+    );
+    expect(resolveFileStationError(408, 'SYNO.FileStation.Other')).toBe(
+      'No such file or directory',
+    );
   });
 
   it('falls back to base errors', () => {
-    expect(resolveFileStationError(101, 'SYNO.FileStation.Other')).toBe('No parameter of API, method or version');
+    expect(resolveFileStationError(101, 'SYNO.FileStation.Other')).toBe(
+      'No parameter of API, method or version',
+    );
   });
 });
 
 describe('resolveDownloadStationError', () => {
   it('resolves Task API errors', () => {
-    expect(resolveDownloadStationError(400, 'SYNO.DownloadStation.Task')).toBe('File upload failed');
-    expect(resolveDownloadStationError(401, 'SYNO.DownloadStation.Task')).toBe('Max number of tasks reached');
+    expect(resolveDownloadStationError(400, 'SYNO.DownloadStation.Task')).toBe(
+      'File upload failed',
+    );
+    expect(resolveDownloadStationError(401, 'SYNO.DownloadStation.Task')).toBe(
+      'Max number of tasks reached',
+    );
   });
 
   it('resolves BTSearch API errors', () => {
-    expect(resolveDownloadStationError(401, 'SYNO.DownloadStation.BTSearch')).toBe('Invalid parameter');
+    expect(resolveDownloadStationError(401, 'SYNO.DownloadStation.BTSearch')).toBe(
+      'Invalid parameter',
+    );
   });
 
   it('falls back to base errors', () => {
-    expect(resolveDownloadStationError(101, 'SYNO.DownloadStation.Other')).toBe('No parameter of API, method or version');
+    expect(resolveDownloadStationError(101, 'SYNO.DownloadStation.Other')).toBe(
+      'No parameter of API, method or version',
+    );
   });
 });
 
 describe('resolveSurveillanceStationError', () => {
   it('resolves Camera API errors', () => {
-    expect(resolveSurveillanceStationError(400, 'SYNO.SurveillanceStation.Camera')).toBe('Execution failed');
-    expect(resolveSurveillanceStationError(402, 'SYNO.SurveillanceStation.Camera')).toBe('Camera disabled');
+    expect(resolveSurveillanceStationError(400, 'SYNO.SurveillanceStation.Camera')).toBe(
+      'Execution failed',
+    );
+    expect(resolveSurveillanceStationError(402, 'SYNO.SurveillanceStation.Camera')).toBe(
+      'Camera disabled',
+    );
   });
 
   it('resolves PTZ API errors', () => {
-    expect(resolveSurveillanceStationError(401, 'SYNO.SurveillanceStation.PTZ')).toBe('Parameter invalid');
+    expect(resolveSurveillanceStationError(401, 'SYNO.SurveillanceStation.PTZ')).toBe(
+      'Parameter invalid',
+    );
   });
 
   // BUG FIX TEST: The CoffeeScript `or` bug made all APIs match Camera/PTZ errors
   it('does NOT match Camera errors for unrelated APIs (or bug fix)', () => {
-    expect(resolveSurveillanceStationError(402, 'SYNO.SurveillanceStation.Info')).toBe('Unknown error');
+    expect(resolveSurveillanceStationError(402, 'SYNO.SurveillanceStation.Info')).toBe(
+      'Unknown error',
+    );
   });
 
   it('does NOT match Event errors for unrelated APIs (or bug fix)', () => {
-    expect(resolveSurveillanceStationError(401, 'SYNO.SurveillanceStation.Device')).toBe('Service is not enabled');
+    expect(resolveSurveillanceStationError(401, 'SYNO.SurveillanceStation.Device')).toBe(
+      'Service is not enabled',
+    );
   });
 
   it('resolves Notification API errors', () => {
-    expect(resolveSurveillanceStationError(400, 'SYNO.SurveillanceStation.Notification')).toBe('Execution failed');
+    expect(resolveSurveillanceStationError(400, 'SYNO.SurveillanceStation.Notification')).toBe(
+      'Execution failed',
+    );
   });
 
   it('falls back to base errors for unknown codes', () => {
-    expect(resolveSurveillanceStationError(101, 'SYNO.SurveillanceStation.Camera')).toBe('No parameter of API, method or version');
+    expect(resolveSurveillanceStationError(101, 'SYNO.SurveillanceStation.Camera')).toBe(
+      'No parameter of API, method or version',
+    );
   });
 });

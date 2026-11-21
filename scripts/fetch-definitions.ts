@@ -41,18 +41,66 @@ const TAG_OVERHEAD = 17; // crypto_secretstream ABYTES
 // SPK signing (Ed25519 public) and master (KDF) keys — from SynoXtract (MIT)
 // Key type 3 = SPK packages
 const ALL_KEYS: { name: string; signing: string; master: string }[] = [
-  { name: 'SYSTEM',            signing: '64FABA48FEEC6C8A2484D2489A11418A0E980317A9CC6B392F1041925B293FE0', master: '078A7529A07A998CFFADB87D7378993B7D9CCFA7171F5C47F150838A6A7CAF61' },
-  { name: 'NANO',              signing: '64FABA48FEEC6C8A2484D2489A11418A0E980317A9CC6B392F1041925B293FE0', master: '9C388F52826A10B9838FF743F6B66B30CDCB1247ADBE566275F1F5A69F8F26FB' },
-  { name: 'JSON',              signing: '95BBD04B3903C199026BE07AB14FBCF41863AC32251B4FF11774FA0BD98305A7', master: '078A7529A07A998CFFADB87D7378993B7D9CCFA7171F5C47F150838A6A7CAF61' },
-  { name: 'SPK',               signing: 'FECAA2DD065A86A68E5FE86BA34CD8481590A79FA2C29A7D69F25A3B3BFAA19E', master: 'CF0D8D6ECB95EF97D0AC6A7021D99124C699808CF2CC5157DFEA5EBF15C805E7' },
-  { name: 'SYNOMIBCOLLECTOR',  signing: '2B6D761B5786FF65D16C50E551EA11F2AD4E61E344A8272CBDC65A9AD0619AE8', master: '977D1511DB2B7F7C7158FC717C2E7AC4952703748A884D731FF24F4AFF7E3038' },
-  { name: 'SSDB',              signing: 'B8A31F0FDCDAB36415BAC54B2872E1223080CB7C58D0E2B2C9F528523E9E3FB0', master: '8E1BDA67B47F2892C656FB542FDD668A389C718A8ADE429E5ECF4D66D36483AA' },
-  { name: 'AUTOUPDATE',        signing: '757E037E512E20FAEDB7218E2AD75AD55244741E54A31049132F4789A3A66C31', master: '6A8360CE72E41347771A06F6C1FEA03CDF0E56994D244EB3FE99DC478086AE04' },
-  { name: 'FIRMWARE',          signing: '0169F56624F5BAB7B709D0557CE9BFBB12C25D900CA9C21663E20C8DD31A1AA2', master: '9AD877F649993B05ADF64D13CE5CFB84EA65105F7B48C3ED428B1769B6456DD4' },
-  { name: 'DEV',               signing: '50CE5E3E525E1E144C1A749FFF7A79C2E2FFB322DF85093FC1226530CC0EC59C', master: '078A7529A07A998CFFADB87D7378993B7D9CCFA7171F5C47F150838A6A7CAF61' },
-  { name: 'WEDJAT',            signing: '9A0A314963458EDFAE530BB2991B66A26B23A276444D29215A94C5CE85EE61A0', master: '25F962A7D4AD6A0C4538989860F1150FB62FC902399DBEE62DBF080AED885990' },
-  { name: 'DSM_SUPPORT_PATCH', signing: '64FABA48FEEC6C8A2484D2489A11418A0E980317A9CC6B392F1041925B293FE0', master: '078A7529A07A998CFFADB87D7378993B7D9CCFA7171F5C47F150838A6A7CAF61' },
-  { name: 'SMALL',             signing: '64FABA48FEEC6C8A2484D2489A11418A0E980317A9CC6B392F1041925B293FE0', master: '078A7529A07A998CFFADB87D7378993B7D9CCFA7171F5C47F150838A6A7CAF61' },
+  {
+    name: 'SYSTEM',
+    signing: '64FABA48FEEC6C8A2484D2489A11418A0E980317A9CC6B392F1041925B293FE0',
+    master: '078A7529A07A998CFFADB87D7378993B7D9CCFA7171F5C47F150838A6A7CAF61',
+  },
+  {
+    name: 'NANO',
+    signing: '64FABA48FEEC6C8A2484D2489A11418A0E980317A9CC6B392F1041925B293FE0',
+    master: '9C388F52826A10B9838FF743F6B66B30CDCB1247ADBE566275F1F5A69F8F26FB',
+  },
+  {
+    name: 'JSON',
+    signing: '95BBD04B3903C199026BE07AB14FBCF41863AC32251B4FF11774FA0BD98305A7',
+    master: '078A7529A07A998CFFADB87D7378993B7D9CCFA7171F5C47F150838A6A7CAF61',
+  },
+  {
+    name: 'SPK',
+    signing: 'FECAA2DD065A86A68E5FE86BA34CD8481590A79FA2C29A7D69F25A3B3BFAA19E',
+    master: 'CF0D8D6ECB95EF97D0AC6A7021D99124C699808CF2CC5157DFEA5EBF15C805E7',
+  },
+  {
+    name: 'SYNOMIBCOLLECTOR',
+    signing: '2B6D761B5786FF65D16C50E551EA11F2AD4E61E344A8272CBDC65A9AD0619AE8',
+    master: '977D1511DB2B7F7C7158FC717C2E7AC4952703748A884D731FF24F4AFF7E3038',
+  },
+  {
+    name: 'SSDB',
+    signing: 'B8A31F0FDCDAB36415BAC54B2872E1223080CB7C58D0E2B2C9F528523E9E3FB0',
+    master: '8E1BDA67B47F2892C656FB542FDD668A389C718A8ADE429E5ECF4D66D36483AA',
+  },
+  {
+    name: 'AUTOUPDATE',
+    signing: '757E037E512E20FAEDB7218E2AD75AD55244741E54A31049132F4789A3A66C31',
+    master: '6A8360CE72E41347771A06F6C1FEA03CDF0E56994D244EB3FE99DC478086AE04',
+  },
+  {
+    name: 'FIRMWARE',
+    signing: '0169F56624F5BAB7B709D0557CE9BFBB12C25D900CA9C21663E20C8DD31A1AA2',
+    master: '9AD877F649993B05ADF64D13CE5CFB84EA65105F7B48C3ED428B1769B6456DD4',
+  },
+  {
+    name: 'DEV',
+    signing: '50CE5E3E525E1E144C1A749FFF7A79C2E2FFB322DF85093FC1226530CC0EC59C',
+    master: '078A7529A07A998CFFADB87D7378993B7D9CCFA7171F5C47F150838A6A7CAF61',
+  },
+  {
+    name: 'WEDJAT',
+    signing: '9A0A314963458EDFAE530BB2991B66A26B23A276444D29215A94C5CE85EE61A0',
+    master: '25F962A7D4AD6A0C4538989860F1150FB62FC902399DBEE62DBF080AED885990',
+  },
+  {
+    name: 'DSM_SUPPORT_PATCH',
+    signing: '64FABA48FEEC6C8A2484D2489A11418A0E980317A9CC6B392F1041925B293FE0',
+    master: '078A7529A07A998CFFADB87D7378993B7D9CCFA7171F5C47F150838A6A7CAF61',
+  },
+  {
+    name: 'SMALL',
+    signing: '64FABA48FEEC6C8A2484D2489A11418A0E980317A9CC6B392F1041925B293FE0',
+    master: '078A7529A07A998CFFADB87D7378993B7D9CCFA7171F5C47F150838A6A7CAF61',
+  },
 ];
 
 // Packages to fetch for DSM 7.x
@@ -214,10 +262,10 @@ async function decryptSpk(spkData: Buffer): Promise<TarEntry[]> {
   personal.set(ctx.subarray(0, 8));
 
   const derivedKey = sodium.crypto_generichash_blake2b_salt_personal(
-    32,       // output length
+    32, // output length
     masterKey, // key
-    salt,      // salt (16 bytes: subkeyId LE + zeros)
-    personal,  // personal (16 bytes: ctx + zeros)
+    salt, // salt (16 bytes: subkeyId LE + zeros)
+    personal, // personal (16 bytes: ctx + zeros)
   );
 
   // 8. Decrypt each entry
@@ -246,7 +294,11 @@ async function decryptSpk(spkData: Buffer): Promise<TarEntry[]> {
       const hdrNonce = new Uint8Array(entryBuf.buffer, entryBuf.byteOffset + pos, NONCE_SIZE);
       pos += NONCE_SIZE;
 
-      const encHdr = new Uint8Array(entryBuf.buffer, entryBuf.byteOffset + pos, ENCRYPTED_HEADER_SIZE);
+      const encHdr = new Uint8Array(
+        entryBuf.buffer,
+        entryBuf.byteOffset + pos,
+        ENCRYPTED_HEADER_SIZE,
+      );
 
       const hdrState = sodium.crypto_secretstream_xchacha20poly1305_init_pull(hdrNonce, derivedKey);
       const hdrResult = sodium.crypto_secretstream_xchacha20poly1305_pull(hdrState, encHdr);
@@ -371,10 +423,14 @@ function decompressArchive(data: Buffer, name: string): Buffer {
   if (data[0] === 0xfd && data[1] === 0x37 && data[2] === 0x7a && data[3] === 0x58) {
     // xz — use system xz command
     console.log(`    ${name} is xz-compressed, decompressing...`);
-    return Buffer.from(execSync('xz -d --stdout -', { input: data, maxBuffer: 1024 * 1024 * 1024 }));
+    return Buffer.from(
+      execSync('xz -d --stdout -', { input: data, maxBuffer: 1024 * 1024 * 1024 }),
+    );
   }
   // Might be plain tar or unknown — try as-is
-  console.log(`    ${name} magic: 0x${data[0].toString(16)}${data[1].toString(16)} — treating as plain tar`);
+  console.log(
+    `    ${name} magic: 0x${data[0].toString(16)}${data[1].toString(16)} — treating as plain tar`,
+  );
   return data;
 }
 
@@ -391,8 +447,8 @@ async function extractDefinitionsFromSpk(spkData: Buffer): Promise<Record<string
   }
 
   // Find package.tgz (or similar archive names)
-  const pkgEntry = outerEntries.find(
-    (e) => /^(.*\/)?package\.(tgz|tar\.gz|txz|tar\.xz|tar)$/.test(e.name),
+  const pkgEntry = outerEntries.find((e) =>
+    /^(.*\/)?package\.(tgz|tar\.gz|txz|tar\.xz|tar)$/.test(e.name),
   );
   if (!pkgEntry) {
     console.log('    No package archive found, listing entries:');
@@ -403,7 +459,9 @@ async function extractDefinitionsFromSpk(spkData: Buffer): Promise<Record<string
   }
 
   // Decompress and parse inner archive
-  console.log(`    Extracting ${pkgEntry.name} (${(pkgEntry.size / 1024 / 1024).toFixed(1)} MB)...`);
+  console.log(
+    `    Extracting ${pkgEntry.name} (${(pkgEntry.size / 1024 / 1024).toFixed(1)} MB)...`,
+  );
   const innerTar = decompressArchive(pkgEntry.data, pkgEntry.name);
   const innerEntries = parseTar(innerTar);
   console.log(`    Inner entries: ${innerEntries.length}`);
@@ -443,9 +501,7 @@ function compileDefinitions(version: string): void {
     return;
   }
 
-  const files = fs.readdirSync(versionDir).filter(
-    (f) => f.endsWith('.api') || f.endsWith('.lib'),
-  );
+  const files = fs.readdirSync(versionDir).filter((f) => f.endsWith('.api') || f.endsWith('.lib'));
 
   if (files.length === 0) {
     console.log(`  No .api/.lib files found in ${versionDir}, skipping.`);
@@ -465,7 +521,9 @@ function compileDefinitions(version: string): void {
 
   const outputPath = path.join(versionDir, '_full.json');
   fs.writeFileSync(outputPath, JSON.stringify(merged, null, 2), 'utf8');
-  console.log(`  Compiled ${files.length} files → ${outputPath} (${Object.keys(merged).length} APIs)`);
+  console.log(
+    `  Compiled ${files.length} files → ${outputPath} (${Object.keys(merged).length} APIs)`,
+  );
 }
 
 // ---------------------------------------------------------------------------
