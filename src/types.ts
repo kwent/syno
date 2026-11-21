@@ -1,3 +1,5 @@
+export type OtpCodeProvider = (sessionName: string) => string | Promise<string>;
+
 export interface SynoConfig {
   account: string;
   passwd: string;
@@ -7,7 +9,7 @@ export interface SynoConfig {
   apiVersion?: string;
   debug?: boolean;
   ignoreCertificateErrors?: boolean;
-  otpCode?: string;
+  otpCode?: string | OtpCodeProvider;
   sid?: string;
   followRedirects?: boolean;
 }

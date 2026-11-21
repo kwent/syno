@@ -2,6 +2,7 @@ export { Syno } from './lib/Syno.js';
 export { SynoError } from './lib/errors.js';
 export type {
   SynoConfig,
+  OtpCodeProvider,
   SynoResponse,
   MethodInfo,
   ApiDefinition,

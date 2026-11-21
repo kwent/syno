@@ -1,3 +1,9 @@
+## Unreleased
+
+### Features
+
+- Allow `otpCode` to be provided by a per-login callback that receives the session name (#136)
+
 ## 3.1.0
 
 ### Packaging

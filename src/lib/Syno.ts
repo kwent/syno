@@ -61,7 +61,8 @@ export class Syno {
     this.debug = config.debug ?? !!process.env.SYNO_DEBUG;
     this.ignoreCertificateErrors =
       config.ignoreCertificateErrors ?? !!process.env.SYNO_IGNORE_CERTIFICATE_ERRORS;
-    this.otpCode = config.otpCode;
+    const { otpCode } = config;
+    this.otpCode = typeof otpCode === 'string' ? otpCode : undefined;
     this.followRedirects = config.followRedirects !== false;
 
     if (this.debug) {
@@ -84,7 +85,7 @@ export class Syno {
     }
 
     const defs = this.loadDefinitions();
-    const host = this.createAPIHost();
+    const host = this.createAPIHost(otpCode);
 
     this.auth = new Auth(host as ConstructorParameters<typeof Auth>[0]);
     // Wire auth back into the shared host object so AuthenticatedAPI can auto-login
@@ -146,7 +147,7 @@ export class Syno {
     return this.definitions;
   }
 
-  private createAPIHost() {
+  private createAPIHost(otpCode: SynoConfig['otpCode']) {
     return {
       protocol: this.protocol,
       host: this.host,
@@ -157,7 +158,7 @@ export class Syno {
       passwd: this.passwd,
       sessions: this.sessions,
       auth: null as unknown as Auth, // Will be set after construction
-      otpCode: this.otpCode,
+      otpCode,
       request: async (url: string, init: RequestInit): Promise<Response> => {
         const fetchOptions: RequestInit = {
           ...init,

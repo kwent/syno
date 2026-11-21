@@ -62,6 +62,21 @@ describe('Auth', () => {
       const body = init.body as URLSearchParams;
       expect(body.get('otp_code')).toBe('123456');
     });
+
+    it('gets an OTP from the callback for each login session', async () => {
+      const otpCode = vi.fn(async (sessionName: string) => `code-for-${sessionName}`);
+      mockHost.otpCode = otpCode;
+      auth = new Auth(mockHost);
+
+      await auth.login('FileStation');
+      await auth.login('AudioStation');
+
+      expect(otpCode).toHaveBeenNthCalledWith(1, 'FileStation');
+      expect(otpCode).toHaveBeenNthCalledWith(2, 'AudioStation');
+      const calls = (mockHost.request as ReturnType<typeof vi.fn>).mock.calls;
+      expect((calls[0][1].body as URLSearchParams).get('otp_code')).toBe('code-for-FileStation');
+      expect((calls[1][1].body as URLSearchParams).get('otp_code')).toBe('code-for-AudioStation');
+    });
   });
 
   describe('logout', () => {
