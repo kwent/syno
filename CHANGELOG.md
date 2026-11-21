@@ -1,8 +1,12 @@
-## Unreleased
+## 3.2.0
 
 ### Features
 
 - Allow `otpCode` to be provided by a per-login callback that receives the session name (#136)
+
+### Tooling
+
+- Replace ESLint with Oxlint and check formatting in CI with Oxfmt (#143, #144)
 
 ## 3.1.0
 
